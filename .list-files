@@ -1,0 +1,22 @@
+#!/bin/zsh
+set -eu -o pipefail
+
+find \
+    pages \
+    \( \
+        -name '*.js' \
+        -or -name '*.ts' \
+        -or -name '*.tsx' \
+        -or -name '*.mdx' \
+        -or -name '*.json' \
+    \)
+
+find \
+    components \
+    \( \
+        -name '*.js' \
+        -or -name '*.ts' \
+        -or -name '*.tsx' \
+        -or -name '*.mdx' \
+        -or -name '*.json' \
+    \)

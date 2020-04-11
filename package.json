@@ -1,0 +1,28 @@
+{
+  "name": "plog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^1.6.0",
+    "@next/mdx": "^9.3.5",
+    "@types/styled-components": "^5.1.0",
+    "next": "9.3.4",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-feather": "^2.0.8",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.4",
+    "@types/react": "^16.9.34",
+    "@zhif/macro": "0.0.8",
+    "babel-plugin-macros": "^2.8.0",
+    "sharp": "^0.25.2",
+    "typescript": "^3.8.3"
+  }
+}
