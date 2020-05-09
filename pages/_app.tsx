@@ -45,11 +45,6 @@ const Grid = styled.div`
     .wp {
       grid-column: lex / rex;
 
-      .pad {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-      }
-
       img {
         height: auto;
       }
@@ -57,11 +52,6 @@ const Grid = styled.div`
 
     .fw {
       grid-column: le / re;
-
-      .pad {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-      }
 
       img {
         height: 100vh;

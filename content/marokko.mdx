@@ -1,8 +1,8 @@
-import { Picture } from '@zhif/macro'
-import { BlurHash } from '@zhif/components'
+import { importImage, Picture } from '@zhif/macro'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import WideImage from '../components/WideImage'
 
 export function card() {
     return (
@@ -14,69 +14,39 @@ export function card() {
 }
 
 <Header>
-  <Picture src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1169.png" sizes="(max-width: 1200px) 100vw, 1200px"/>
+  <Picture src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1169.png" sizes="100vw" />
   <h1>Marocco</h1>
 </Header>
 
 Below a selection of a short but strenuous trip through a very picturesque Morocco (more descriptive text to be done).
 
-<div className="wp">
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1172.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1172.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1182.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1182.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1196.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1196.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1202.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1202.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1218.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1218.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1237.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1237.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1240.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1240.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1247.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1247.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1254.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1254.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1257.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1257.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1262.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1262.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1275.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1275.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1278.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1278.png")} />
 
-<BlurHash>
-  <Picture className="pad" src="https://storage.googleapis.com/plog-imgix/marokko/DSCF1282.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
-</div>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/marokko/DSCF1282.png")} />
 
 <Footer>
 February 2019, Fujifilm X100T

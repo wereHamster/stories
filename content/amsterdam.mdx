@@ -1,8 +1,8 @@
-import { Picture } from '@zhif/macro'
-import { BlurHash } from '@zhif/components'
+import { importImage, Picture } from '@zhif/macro'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import WideImage from '../components/WideImage'
 
 export function card() {
     return (
@@ -14,7 +14,7 @@ export function card() {
 }
 
 <Header>
-  <Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/cover.png" sizes="(max-width: 1200px) 100vw, 1200px"/>
+  <Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/cover.png" sizes="100vw" />
   <h1>Amsterdam</h1>
 </Header>
 
@@ -26,35 +26,19 @@ fresh TMAX400 and cycled out to take pictures of whatever captured my attention
 Below a selection (of mostly smombies) on a regular Thursday evening in 
 Amsterdam.
 
-<div className="wp">
-<BlurHash>
-<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/1.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/amsterdam/1.png")} />
 
-<BlurHash>
-<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/2.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/amsterdam/2.png")} />
 
-<BlurHash>
-<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/3.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/amsterdam/3.png")} />
 
-<BlurHash>
-<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/4.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/amsterdam/4.png")} />
 
-<BlurHash>
-<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/5.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/amsterdam/5.png")} />
 
-<BlurHash>
-<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/6.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/amsterdam/6.png")} />
 
-<BlurHash>
-<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/7.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
-</BlurHash>
-</div>
+<WideImage {...importImage("https://storage.googleapis.com/plog-imgix/amsterdam/7.png")} />
 
 <Footer>
 May 2017, Leica M6, Biogon T 35mm f/2, TMAX 400 @ 1600
