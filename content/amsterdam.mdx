@@ -1,4 +1,5 @@
 import { Picture } from '@zhif/macro'
+import { BlurHash } from '@zhif/components'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -7,13 +8,13 @@ export function card() {
     return (
     <>
       <h1>Amsterdam</h1>
-      <Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/cover.png" className="responsive-image" />
+      <Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/cover.png" className="responsive-image" sizes="450px" />
     </>
     )
 }
 
 <Header>
-  <Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/cover.png" />
+  <Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/cover.png" sizes="(max-width: 1200px) 100vw, 1200px"/>
   <h1>Amsterdam</h1>
 </Header>
 
@@ -26,19 +27,33 @@ Below a selection (of mostly smombies) on a regular Thursday evening in
 Amsterdam.
 
 <div className="wp">
-<Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/1.png"/>
+<BlurHash>
+<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/1.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
+</BlurHash>
 
-<Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/2.png"/>
+<BlurHash>
+<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/2.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
+</BlurHash>
 
-<Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/3.png"/>
+<BlurHash>
+<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/3.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
+</BlurHash>
 
-<Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/4.png"/>
+<BlurHash>
+<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/4.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
+</BlurHash>
 
-<Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/5.png"/>
+<BlurHash>
+<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/5.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
+</BlurHash>
 
-<Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/6.png"/>
+<BlurHash>
+<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/6.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
+</BlurHash>
 
-<Picture src="https://storage.googleapis.com/plog-imgix/amsterdam/7.png"/>
+<BlurHash>
+<Picture className="pad" src="https://storage.googleapis.com/plog-imgix/amsterdam/7.png" loading="lazy" sizes="(max-width: 1200px) 100vw, 1200px"/>
+</BlurHash>
 </div>
 
 <Footer>
