@@ -20,7 +20,7 @@
     "react-dom": "16.13.1",
     "react-feather": "^2.0.8",
     "react-intersection-observer": "^8.26.2",
-    "sharp": "^0.23.1",
+    "sharp": "^0.25.2",
     "styled-components": "^5.1.0"
   },
   "devDependencies": {
