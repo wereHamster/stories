@@ -73,6 +73,17 @@ const Grid = styled.div`
           }
         }
       }
+      
+      h2 {
+        padding-top: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h3 {
+        display: flex;
+      }
 
       img {
         height: auto;

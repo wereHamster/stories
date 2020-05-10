@@ -2,17 +2,24 @@ import React from 'react'
 import styled from 'styled-components'
 import { BlurHash } from '@zhif/components'
 
-export interface WideImageProps {
+export interface ImageProps {
   blurHash: string,
   metadata: { width: number; height: number },
   img: { src: string },
   sources: Array<{ srcSet: string; type: string }>,
+  span?: string;
 }
 
-export default ({ blurHash, metadata, img, sources }: WideImageProps) => {
-  const sizes = "(max-width: 1200px) 100vw, 1200px";
+export default ({ blurHash, metadata, img, sources, span }: ImageProps) => {
+  let sizes = "(max-width: 768px) 100vw, 768px";
+  if (span == "wp") {
+    sizes = "(max-width: 1200px) 100vw, 1200px";
+  } else if (span == "fw") {
+    sizes = "100vw";
+  }
+
   return (
-    <div className="wp">
+    <div className={span}>
       <Space>
         <BlurHash>
           <picture data-blur-hash={blurHash}>
