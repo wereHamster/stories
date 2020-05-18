@@ -1,12 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BlurHash } from '@zhif/components'
+import { Image } from "@zhif/macro";
 
-export interface ImageProps {
-  blurHash: string,
-  metadata: { width: number; height: number },
-  img: { src: string },
-  sources: Array<{ srcSet: string; type: string }>,
+export interface ImageProps extends Image {
   span?: string;
 }
 
