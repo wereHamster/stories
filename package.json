@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.5",
-    "@next/mdx": "^9.4.1",
+    "@next/mdx": "^9.4.4",
     "@types/styled-components": "^5.1.0",
     "@zhif/components": "0.0.3",
     "@zhif/macro": "0.0.16",
@@ -20,7 +20,7 @@
     "react-dom": "16.13.1",
     "react-feather": "^2.0.8",
     "react-intersection-observer": "^8.26.2",
-    "sharp": "^0.25.3",
+    "sharp": "^0.25.4",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
