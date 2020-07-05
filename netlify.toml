@@ -4,6 +4,3 @@
 [build]
   command = "node_modules/.bin/next build && node_modules/.bin/next export"
   publish = "out"
-
-[[plugins]]
-package = "netlify-plugin-cache-nextjs"
