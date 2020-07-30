@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.14",
-    "@next/mdx": "^9.4.4",
+    "@next/mdx": "^9.5.1",
     "@types/styled-components": "^5.1.1",
     "@zhif/components": "0.0.3",
     "@zhif/macro": "0.0.16",
