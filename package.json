@@ -10,7 +10,7 @@
   "dependencies": {
     "@mdx-js/loader": "^1.6.16",
     "@next/mdx": "^9.5.1",
-    "@types/styled-components": "^5.1.1",
+    "@types/styled-components": "^5.1.2",
     "@zhif/components": "0.0.3",
     "@zhif/macro": "0.0.16",
     "blurhash": "^1.1.3",
