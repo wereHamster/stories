@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { BlurHash } from '@zhif/components'
+import React from "react";
+import styled from "styled-components";
+import { BlurHash } from "@zhif/components";
 import { Image } from "@zhif/macro";
 
 export interface ImageProps extends Image {
@@ -29,9 +29,9 @@ export default ({ blurHash, metadata, img, sources, span }: ImageProps) => {
       </Space>
     </div>
   );
-}
+};
 
-const Space= styled.div`
+const Space = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
-`
+`;

@@ -12,7 +12,12 @@ function Grid({ children, style, ...props }: Props, ref: any /* FIXME */) {
     <Root
       ref={ref}
       {...props}
-      style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gridGap: 24, ...style }}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+        gridGap: 24,
+        ...style,
+      }}
     >
       {children}
     </Root>

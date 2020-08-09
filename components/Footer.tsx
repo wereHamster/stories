@@ -1,27 +1,23 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 interface FooterProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 export default ({ children }: FooterProps) => {
-    return (
-      <Footer>
-          {children}
-      </Footer>
-    );
-}
+  return <Footer>{children}</Footer>;
+};
 
 const Footer = styled.div`
-    height: 40px;
-    padding: 0rem;
+  height: 40px;
+  padding: 0rem;
 
-    margin-top: 3rem;
-    border-top: 1px solid #eaeaea;
+  margin-top: 3rem;
+  border-top: 1px solid #eaeaea;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    font-size: 0.8rem;
-`
+  font-size: 0.8rem;
+`;

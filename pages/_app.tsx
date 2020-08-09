@@ -1,21 +1,21 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
 export default ({ Component, pageProps }) => (
-    <Container>
-      <Grid>
-        <Component {...pageProps} />
-      </Grid>
-    </Container>
+  <Container>
+    <Grid>
+      <Component {...pageProps} />
+    </Grid>
+  </Container>
 );
 
 const Container = styled.div`
-    display: grid;
-    grid-auto-rows: min-content;
-    grid-template-columns: [l] 0 [m] 1fr [r];
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-template-columns: [l] 0 [m] 1fr [r];
 
-    min-height: 100vh;
-`
+  min-height: 100vh;
+`;
 
 const Grid = styled.div`
     display: grid;
@@ -89,4 +89,4 @@ const Grid = styled.div`
         height: auto;
       }
     }
-`
+`;
