@@ -21,6 +21,9 @@ const Card = styled.div`
     flex: 0 0 250px;
     width: 250px;
 
+    background: black;
+    overflow: hidden;
+
     @media (min-width: 48rem) {
       flex: 0 0 450px;
       width: 450px;
@@ -45,6 +48,7 @@ const Card = styled.div`
 
     img {
       display: block;
+      opacity: 0.85;
     }
 
     h1 {
