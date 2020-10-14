@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.16",
+    "@mdx-js/loader": "^1.6.18",
     "@next/mdx": "^9.5.5",
     "@types/styled-components": "^5.1.2",
     "@zhif/components": "0.0.3",
