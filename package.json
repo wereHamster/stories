@@ -14,7 +14,7 @@
     "@zhif/components": "0.0.3",
     "@zhif/macro": "0.0.16",
     "blurhash": "^1.1.3",
-    "next": "9.5.2",
+    "next": "9.5.4",
     "react": "16.13.1",
     "react-blurhash": "^0.1.2",
     "react-dom": "16.13.1",
