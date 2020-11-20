@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 export default class extends Document {
@@ -21,7 +21,7 @@ export default class extends Document {
 
   render() {
     return (
-      <html>
+      <Html>
         <Head>
           <meta name="version" content="%VERSION%" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,7 +32,7 @@ export default class extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
