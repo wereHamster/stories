@@ -2,17 +2,13 @@
   font-family: "iA Writer Quattro";
   font-weight: normal;
   font-style: normal;
-  src: url("iAWriterQuattroS-Regular.eot") format("embedded-opentype"),
-    url("iAWriterQuattroS-Regular.woff2") format("woff2"),
-    url("iAWriterQuattroS-Regular.woff") format("woff");
+  src: url("iAWriterQuattroS-Regular.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "iA Writer Quattro";
   font-weight: bold;
   font-style: bold;
-  src: url("iAWriterQuattroS-Bold.eot") format("embedded-opentype"),
-    url("iAWriterQuattroS-Bold.woff2") format("woff2"),
-    url("iAWriterQuattroS-Bold.woff") format("woff");
+  src: url("iAWriterQuattroS-Bold.woff2") format("woff2");
 }
 
