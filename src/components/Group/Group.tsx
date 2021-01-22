@@ -1,9 +1,18 @@
 import * as React from "react";
+import styled from "styled-components";
 
 /**
  * The underlying DOM element which is rendered by this component.
  */
-const Root = "div";
+const Root = styled.div`
+  display: grid;
+  
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 12px;
+
+  justify-items: stretch;
+  align-items: stretch;
+`;
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {}
 
@@ -11,7 +20,7 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
   const { children, ...rest } = props;
 
   return (
-    <Root ref={ref} {...rest} className="fw">
+    <Root ref={ref as any} {...rest} className="fw">
       {children}
     </Root>
   );

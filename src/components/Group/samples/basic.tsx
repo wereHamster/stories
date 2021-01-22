@@ -4,5 +4,11 @@ import { Group } from "..";
 type Props = Partial<React.ComponentPropsWithoutRef<typeof Group>>;
 
 export default function Sample(props: Props) {
-  return <Group {...props} />;
+  return (
+    <Group {...props}>
+      <div>X</div>
+      <div>Y</div>
+      <div>Z</div>
+    </Group>
+  );
 }

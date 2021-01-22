@@ -11,11 +11,11 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { src, ...rest } = props;
+  const { src, width, height, layout, objectFit, sizes, style, ...rest } = props as any;
 
   return (
-    <Root ref={ref} style={{ padding: "2em 0" }} {...rest}>
-      <NextImage src={src} width={16} height={9} sizes="100vw" />
+    <Root ref={ref} style={{ margin: "2em 0", position: 'relative', ...style }} {...rest}>
+      <NextImage src={src} width={width} height={height} layout={layout} objectFit={objectFit} sizes={sizes} />
     </Root>
   );
 }
