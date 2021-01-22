@@ -2,14 +2,16 @@ import dynamic from "next/dynamic";
 import styled from "styled-components";
 
 export default function Page({ post }) {
-  const Header = dynamic(() => import(`../content/${post}/header`));
-  const Post = dynamic(() => import(`../content/${post}/index.mdx`));
+  const Header = dynamic(() => import(`../../content/${post}/header`));
+  const Post = dynamic(() => import(`../../content/${post}/index.mdx`));
 
   return (
-    <Grid>
+    <>
       <Header />
-      <Post />
-    </Grid>
+      <Grid>
+        <Post />
+      </Grid>
+    </>
   );
 };
 

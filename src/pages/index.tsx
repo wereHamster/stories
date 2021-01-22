@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { GetStaticProps } from "next";
 
-import Card from "@/components/Card";
-import Footer from "@/components/Footer";
+import Card from "../../components/Card";
+import Footer from "../../components/Footer";
 
 export default ({ posts }) => (
   <>
