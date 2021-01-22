@@ -8,11 +8,11 @@ const Root = "div";
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {}
 
 function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { ...rest } = props;
+  const { children, ...rest } = props;
 
   return (
-    <Root ref={ref} {...rest}>
-      Group
+    <Root ref={ref} {...rest} className="fw">
+      {children}
     </Root>
   );
 }
