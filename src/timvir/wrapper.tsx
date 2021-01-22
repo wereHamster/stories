@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
 import Head from "next/head";
+import toc from './toc'
 
 export default function Wrapper({ children }: { children?: React.ReactNode }) {
   return (
@@ -12,7 +13,7 @@ export default function Wrapper({ children }: { children?: React.ReactNode }) {
         <link href="https://unpkg.com/@timvir/blocks@0.1.6/styles.css" rel="stylesheet" />
       </Head>
 
-      <Page location={useRouter()} Link={Link} toc={[]}>
+      <Page location={useRouter()} Link={Link} toc={toc}>
         {children}
       </Page>
     </>
