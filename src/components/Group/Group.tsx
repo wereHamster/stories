@@ -6,9 +6,9 @@ import styled from "styled-components";
  */
 const Root = styled.div`
   display: grid;
-  
+
   grid-template-columns: repeat(12, 1fr);
-  grid-gap: 12px;
+  grid-gap: 8px;
 
   justify-items: stretch;
   align-items: stretch;
@@ -20,7 +20,7 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
   const { children, ...rest } = props;
 
   return (
-    <Root ref={ref as any} {...rest} className="fw">
+    <Root ref={ref as any} {...rest} className="wp">
       {children}
     </Root>
   );

@@ -14,7 +14,7 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
   const { src, width, height, layout, objectFit, sizes, style, ...rest } = props as any;
 
   return (
-    <Root ref={ref} style={{ margin: "2em 0", position: 'relative', ...style }} {...rest}>
+    <Root ref={ref} style={{ position: 'relative', ...style }} {...rest}>
       <NextImage src={src} width={width} height={height} layout={layout} objectFit={objectFit} sizes={sizes} />
     </Root>
   );
