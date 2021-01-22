@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { GetStaticProps } from "next";
 
-import Card from "../components/Card";
-import Footer from "../components/Footer";
+import Card from "@/components/Card";
+import Footer from "@/components/Footer";
 
 export default ({ posts }) => (
   <>
@@ -32,7 +32,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const posts = await (await fs.promises.readdir("./content")).sort((a, b) =>
     b.localeCompare(a)
   );
-  console.log(posts)
   return { props: { posts: posts } };
 };
 

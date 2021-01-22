@@ -1,9 +1,8 @@
-import { importImage, Picture } from "@zhif/macro";
 import NextImage from 'next/image'
 
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import Image from "../../components/Image";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Image from "@/components/Image";
 
 export function card() {
   return (
@@ -30,9 +29,15 @@ export function card() {
   <h1>Kyrgyzstan</h1>
 </Header>
 
-
 <NextImage
   src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/IMG_2339.jpg"
+  sizes="100vw"
+  width={450}
+  height={300}
+/>
+
+<NextImage
+  src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/D45DBA64-743E-43CB-9D73-9CBEF228A3A0.jpg"
   sizes="100vw"
   width={450}
   height={300}
