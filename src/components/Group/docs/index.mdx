@@ -1,0 +1,27 @@
+import { Viewport, Exhibit } from "@timvir/blocks";
+import { Sample } from "@timvir/macro";
+
+# Group
+
+The `<Group>` component is a container for images. The component establishes a 12 column
+CSS grid and distributes the images according to their constraints and desired configuration:
+
+ - **Aspect Ratio**: each image can define what its ideal aspect ratio is.
+ - **Span**: The column and row span which should be covered by each image.
+
+Note that images are stretched vertically to cover the whole grid area, so the height of each
+row is effectively determined by the width and aspect ratio of the tallest image.
+
+<Exhibit bleed={8} style={{ margin: "1rem 0" }}>
+  <Sample variant="basic" />
+</Exhibit>
+
+## Responsive Behaviour
+
+The **span** can be set to change at specific breakpoints. The following example uses
+a 6/6/12 configuration on small viewports, and 4/3/5 on large viewports.
+
+The **aspect ratio** can not be changed across breakpoints (it is intrinsict to the image,
+after all).
+
+<Viewport src="/docs/components/Group/samples/responsive" />
