@@ -9,7 +9,14 @@ export default ({ children }: HeaderProps) => {
 };
 
 const Header = styled.div`
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 70vh;
+  
+  position: relative;
 
   margin-bottom: 1rem;
 
@@ -21,14 +28,16 @@ const Header = styled.div`
     margin-bottom: 7rem;
   }
 
+  img {
+    z-index: -1;
+  }
+
   h1 {
-    position: absolute;
-    width: 100%;
-    bottom: 10%;
     font-size: 3rem;
     font-style: bold;
     text-align: center;
     color: #fff;
-    z-index: 3;
+    padding: 4px 12px;
+    background: rgba(0,0,0,.6);
   }
 `;
