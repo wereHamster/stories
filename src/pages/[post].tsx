@@ -1,17 +1,25 @@
 import dynamic from "next/dynamic";
 import styled from "styled-components";
+import { MDXProvider } from "@mdx-js/react";
+
+import { Header } from "@/components/Header"
+import { Image } from "@/components/Image"
+import { Group } from "@/components/Group"
+
+const components = { Header, Image, Group }
 
 export default function Page({ post }) {
   const Header = dynamic(() => import(`../../content/${post}/header`));
   const Post = dynamic(() => import(`../../content/${post}/index.mdx`));
 
   return (
-    <>
+    <MDXProvider components={components}>
       <Header />
+
       <Grid>
         <Post />
       </Grid>
-    </>
+    </MDXProvider>
   );
 };
 
