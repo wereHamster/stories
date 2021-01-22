@@ -8,7 +8,7 @@ export interface PostProps {
 }
 
 export default ({ post }: PostProps) => {
-  const Post = dynamic(() => import(`../content/${post}`).then((p) => p.card));
+  const Post = dynamic(() => import(`../content/${post}/index.mdx`).then((p) => p.card));
   return (
     <Link href={`/${post}`}>
       <a>

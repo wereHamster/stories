@@ -1,0 +1,41 @@
+import { importImage, Picture } from "@zhif/macro";
+import NextImage from 'next/image'
+
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import Image from "../../components/Image";
+
+export function card() {
+  return (
+    <>
+      <h1>Kyrgyzstan</h1>
+      <NextImage
+        src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/DJI_0059.jpg"
+        className="responsive-image"
+        sizes="450px"
+        width={450}
+        height={300}
+      />
+    </>
+  );
+}
+
+<Header>
+  <NextImage
+    src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/vlcsnap-2021-01-14-22h08m34s340.png"
+    sizes="100vw"
+    width={450}
+    height={300}
+  />
+  <h1>Kyrgyzstan</h1>
+</Header>
+
+
+<NextImage
+  src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/IMG_2339.jpg"
+  sizes="100vw"
+  width={450}
+  height={300}
+/>
+
+<Footer>Over the years, different lenses</Footer>

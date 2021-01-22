@@ -24,7 +24,6 @@ export default class extends Document {
       <Html>
         <Head>
           <meta name="version" content="%VERSION%" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="stylesheet" href="/fonts.css" />
           <link rel="stylesheet" href="/page.css" />
         </Head>

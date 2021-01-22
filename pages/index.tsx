@@ -23,7 +23,7 @@ export default ({ posts }) => (
       </Posts>
     </div>
 
-    <Footer>2020 Yves Ineichen</Footer>
+    <Footer>2021 Tomáš Čarnecký</Footer>
   </>
 );
 
@@ -32,6 +32,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const posts = await (await fs.promises.readdir("./content")).sort((a, b) =>
     b.localeCompare(a)
   );
+  console.log(posts)
   return { props: { posts: posts } };
 };
 

@@ -4,7 +4,7 @@ import { ArrowLeft } from "react-feather";
 import styled from "styled-components";
 
 export default ({ post }) => {
-  const Post = dynamic(() => import(`../content/${post}`));
+  const Post = dynamic(() => import(`../content/${post}/index.mdx`));
 
   return (
     <>
