@@ -1,8 +1,11 @@
 import * as React from "react";
 import { Image } from "..";
+import { importImage } from "@zhif/macro"
+
 
 type Props = Partial<React.ComponentPropsWithoutRef<typeof Image>>;
 
 export default function Sample(props: Props) {
-  return <Image src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/DJI_0059.jpg" layout="responsive" width={400} height={320} {...props} />;
+  const { metadata } = importImage("https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/DJI_0059.jpg")
+  return <Image src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/DJI_0059.jpg" layout="responsive" width={metadata.width} height={metadata.height} {...props} />;
 }
