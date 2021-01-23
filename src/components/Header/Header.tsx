@@ -24,20 +24,20 @@ const Root = styled.header`
 
   .title {
     margin: 0;
-    font-size: 3rem;
-    font-style: bold;
+    font-size: 4rem;
     text-align: center;
     color: #fff;
-    padding: 4px 12px;
+    padding: 4px 20px;
     background: rgba(0,0,0,.6);
+    letter-spacing: 4px;
   }
 
   .subtitle {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: #fff;
     padding: 4px 12px;
     background: rgba(0,0,0,.6);
-    margin-top: 4px;
+    margin-top: 8px;
   }
 
   .meta {

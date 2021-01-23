@@ -21,6 +21,7 @@ const Root = styled.div`
   .box {
     padding: 4px 12px;
     background: rgba(0,0,0,.6);
+    margin-top: 2px;
   }
 
   span {
@@ -39,12 +40,12 @@ function Meta(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root
 
   return (
     <Root ref={ref as any} {...rest}>
-      <div style={{ width: 60, height: 60, marginBottom: 12 }}>
-        <Image src={avatar} width={60} height={60} />
+      <div style={{ width: 80, height: 80, marginBottom: 12 }}>
+        <Image src={avatar} width={80} height={80} />
       </div>
-      <div className="box">
-        <div>by <span>{author}</span></div>
-        <div><FormattedDate value={date} /></div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className="box">by <span>{author}</span></div>
+        <div className="box"><FormattedDate value={date} /></div>
       </div>
     </Root>
   );
