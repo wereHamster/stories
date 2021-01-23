@@ -8,7 +8,7 @@ import Image from 'next/image'
  */
 const Root = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 
   color: white;
@@ -19,7 +19,7 @@ const Root = styled.div`
   }
 
   .box {
-    padding: 4px 12px;
+    padding: 4px 8px;
     background: rgba(0,0,0,.6);
     margin-top: 2px;
   }
@@ -40,10 +40,10 @@ function Meta(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root
 
   return (
     <Root ref={ref as any} {...rest}>
-      <div style={{ width: 80, height: 80, marginBottom: 12 }}>
+      <div style={{ width: 80, height: 80, marginRight: 12 }}>
         <Image src={avatar} width={80} height={80} />
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
         <div className="box">by <span>{author}</span></div>
         <div className="box"><FormattedDate value={date} /></div>
       </div>

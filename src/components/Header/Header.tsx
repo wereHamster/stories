@@ -44,7 +44,7 @@ const Root = styled.header`
     grid-row: 3;
     text-align: center;
     align-self: end;
-    margin: 15vh 0 5vh;
+    margin: 15vh 0 24px;
   }
 `;
 
@@ -71,7 +71,7 @@ function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Ro
       <Meta
         className="meta"
         avatar="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/D45DBA64-743E-43CB-9D73-9CBEF228A3A0.jpg"
-        author="Tomas Carnecky"
+        author="Tomáš Čarnecký"
         date={date}
       />
     </Root>
