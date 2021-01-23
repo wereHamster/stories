@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import Image from 'next/image';
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -10,19 +11,9 @@ const Root = styled.header`
   align-items: center;
   justify-content: center;
 
-  min-height: 70vh;
+  min-height: 100vh;
 
   position: relative;
-
-  margin-bottom: 1rem;
-
-  @media (min-width: 48rem) {
-    margin-bottom: 3rem;
-  }
-
-  @media (min-width: 72rem) {
-    margin-bottom: 7rem;
-  }
 
   img {
     z-index: -1;
@@ -38,14 +29,30 @@ const Root = styled.header`
   }
 `;
 
-interface Props extends React.ComponentPropsWithoutRef<typeof Root> {}
+interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
+  image: string
+
+  title: React.ReactNode
+  subtitle?: React.ReactNode
+  date: Date
+}
 
 function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { children, ...rest } = props;
+  const { children, image, title, subtitle, date, ...rest } = props;
 
   return (
     <Root ref={ref as any} {...rest}>
-      {children}
+      <Image src={image} layout="fill" objectFit="cover" />
+
+      <div>
+        <h1>{title}</h1>
+        <p>{subtitle}</p>
+      </div>
+
+      <div>
+        <div>Author</div>
+        <div>{date.toISOString()}</div>
+      </div>
     </Root>
   );
 }
