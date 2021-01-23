@@ -17,6 +17,9 @@ const Root = styled.div`
     grid-template-columns: [le] 1fr 24px [lex] minmax(0, 12rem) [lc] 48rem [rc] minmax(0, 12rem) [rex] 24px 1fr [re];
   }
 
+  font-size: 19px;
+  line-height: 1.7;
+
   .wp {
     grid-column: lex / rex;
   }
@@ -27,6 +30,14 @@ const Root = styled.div`
 
   & > *:not(.wp):not(.fw) {
     grid-column: lc / rc;
+  }
+
+  & > h2 {
+    margin: 2em 0 0.5em;
+  }
+
+  & > p {
+    margin: 0.5em 0;
   }
 `;
 

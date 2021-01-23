@@ -39,6 +39,13 @@ const Root = styled.header`
     background: rgba(0,0,0,.6);
     margin-top: 4px;
   }
+
+  .meta {
+    grid-row: 3;
+    text-align: center;
+    align-self: end;
+    margin: 15vh 0 5vh;
+  }
 `;
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
@@ -62,7 +69,7 @@ function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Ro
       </div>
 
       <Meta
-        style={{ gridRow: 3, textAlign: 'center', alignSelf: 'end', marginBottom: '2em' }}
+        className="meta"
         avatar="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/D45DBA64-743E-43CB-9D73-9CBEF228A3A0.jpg"
         author="Tomas Carnecky"
         date={date}

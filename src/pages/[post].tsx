@@ -6,7 +6,7 @@ import { Header } from "@/components/Header"
 import { Image } from "@/components/Image"
 import { Group } from "@/components/Group"
 
-const components = { Header, Image, Group }
+const components = { h1: (props) => <h2 {...props} />, Header, Image, Group }
 
 export default function Page({ post }) {
   const Header = dynamic(() => import(`../../content/${post}/header`));
@@ -14,7 +14,7 @@ export default function Page({ post }) {
 
   return (
     <MDXProvider components={components}>
-      <div style={{ marginBottom: '5vh' }}>
+      <div style={{ marginBottom: '10vh' }}>
         <Header />
       </div>
 
