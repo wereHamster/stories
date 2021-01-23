@@ -22,7 +22,7 @@ const Root = styled.header`
     z-index: -1;
   }
 
-  h1 {
+  .title {
     margin: 0;
     font-size: 3rem;
     font-style: bold;
@@ -30,6 +30,14 @@ const Root = styled.header`
     color: #fff;
     padding: 4px 12px;
     background: rgba(0,0,0,.6);
+  }
+
+  .subtitle {
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 4px 12px;
+    background: rgba(0,0,0,.6);
+    margin-top: 4px;
   }
 `;
 
@@ -48,9 +56,9 @@ function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Ro
     <Root ref={ref as any} {...rest}>
       <Image src={image} layout="fill" objectFit="cover" />
 
-      <div style={{ gridRow: 2, textAlign: 'center' }}>
-        <h1>{title}</h1>
-        {subtitle && <p>{subtitle}</p>}
+      <div style={{ gridRow: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <h1 className="title">{title}</h1>
+        {subtitle && <div className="subtitle">{subtitle}</div>}
       </div>
 
       <Meta
