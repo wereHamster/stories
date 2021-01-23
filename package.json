@@ -26,6 +26,7 @@
     "react-feather": "^2.0.9",
     "react-hotkeys-hook": "^3.0.3",
     "react-intersection-observer": "^8.31.0",
+    "react-intl": "^5.10.16",
     "sharp": "^0.27.0",
     "styled-components": "^5.2.1",
     "use-immer": "^0.4.2"

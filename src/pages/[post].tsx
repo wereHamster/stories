@@ -14,7 +14,9 @@ export default function Page({ post }) {
 
   return (
     <MDXProvider components={components}>
-      <Header />
+      <div style={{ marginBottom: '5vh' }}>
+        <Header />
+      </div>
 
       <Content>
         <Post />

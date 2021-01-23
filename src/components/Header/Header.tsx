@@ -1,15 +1,18 @@
 import * as React from "react";
 import styled from "styled-components";
 import Image from 'next/image';
+import { Meta } from "./internal";
 
 /**
  * The underlying DOM element which is rendered by this component.
  */
 const Root = styled.header`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr min-content 1fr;
+
+  justify-items: center;
 
   min-height: 100vh;
 
@@ -20,6 +23,7 @@ const Root = styled.header`
   }
 
   h1 {
+    margin: 0;
     font-size: 3rem;
     font-style: bold;
     text-align: center;
@@ -44,15 +48,17 @@ function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Ro
     <Root ref={ref as any} {...rest}>
       <Image src={image} layout="fill" objectFit="cover" />
 
-      <div>
+      <div style={{ gridRow: 2, textAlign: 'center' }}>
         <h1>{title}</h1>
-        <p>{subtitle}</p>
+        {subtitle && <p>{subtitle}</p>}
       </div>
 
-      <div>
-        <div>Author</div>
-        <div>{date.toISOString()}</div>
-      </div>
+      <Meta
+        style={{ gridRow: 3, textAlign: 'center', alignSelf: 'end', marginBottom: '2em' }}
+        avatar="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/D45DBA64-743E-43CB-9D73-9CBEF228A3A0.jpg"
+        author="Tomas Carnecky"
+        date={date}
+      />
     </Root>
   );
 }
