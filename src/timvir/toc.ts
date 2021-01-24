@@ -18,6 +18,10 @@ export default [
           label: "Image",
           path: "/docs/components/Image",
         },
+        {
+          label: "Lightbox",
+          path: "/docs/components/Lightbox",
+        },
       ],
     },
   ] as const;
