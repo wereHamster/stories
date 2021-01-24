@@ -42,7 +42,7 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { size = "default", src, width, height, layout, objectFit, sizes, style, metadata = { width, height }, img = { src }, source = { img, metadata }, caption, ...rest } = props as any;
+  const { size = "wide", src, width, height, layout, objectFit, sizes, style, metadata = { width, height }, img = { src }, source = { img, metadata }, caption, ...rest } = props as any;
 
   const [state, mutate] = useImmer({
     lightbox: false
