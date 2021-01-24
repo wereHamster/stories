@@ -12,9 +12,8 @@ const components = {
   wrapper: ({ children }) => {
     return React.Children.map(children, child => {
       if (React.isValidElement(child)) {
-        if (child.props.mdxType === 'Image') {
-          console.log('image type')
-          return React.cloneElement(child as any, { style: { margin: "2rem auto", ...child.props.style } })
+        if ((child.props as any).mdxType === 'Image') {
+          return React.cloneElement(child as any, { style: { margin: "2rem auto", ...(child.props as any).style } })
         }
       }
 

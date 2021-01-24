@@ -18,10 +18,11 @@ const Root = styled.div`
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   onClose?: () => void;
+  caption?: React.ReactNode;
 }
 
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { onClose, children, ...rest } = props;
+  const { onClose, caption, children, ...rest } = props;
 
   return ReactDOM.createPortal(
     (
@@ -34,8 +35,8 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
   
         <div style={{ placeSelf: "stretch", position: "relative" }}>{children}</div>
   
-        <div style={{ margin: "24px 0 12px", textAlign: "center", alignSelf: "end" }}>
-          optional caption
+        <div style={{ margin: "24px 0 24px", textAlign: "center", alignSelf: "end", opacity: 0.7, fontSize: "0.9em", fontStyle: "italic" }}>
+          {caption}
         </div>      
       </Root>
     ),
