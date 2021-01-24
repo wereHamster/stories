@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import dynamic from "next/dynamic";
 import { MDXProvider } from "@mdx-js/react";
 
@@ -6,7 +8,24 @@ import { Header } from "@/components/Header"
 import { Image } from "@/components/Image"
 import { Group } from "@/components/Group"
 
-const components = { h1: (props) => <h2 {...props} />, Header, Image, Group }
+const components = {
+  wrapper: ({ children }) => {
+    return React.Children.map(children, child => {
+      if (React.isValidElement(child)) {
+        if (child.props.mdxType === 'Image') {
+          console.log('image type')
+          return React.cloneElement(child as any, { style: { margin: "2rem auto", ...child.props.style } })
+        }
+      }
+
+      return child
+    })
+  },
+  h1: (props) => <h2 {...props} />,
+  Header,
+  Image,
+  Group,
+};
 
 export default function Page({ post }) {
   const Header = dynamic(() => import(`../../content/${post}/header`));
