@@ -8,18 +8,7 @@ import { Lightbox } from "@/components/Lightbox";
  * The underlying DOM element which is rendered by this component.
  */
 const Root = styled.div`
-  transition: all .2s;
   cursor: pointer;
-
-  &:hover {
-    box-shadow:
-      0 1.1px 2.2px rgba(0, 0, 0, 0.02),
-      0 2.7px 5.3px rgba(0, 0, 0, 0.028),
-      0 5px 10px rgba(0, 0, 0, 0.035),
-      0 8.9px 17.9px rgba(0, 0, 0, 0.042),
-      0 16.7px 33.4px rgba(0, 0, 0, 0.05),
-      0 40px 80px rgba(0, 0, 0, 0.07);  
-  }
 
   & > div {
     display: block !important;
@@ -45,7 +34,7 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
         mutate(draft => {
           draft.lightbox = false
         })
-      }}> <NextImage src={src} objectFit="contain" layout="fill" style={{width:"100%", height: "100%"}} /></Lightbox>}
+      }}> <NextImage src={src} objectFit="contain" layout="fill" /></Lightbox>}
     <Root ref={ref} style={{ position: 'relative', ...style }} className={{full: 'fw', wide: 'wp', default: undefined, narrow: undefined }[size]} onClick={() => {
       mutate(draft => {
         draft.lightbox = true
