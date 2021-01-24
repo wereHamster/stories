@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { X } from 'react-feather'
+import * as ReactDOM from 'react-dom'
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -12,7 +13,7 @@ const Root = styled.div`
   color: white;
 
   display: grid;
-  place-items: center;
+  grid-template-rows: 64px 1fr min-content;
 `;
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
@@ -22,14 +23,23 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
   const { onClose, children, ...rest } = props;
 
-  return (
-    <Root ref={ref as any} {...rest}>
-      <div style={{ maxHeight: "85%", width: "100%" }}>{children}</div>
-
-      <div style={{ position: 'absolute', top: 12, right: 12, cursor: "pointer" }} onClick={onClose}>
-        <X />
-      </div>
-    </Root>
+  return ReactDOM.createPortal(
+    (
+      <Root ref={ref as any} {...rest}>
+        <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
+          <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
+            <X />
+          </div>
+        </div>
+  
+        <div style={{ placeSelf: "stretch", position: "relative" }}>{children}</div>
+  
+        <div style={{ margin: "24px 0 12px", textAlign: "center", alignSelf: "end" }}>
+          optional caption
+        </div>      
+      </Root>
+    ),
+    document.body
   );
 }
 

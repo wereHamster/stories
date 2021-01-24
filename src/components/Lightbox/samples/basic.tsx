@@ -11,7 +11,7 @@ export default function Sample(props: Props) {
   return (
     <div style={{ height: '600px' }}>
       <Lightbox {...props}>
-        <Image src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/DJI_0059.jpg" layout="responsive" width={metadata.width} height={metadata.height} />
+        <Image src="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/DJI_0059.jpg" objectFit="contain" layout="fill" style={{width:"100%", height: "100%"}} />
       </Lightbox>
     </div>
   );
