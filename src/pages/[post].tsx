@@ -26,9 +26,15 @@ const components = {
   Group,
 };
 
+const stories = {
+  kyrgyzstan: {
+    Header: dynamic(() => import(`../../content/kyrgyzstan/header`)),
+    Post: dynamic(() => import(`../../content/kyrgyzstan/index.mdx`)),
+  }
+}
+
 export default function Page({ post }) {
-  const Header = dynamic(() => import(`../../content/${post}/header`));
-  const Post = dynamic(() => import(`../../content/${post}/index.mdx`));
+  const { Header, Post } = stories[post]
 
   return (
     <MDXProvider components={components}>
