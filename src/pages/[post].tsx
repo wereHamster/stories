@@ -15,6 +15,10 @@ const components = {
         if ((child.props as any).mdxType === 'Image') {
           return React.cloneElement(child as any, { style: { margin: "2rem auto", ...(child.props as any).style } })
         }
+
+        if ((child.props as any).mdxType === 'Group') {
+          return React.cloneElement(child as any, { style: { marginTop: "2rem", marginBottom: "2rem", ...(child.props as any).style } })
+        }
       }
 
       return child
