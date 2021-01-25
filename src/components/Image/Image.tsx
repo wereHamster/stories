@@ -48,6 +48,10 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
     lightbox: false
   })
 
+  if (src) {
+    source.img.src = src
+  }
+
   return (
     <>
       {state.lightbox && (
