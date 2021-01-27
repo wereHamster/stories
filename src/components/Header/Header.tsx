@@ -27,9 +27,12 @@ const Root = styled.header`
     font-size: 4rem;
     text-align: center;
     color: #fff;
-    padding: 4px 20px;
-    background: rgba(0,0,0,.6);
-    letter-spacing: 4px;
+    padding: 8px 30px;
+    background: rgba(0,0,0,.7);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 60vh;
+    border-radius: 4px;
   }
 
   .subtitle {
@@ -68,12 +71,12 @@ function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Ro
         {subtitle && <div className="subtitle">{subtitle}</div>}
       </div>
 
-      <Meta
+      {/* <Meta
         className="meta"
         avatar="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/D45DBA64-743E-43CB-9D73-9CBEF228A3A0.jpg"
         author="Tomáš Čarnecký"
         date={date}
-      />
+      /> */}
     </Root>
   );
 }
