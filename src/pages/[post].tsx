@@ -31,9 +31,9 @@ const components = {
 };
 
 const stories = {
-  kyrgyzstan: {
-    Header: dynamic(() => import(`../../content/kyrgyzstan/header`)),
-    Post: dynamic(() => import(`../../content/kyrgyzstan/index.mdx`)),
+  'where-i-was-meant-to-be': {
+    Header: dynamic(() => import(`../../content/where-i-was-meant-to-be/header`)),
+    Post: dynamic(() => import(`../../content/where-i-was-meant-to-be/index.mdx`)),
   }
 }
 
