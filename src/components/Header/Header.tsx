@@ -84,7 +84,7 @@ function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Ro
   return (
     <Root ref={ref as any} {...rest}>
       <Image src={image} layout="fill" objectFit="cover" />
-      {blurHashURL && <div className="bg" style={{  opacity: loaded ? 0 : 1, backgroundImage: `url("${blurHashURL}")` }} />}
+      {blurHashURL && <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url("${blurHashURL}")` }} />}
 
       <div style={{ gridRow: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <h1 className="title">{title}</h1>

@@ -4,15 +4,26 @@ import styled from "styled-components";
 import { useImmer } from "use-immer";
 import { Lightbox } from "@/components/Lightbox";
 import { Metadata } from "@zhif/macro";
+import { useBlurHash } from "@/hooks/useBlurHash";
 
 /**
  * The underlying DOM element which is rendered by this component.
  */
 const Root = styled.div`
+  position: relative;
   cursor: pointer;
 
   & > figure {
     margin: 0;
+  }
+
+  .bg {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity .5s ease-out .1s;
+    background-size: cover;
   }
 
   & > figure > div {
@@ -44,6 +55,8 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
   const { size = "wide", src, width, height, layout, objectFit, sizes, style, metadata = { width, height }, img = { src }, source = { img, metadata }, caption, ...rest } = props as any;
 
+  const blurHashURL = useBlurHash(source.blurHash);
+
   const [state, mutate] = useImmer({
     lightbox: false
   })
@@ -74,7 +87,15 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
       }} 
       {...rest}>
         <figure>
-          <NextImage src={source.img.src} width={layout === 'fill' ? undefined : source.metadata.width} height={layout === 'fill' ? undefined : source.metadata.height} layout={layout} objectFit={objectFit} sizes={sizes} />
+          {blurHashURL && <div className="bg" style={{ opacity: 1, backgroundImage: `url("${blurHashURL}")` }} />} 
+          <NextImage
+            src={source.img.src}
+            width={layout === 'fill' ? undefined : source.metadata.width}
+            height={layout === 'fill' ? undefined : source.metadata.height}
+            layout={layout}
+            objectFit={objectFit}
+            sizes={sizes}
+          />
         </figure>
         {caption && <figcaption>
           {caption}
