@@ -41,7 +41,7 @@ const Root = styled.header`
     background: rgba(0,0,0,.7);
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 60vh;
+    margin-bottom: 50vh;
     border-radius: 4px;
   }
 
