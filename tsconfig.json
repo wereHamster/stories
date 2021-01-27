@@ -20,6 +20,7 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["src/components/*"],
+      "@/hooks/*": ["src/hooks/*"],
       "@/timvir/*": ["src/timvir/*"]
     },
   },
