@@ -17,7 +17,7 @@ const components = {
         }
 
         if ((child.props as any).mdxType === 'Group') {
-          return React.cloneElement(child as any, { style: { marginTop: "2rem", marginBottom: "2rem", ...(child.props as any).style } })
+          return React.cloneElement(child as any, { style: { marginTop: "4rem", marginBottom: "4rem", ...(child.props as any).style } })
         }
       }
 

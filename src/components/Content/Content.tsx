@@ -33,11 +33,11 @@ const Root = styled.div`
   }
 
   & > h2 {
-    margin: 2em 0 0.5em;
+    margin: 3em 0 1em;
   }
 
   & > p {
-    margin: 0.5em 0;
+    margin: 1em 0;
   }
 `;
 
