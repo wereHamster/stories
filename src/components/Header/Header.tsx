@@ -23,7 +23,7 @@ const Root = styled.header`
     z-index: -1;
     inset: 0;
     pointer-events: none;
-    transition: opacity .5s ease-out .1s;
+    transition: opacity .8s ease-out .5s;
     background-size: cover;
     background-position: 50% 50%;
   }
@@ -40,44 +40,51 @@ const Root = styled.header`
     padding: 8px 30px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    transition: opacity .8s ease-out 1s;
     border-radius: 4px;
   }
 `;
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
-  sqip: any;
+  image: {
+    src: string;
 
-  image: string
+    width: number;
+    height: number;
+
+    sqip: {
+      src: string
+    }
+  }
 
   title: React.ReactNode
 }
 
-function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { sqip, image, title, ...rest } = props;
+function Header(props: Props) {
+  const { image, title, ...rest } = props;
+
+  const ref = React.useRef<null | HTMLDivElement>(null)
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
-    const i = new window.Image()
-    i.addEventListener("load", () => 
-    setTimeout(() => {
-      setLoaded(true)
-    }, 500), { once: true });
-    i.src = image
-  }, [image])
-
-  // console.log(sqip?.metadata?.dataURI)
+    const img = ref.current?.querySelector('img')
+    if (img) {
+      img.addEventListener("load", () => {
+        setLoaded(true)
+      }, { once: true });
+    }
+  }, [])
 
   return (
     <Root ref={ref as any} {...rest}>
-      <Image src={image} layout="fill" objectFit="cover" />
-      {/* {blurHashURL && <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url("${blurHashURL}")` }} />} */}
-      <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${sqip?.metadata?.dataURIBase64 ?? ''})` }} />
+      <Image src={image.src} layout="fill" objectFit="cover" />
+      <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
 
       <div style={{ gridRow: 2, justifySelf: 'end', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-        <h1 className="title">{title}</h1>
+        <h1 className="title" style={{ opacity: loaded ? 1 : 0 }}>{title}</h1>
       </div>
     </Root>
   );
 }
 
-export default React.forwardRef(Header)
+export default Header
