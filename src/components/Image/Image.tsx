@@ -100,7 +100,7 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
         // router.replace(router.asPath + '/i/foo')
       }} 
       {...rest}>
-        <figure>
+        <figure ref={pictureRef}>
           <NextImage
             src={source.src}
             width={layout === 'fill' ? undefined : source.metadata.width}
@@ -114,8 +114,6 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
         {caption && <figcaption>
           {caption}
         </figcaption>}
-
-        <div ref={pictureRef} />
       </Root>
     </>
   );
