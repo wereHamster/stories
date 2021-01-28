@@ -73,13 +73,16 @@ function Image(props: Props) {
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
-    const img = ref.current?.querySelector('img[decoding="async"]')
+    const img = ref.current?.querySelector('img[decoding="async"]') as HTMLImageElement
     if (img) {
-      {
-        img.addEventListener("load", () => {
+      const onLoad = () => {
+        if (!img.src.match(/data:image\/gif/)) {
           setLoaded(true)
-        }, { once: true });
+          img.removeEventListener("load", onLoad)
+        }
       }
+
+      img.addEventListener("load", onLoad);
     }
   }, [])
 
