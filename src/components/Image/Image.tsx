@@ -27,11 +27,12 @@ const Root = styled.div`
     background-size: cover;
     background-position: 50% 50%;
 
-    z-index: 2;
+    z-index: -1;
   }
 
   & > figure > div {
     display: block !important;
+    z-index: -2;
   }
 
   & > figcaption {
