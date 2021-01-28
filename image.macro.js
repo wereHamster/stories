@@ -183,7 +183,7 @@ Promise.all([
         {
             name: 'sqip-plugin-blur',
             options: {
-              blur: 0,
+              blur: 1,
             },
         },
         'sqip-plugin-svgo',
