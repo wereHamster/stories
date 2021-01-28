@@ -37,8 +37,8 @@ const stories = {
   }
 }
 
-export default function Page({ post }) {
-  const { Header, Post } = stories[post]
+export default function Page({ story }) {
+  const { Header, Post } = stories[story]
 
   return (
     <MDXProvider components={components}>
@@ -55,10 +55,10 @@ export default function Page({ post }) {
 
 export async function getStaticPaths() {
   const fs = await import("fs");
-  const posts = await fs.promises.readdir("./content");
+  const stories = await fs.promises.readdir("./content");
 
   return {
-    paths: posts.map((post) => ({ params: { post } })),
+    paths: stories.map((story) => ({ params: { story } })),
     fallback: false,
   };
 }
