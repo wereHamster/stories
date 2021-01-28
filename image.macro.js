@@ -185,6 +185,7 @@ Promise.all([
             options: {
               blur: 1,
             },
+        },
         'sqip-plugin-svgo',
       ],
   }),
