@@ -89,6 +89,7 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
           }}
           caption={caption}
         >
+          <div style={{ backgroundRepeat: "no-repeat", position: "absolute", backgroundSize: "contain", backgroundPosition: "50% 50%", inset: 0, zIndex: -1, opacity: 1, backgroundImage: `url(${source?.sqip?.metadata?.dataURIBase64 ?? ''})` }} />
           <NextImage src={source.src} objectFit="contain" layout="fill" />
         </Lightbox>
       )}
