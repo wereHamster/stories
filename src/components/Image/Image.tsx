@@ -73,15 +73,15 @@ function Image(props: Props) {
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
-    if (inView) {
-      const img = ref.current?.querySelector('img')
-      if (img) {
+    const img = ref.current?.querySelector('img')
+    if (img) {
+      {
         img.addEventListener("load", () => {
           setLoaded(true)
         }, { once: true });
       }
     }
-  }, [inView])
+  }, [])
 
   return (
     <>

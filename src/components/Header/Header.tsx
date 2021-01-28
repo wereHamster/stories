@@ -70,9 +70,11 @@ function Header(props: Props) {
   React.useEffect(() => {
     const img = ref.current?.querySelector('img')
     if (img) {
-      img.addEventListener("load", () => {
-        setLoaded(true)
-      }, { once: true });
+      {
+        img.addEventListener("load", () => {
+          setLoaded(true)
+        }, { once: true });
+      }
     }
   }, [])
 
