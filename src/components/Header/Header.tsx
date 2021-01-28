@@ -34,15 +34,13 @@ const Root = styled.header`
   }
 
   .title {
-    margin: 0;
+    margin: 0 2vw 70vh 0;
     font-size: 4rem;
     text-align: center;
-    color: #fff;
+    color: #670822;
     padding: 8px 30px;
-    background: rgba(0,0,0,.7);
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 50vh;
     border-radius: 4px;
   }
 
@@ -95,7 +93,7 @@ function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Ro
       {/* {blurHashURL && <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url("${blurHashURL}")` }} />} */}
       <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${sqip?.metadata?.dataURIBase64 ?? ''})` }} />
 
-      <div style={{ gridRow: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ gridRow: 2, justifySelf: 'end', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
         <h1 className="title">{title}</h1>
         {subtitle && <div className="subtitle">{subtitle}</div>}
       </div>
