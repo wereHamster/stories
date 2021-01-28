@@ -32,8 +32,8 @@ const components = {
 
 const stories = {
   'where-i-was-meant-to-be': {
-    Header: dynamic(() => import(`../../content/where-i-was-meant-to-be/header`)),
-    Post: dynamic(() => import(`../../content/where-i-was-meant-to-be/index.mdx`)),
+    Header: dynamic(() => import(`../../../content/where-i-was-meant-to-be/header`)),
+    Post: dynamic(() => import(`../../../content/where-i-was-meant-to-be/index.mdx`)),
   }
 }
 

@@ -24,6 +24,23 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
   const { onClose, caption, children, ...rest } = props;
 
+  if (typeof document === 'undefined') {
+    return <Root ref={ref as any} {...rest}>
+    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
+      <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
+        <X />
+      </div>
+    </div>
+
+    <div style={{ placeSelf: "stretch", position: "relative" }}>{children}</div>
+
+    <div style={{ margin: "24px 0 24px", textAlign: "center", alignSelf: "end", opacity: 0.7, fontSize: "0.9em", fontStyle: "italic" }}>
+      {caption}
+    </div>      
+  </Root>
+  } else {
+
+
   return ReactDOM.createPortal(
     (
       <Root ref={ref as any} {...rest}>
@@ -42,6 +59,7 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
     ),
     document.body
   );
+    }
 }
 
 export default React.forwardRef(Lightbox)

@@ -5,6 +5,7 @@ import { useImmer } from "use-immer";
 import { Lightbox } from "@/components/Lightbox";
 import { Metadata } from "@zhif/macro";
 import { useBlurHash } from "@/hooks/useBlurHash";
+import { Router, useRouter } from "next/router";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -55,6 +56,7 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
   const { size = "wide", src, width, height, layout, objectFit, sizes, style, metadata = { width, height }, img = { src }, source = { img, metadata }, caption, ...rest } = props as any;
 
+  const router = useRouter()
   const blurHashURL = useBlurHash(source.blurHash);
 
   const [state, mutate] = useImmer({
@@ -73,6 +75,7 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
             mutate(draft => {
               draft.lightbox = false
             })
+            // router.push(router.asPath.replace(/\/i\/.*/, ''))
           }}
           caption={caption}
         >
@@ -84,6 +87,7 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
         mutate(draft => {
           draft.lightbox = true
         })
+        // router.replace(router.asPath + '/i/foo')
       }} 
       {...rest}>
         <figure>
