@@ -1,14 +1,47 @@
+/* Tuna Light */
 @font-face {
-  font-family: "iA Writer Quattro";
-  font-weight: normal;
+  font-family: Tuna;
   font-style: normal;
-  src: url("iAWriterQuattroS-Regular.woff2") format("woff2");
+  font-weight: 300;
+  src: url("/fonts/Tuna/371F3E_3_0.woff2") format("woff2");
 }
 
+/* Tuna LightItalic */
 @font-face {
-  font-family: "iA Writer Quattro";
-  font-weight: bold;
-  font-style: bold;
-  src: url("iAWriterQuattroS-Bold.woff2") format("woff2");
+  font-family: Tuna;
+  font-style: italic;
+  font-weight: 300;
+  src: url("/fonts/Tuna/371F3E_5_0.woff2") format("woff2");
 }
 
+/* Tuna Regular */
+@font-face {
+  font-family: Tuna;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Tuna/371F3E_7_0.woff2") format("woff2");
+}
+
+/* Tuna RegularItalic */
+@font-face {
+  font-family: Tuna;
+  font-style: italic;
+  font-weight: 400;
+  src: url("/fonts/Tuna/371F3E_9_0.woff2") format("woff2");
+}
+
+/* Tuna Bold */
+@font-face {
+  font-family: Tuna;
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/Tuna/371F3E_0_0.woff2") format("woff2");
+}
+
+/* Tuna BoldItalic */
+@font-face {
+  font-family: Tuna;
+  font-style: italic;
+  font-weight: 700;
+  src: url("/fonts/Tuna/371F3E_1_0.woff2") format("woff2");
+}
