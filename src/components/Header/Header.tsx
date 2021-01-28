@@ -68,7 +68,7 @@ function Header(props: Props) {
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
-    const img = ref.current?.querySelector('img')
+    const img = ref.current?.querySelector('img[decoding="async"]')
     if (img) {
       {
         img.addEventListener("load", () => {
