@@ -32,7 +32,7 @@ const Root = styled.header`
   .title {
     font-size: 4rem;
     color: #1d1f20;
-    padding: 2vh 5vw;
+    padding: 5vh 5vw;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: opacity .8s ease-out 1s;
