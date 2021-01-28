@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { X } from 'react-feather'
+import * as Icons from 'react-feather'
 import * as ReactDOM from 'react-dom'
 
 /**
@@ -19,6 +19,9 @@ const Root = styled.div`
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   onClose?: () => void;
   caption?: React.ReactNode;
+
+  next?: any;
+  prev?: any;
 }
 
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
@@ -28,11 +31,21 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
     return <Root ref={ref as any} {...rest}>
     <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
       <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
-        <X />
+        <Icons.X />
       </div>
     </div>
 
-    <div style={{ placeSelf: "stretch", position: "relative" }}>{children}</div>
+    <div style={{ placeSelf: "stretch", position: "relative" }}>
+      {children}
+
+      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center' }}>
+        <Icons.ArrowLeft />
+      </div>
+
+      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center' }}>
+        <Icons.ArrowRight />
+      </div>
+    </div>
 
     <div style={{ margin: "24px 0 24px", textAlign: "center", alignSelf: "end", opacity: 0.7, fontSize: "0.9em", fontStyle: "italic" }}>
       {caption}
