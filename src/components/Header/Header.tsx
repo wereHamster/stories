@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import Image from 'next/image';
-import { useBlurHash } from "@/hooks/useBlurHash";
 // import { Meta } from "./internal";
 
 /**
@@ -43,39 +42,20 @@ const Root = styled.header`
     letter-spacing: 2px;
     border-radius: 4px;
   }
-
-  .subtitle {
-    font-size: 1.5rem;
-    color: #fff;
-    padding: 4px 12px;
-    background: rgba(0,0,0,.6);
-    margin-top: 8px;
-  }
-
-  .meta {
-    grid-row: 3;
-    text-align: center;
-    align-self: end;
-    margin: 15vh 0 24px;
-  }
 `;
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   sqip: any;
 
-  blurHash?: string
   image: string
 
   title: React.ReactNode
-  subtitle?: React.ReactNode
-  date: Date
 }
 
 function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { sqip, blurHash, image, title, subtitle, date, ...rest } = props;
+  const { sqip, image, title, ...rest } = props;
 
   const [loaded, setLoaded] = React.useState(false);
-  // const blurHashURL = useBlurHash(blurHash);
   React.useEffect(() => {
     const i = new window.Image()
     i.addEventListener("load", () => 
@@ -95,15 +75,7 @@ function Header(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Ro
 
       <div style={{ gridRow: 2, justifySelf: 'end', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
         <h1 className="title">{title}</h1>
-        {subtitle && <div className="subtitle">{subtitle}</div>}
       </div>
-
-      {/* <Meta
-        className="meta"
-        avatar="https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/D45DBA64-743E-43CB-9D73-9CBEF228A3A0.jpg"
-        author="Tomáš Čarnecký"
-        date={date}
-      /> */}
     </Root>
   );
 }
