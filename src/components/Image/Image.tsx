@@ -17,14 +17,17 @@ const Root = styled.div`
     margin: 0;
   }
 
-  .bg {
+  .sqip {
     position: absolute;
-    z-index: 2;
     inset: 0;
     pointer-events: none;
-    transition: opacity .5s ease-out .1s;
+
+    transition: opacity .8s ease-out .5s;
+
     background-size: cover;
     background-position: 50% 50%;
+
+    z-index: 2;
   }
 
   & > figure > div {
@@ -41,41 +44,43 @@ const Root = styled.div`
 `;
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
-  source?: any;
+  image?: {
+    src: string;
 
-  src: string;
+    width: number;
+    height: number;
 
-  img?: { src: string }
-  metadata: Metadata
+    sqip: {
+      src: string
+    }
+  };
 
   size?: "full" | "wide" | "default" | "narrow"
 
   caption?: React.ReactNode
 }
 
-function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { size = "wide", src, width, height, layout, objectFit, sizes, style, metadata = { width, height }, img = { src }, source = { src, metadata }, caption, ...rest } = props as any;
+function Image(props: Props) {
+  const { image, size = "wide", caption, layout, objectFit, sizes, style, ...rest } = props as any;
 
   const [pictureRef, inView] = useInView({ triggerOnce: true });
   const [state, mutate] = useImmer({
     lightbox: false
   })
 
-  if (src) {
-    source.src = src
-  }
+  const ref = React.useRef<null | HTMLDivElement>(null)
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
     if (inView) {
-      const i = new window.Image()
-      i.addEventListener("load", () => 
-      setTimeout(() => {
-        setLoaded(true)
-      }, 500), { once: true });
-      i.src = source.src
+      const img = ref.current?.querySelector('img')
+      if (img) {
+        img.addEventListener("load", () => {
+          setLoaded(true)
+        }, { once: true });
+      }
     }
-  }, [inView, source.src])
+  }, [inView])
 
   return (
     <>
@@ -89,8 +94,20 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
           }}
           caption={caption}
         >
-          <div style={{ backgroundRepeat: "no-repeat", position: "absolute", backgroundSize: "contain", backgroundPosition: "50% 50%", inset: 0, zIndex: -1, opacity: 1, backgroundImage: `url(${source?.sqip?.metadata?.dataURIBase64 ?? ''})` }} />
-          <NextImage src={source.src} objectFit="contain" layout="fill" />
+          <div
+            style={{
+              backgroundRepeat: "no-repeat",
+              position: "absolute",
+              backgroundSize: "contain",
+              backgroundPosition: "50% 50%",
+              inset: 0,
+              zIndex: -1,
+              opacity: 1,
+              backgroundImage: `url(${image.sqip.src})`,
+            }}
+          />
+
+          <NextImage src={image.src} objectFit="contain" layout="fill" />
         </Lightbox>
       )}
 
@@ -103,21 +120,20 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
       {...rest}>
         <figure ref={pictureRef}>
           <NextImage
-            src={source.src}
-            width={layout === 'fill' ? undefined : source.metadata.width}
-            height={layout === 'fill' ? undefined : source.metadata.height}
+            src={image.src}
+            width={layout === 'fill' ? undefined : image.width}
+            height={layout === 'fill' ? undefined : image.height}
             layout={layout}
             objectFit={objectFit}
             sizes={sizes}
           />
-          <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${source?.sqip?.metadata?.dataURIBase64 ?? ''})` }} />
+          <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
         </figure>
-        {caption && <figcaption>
-          {caption}
-        </figcaption>}
+
+        {caption && <figcaption>{caption}</figcaption>}
       </Root>
     </>
   );
 }
 
-export default React.forwardRef(Image)
+export default Image

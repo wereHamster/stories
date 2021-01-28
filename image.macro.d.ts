@@ -1,14 +1,14 @@
 import * as React from "react";
 
-interface Metadata {
+export interface Image {
+  src: string;
+
   width: number;
   height: number;
-}
 
-export interface Image {
-  sqip: any;
-  metadata: Metadata;
-  src: string;
+  sqip: {
+    src: string;
+  };
 }
 
 export const importImage: (src: string) => Image;

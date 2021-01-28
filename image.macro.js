@@ -79,16 +79,12 @@ module.exports = createMacro(({ references, babel }) => {
 
     const value = {
       src: sourceImage,
+
+      width: metadata.width,
+      height: metadata.height,
+
       sqip: {
-          ...metadata.sqip,
-          metadata: {
-              ...metadata.sqip.metadata,
-              dataURIBase64: `data:image/svg+xml;base64,${Buffer.from(metadata.sqip.content).toString("base64")}`
-          }
-      },
-      metadata: {
-        width: metadata.width,
-        height: metadata.height,
+        src: `data:image/svg+xml;base64,${Buffer.from(metadata.sqip.content).toString("base64")}`
       },
     };
 

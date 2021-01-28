@@ -17,12 +17,15 @@ const Root = styled.header`
 
   .sqip {
     position: absolute;
-    z-index: -1;
     inset: 0;
     pointer-events: none;
+
     transition: opacity .8s ease-out .5s;
+
     background-size: cover;
     background-position: 50% 50%;
+    
+    z-index: -1;
   }
 
   & > div:first-child {
