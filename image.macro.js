@@ -176,14 +176,14 @@ Promise.all([
         {
           name: 'sqip-plugin-primitive',
           options: {
-            numberOfPrimitives: 100,
-            mode: 0,
+            numberOfPrimitives: 200,
+            mode: 1,
           },
         },
         {
             name: 'sqip-plugin-blur',
             options: {
-              blur: 1,
+              blur: 0,
             },
         },
         'sqip-plugin-svgo',
