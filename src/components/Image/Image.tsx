@@ -4,8 +4,7 @@ import styled from "styled-components";
 import { useImmer } from "use-immer";
 import { Lightbox } from "@/components/Lightbox";
 import { Metadata } from "@zhif/macro";
-import { useBlurHash } from "@/hooks/useBlurHash";
-import { Router, useRouter } from "next/router";
+import { useInView } from "react-intersection-observer";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -20,7 +19,7 @@ const Root = styled.div`
 
   .bg {
     position: absolute;
-    z-index: -1;
+    z-index: 2;
     inset: 0;
     pointer-events: none;
     transition: opacity .5s ease-out .1s;
@@ -57,9 +56,7 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
   const { size = "wide", src, width, height, layout, objectFit, sizes, style, metadata = { width, height }, img = { src }, source = { src, metadata }, caption, ...rest } = props as any;
 
-  // const router = useRouter()
-  // const blurHashURL = useBlurHash(source.blurHash);
-
+  const [pictureRef, inView] = useInView({ triggerOnce: true });
   const [state, mutate] = useImmer({
     lightbox: false
   })
@@ -67,6 +64,18 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
   if (src) {
     source.src = src
   }
+
+  const [loaded, setLoaded] = React.useState(false);
+  React.useEffect(() => {
+    if (inView) {
+      const i = new window.Image()
+      i.addEventListener("load", () => 
+      setTimeout(() => {
+        setLoaded(true)
+      }, 500), { once: true });
+      i.src = source.src
+    }
+  }, [inView, source.src])
 
   return (
     <>
@@ -92,7 +101,6 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
       }} 
       {...rest}>
         <figure>
-          <div className="bg" style={{ opacity: 1, backgroundImage: `url(${source?.sqip?.metadata?.dataURIBase64 ?? ''})` }} />
           <NextImage
             src={source.src}
             width={layout === 'fill' ? undefined : source.metadata.width}
@@ -101,10 +109,13 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
             objectFit={objectFit}
             sizes={sizes}
           />
+          <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${source?.sqip?.metadata?.dataURIBase64 ?? ''})` }} />
         </figure>
         {caption && <figcaption>
           {caption}
         </figcaption>}
+
+        <div ref={pictureRef} />
       </Root>
     </>
   );
