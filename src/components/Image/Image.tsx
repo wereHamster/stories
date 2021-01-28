@@ -22,7 +22,7 @@ const Root = styled.div`
     inset: 0;
     pointer-events: none;
 
-    transition: opacity .8s ease-out .5s;
+    transition: opacity .8s ease-out 1.5s;
 
     background-size: cover;
     background-position: 50% 50%;
@@ -98,20 +98,7 @@ function Image(props: Props) {
           }}
           caption={caption}
         >
-          <div
-            style={{
-              backgroundRepeat: "no-repeat",
-              position: "absolute",
-              backgroundSize: "contain",
-              backgroundPosition: "50% 50%",
-              inset: 0,
-              zIndex: -1,
-              opacity: 1,
-              backgroundImage: `url(${image.sqip.src})`,
-            }}
-          />
-
-          <NextImage src={image.src} objectFit="contain" layout="fill" />
+          <Inner image={image} />
         </Lightbox>
       )}
 
@@ -141,3 +128,41 @@ function Image(props: Props) {
 }
 
 export default Image
+
+function Inner({ image }: any) {
+  const ref = React.useRef<null | HTMLDivElement>(null)
+
+  const [loaded, setLoaded] = React.useState(false);
+  React.useEffect(() => {
+    const img = ref.current?.querySelector('img[decoding="async"]') as HTMLImageElement
+    if (img) {
+      const onLoad = () => {
+        if (!img.src.match(/data:image\/gif/)) {
+          setLoaded(true)
+          img.removeEventListener("load", onLoad)
+        }
+      }
+
+      img.addEventListener("load", onLoad);
+    }
+  }, [])
+
+  return (
+    <div ref={ref}>
+      <NextImage src={image.src} objectFit="contain" layout="fill" />
+      <div
+        style={{
+          backgroundRepeat: "no-repeat",
+          position: "absolute",
+          backgroundSize: "contain",
+          backgroundPosition: "50% 50%",
+          transition: "opacity .1s ease-out",
+          inset: 0,
+          opacity: loaded ? 0 : 1,
+          zIndex: 1,
+          backgroundImage: `url(${image.sqip.src})`,
+        }}
+      />
+    </div>
+  )
+}
