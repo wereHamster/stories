@@ -10,10 +10,10 @@ import { useInView } from "react-intersection-observer";
  * The underlying DOM element which is rendered by this component.
  */
 const Root = styled.div`
-  position: relative;
   cursor: pointer;
 
   & > figure {
+    position: relative;
     margin: 0;
   }
 
@@ -38,7 +38,7 @@ const Root = styled.div`
   & > figcaption {
     text-align: center;
     margin: 8px 0;
-    font-size: .9em;
+    font-size: .75em;
     font-style: italic;
     opacity: 0.7;
   }
@@ -109,7 +109,7 @@ function Image(props: Props) {
         // router.replace(router.asPath + '/i/foo')
       }} 
       {...rest}>
-        <figure ref={pictureRef}>
+        <figure ref={pictureRef} style={{ ...style, margin: 0 }}>
           <NextImage
             src={image.src}
             width={layout === 'fill' ? undefined : image.width}
@@ -156,7 +156,7 @@ function Inner({ image }: any) {
           position: "absolute",
           backgroundSize: "contain",
           backgroundPosition: "50% 50%",
-          transition: "opacity .1s ease-out",
+          transition: "opacity .5s ease-out",
           inset: 0,
           opacity: loaded ? 0 : 1,
           zIndex: 1,
