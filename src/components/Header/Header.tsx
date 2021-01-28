@@ -37,7 +37,7 @@ const Root = styled.header`
     margin: 0 2vw 70vh 0;
     font-size: 4rem;
     text-align: center;
-    color: #670822;
+    color: #1d1f20;
     padding: 8px 30px;
     text-transform: uppercase;
     letter-spacing: 2px;

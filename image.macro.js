@@ -19,13 +19,15 @@ const mkdirp = require("mkdirp");
  */
 
 const outputDirectory = pkgDir.sync();
-const cacheDirectory = `${outputDirectory}/node_modules/.cache/zhif/`;
+const imageCacheDirectory = `${outputDirectory}/node_modules/.cache/zhif`;
+const metadataCacheDirectory = `${outputDirectory}/.cache`;
 
 /*
  * .init section
  */
 
-mkdirp.sync(cacheDirectory);
+mkdirp.sync(imageCacheDirectory);
+mkdirp.sync(metadataCacheDirectory);
 
 const sourceImageFetcher = (url, path) => `
 const { get } = require("https");
@@ -47,7 +49,7 @@ module.exports = createMacro(({ references, babel }) => {
 
       if (sourceImage.startsWith("https://")) {
         const path = join(
-          cacheDirectory,
+          imageCacheDirectory,
           `${fingerprint(sourceImage, "source")}`
         );
         fetchSourceImage(sourceImage, path);
@@ -146,7 +148,7 @@ const loadMetadata = (() => {
       return fromCache;
     }
 
-    const cachePath = join(cacheDirectory, key);
+    const cachePath = join(metadataCacheDirectory, key);
     try {
       const metadata = JSON.parse(fs.readFileSync(cachePath, "utf8"));
       inMemoryCache.set(key, metadata);
@@ -197,11 +199,12 @@ Promise.all([
 })
 `;
 
+      console.log('loadMetadata', path, '->', cachePath)
       const metadata = JSON.parse(
         execFileSync(process.execPath, ["-e", script])
       );
       inMemoryCache.set(key, metadata);
-      fs.promises.writeFile(cachePath, JSON.stringify(metadata));
+      fs.writeFileSync(cachePath, JSON.stringify(metadata));
       return metadata;
     }
   };

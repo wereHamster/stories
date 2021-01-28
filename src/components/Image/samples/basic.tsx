@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image } from "..";
-import { importImage } from "@zhif/macro"
+import { importImage } from "../../../../image.macro"
 
 type Props = Partial<React.ComponentPropsWithoutRef<typeof Image>>;
 

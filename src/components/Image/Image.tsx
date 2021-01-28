@@ -25,6 +25,7 @@ const Root = styled.div`
     pointer-events: none;
     transition: opacity .5s ease-out .1s;
     background-size: cover;
+    background-position: 50% 50%;
   }
 
   & > figure > div {
@@ -54,17 +55,17 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { size = "wide", src, width, height, layout, objectFit, sizes, style, metadata = { width, height }, img = { src }, source = { img, metadata }, caption, ...rest } = props as any;
+  const { size = "wide", src, width, height, layout, objectFit, sizes, style, metadata = { width, height }, img = { src }, source = { src, metadata }, caption, ...rest } = props as any;
 
-  const router = useRouter()
-  const blurHashURL = useBlurHash(source.blurHash);
+  // const router = useRouter()
+  // const blurHashURL = useBlurHash(source.blurHash);
 
   const [state, mutate] = useImmer({
     lightbox: false
   })
 
   if (src) {
-    source.img.src = src
+    source.src = src
   }
 
   return (
@@ -79,7 +80,7 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
           }}
           caption={caption}
         >
-          <NextImage src={source.img.src} objectFit="contain" layout="fill" />
+          <NextImage src={source.src} objectFit="contain" layout="fill" />
         </Lightbox>
       )}
 
@@ -91,9 +92,9 @@ function Image(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
       }} 
       {...rest}>
         <figure>
-          {blurHashURL && <div className="bg" style={{ opacity: 1, backgroundImage: `url("${blurHashURL}")` }} />} 
+          <div className="bg" style={{ opacity: 1, backgroundImage: `url(${source?.sqip?.metadata?.dataURIBase64 ?? ''})` }} />
           <NextImage
-            src={source.img.src}
+            src={source.src}
             width={layout === 'fill' ? undefined : source.metadata.width}
             height={layout === 'fill' ? undefined : source.metadata.height}
             layout={layout}
