@@ -28,6 +28,7 @@
     "react-intersection-observer": "^8.31.0",
     "react-intl": "^5.10.16",
     "sharp": "^0.27.0",
+    "sqip": "^0.3.3",
     "styled-components": "^5.2.1",
     "use-immer": "^0.4.2"
   },
