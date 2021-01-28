@@ -27,52 +27,37 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
   const { onClose, caption, children, ...rest } = props;
 
-  if (typeof document === 'undefined') {
-    return <Root ref={ref as any} {...rest}>
-    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
-      <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
-        <Icons.X />
-      </div>
-    </div>
-
-    <div style={{ placeSelf: "stretch", position: "relative" }}>
-      {children}
-
-      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center' }}>
-        <Icons.ArrowLeft />
-      </div>
-
-      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center' }}>
-        <Icons.ArrowRight />
-      </div>
-    </div>
-
-    <div style={{ margin: "24px 0 24px", textAlign: "center", alignSelf: "end", opacity: 0.7, fontSize: "0.9em", fontStyle: "italic" }}>
-      {caption}
-    </div>      
-  </Root>
-  } else {
-
-
-  return ReactDOM.createPortal(
-    (
-      <Root ref={ref as any} {...rest}>
-        <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
-          <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
-            <X />
-          </div>
+  const el = (
+    <Root ref={ref as any} {...rest}>
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
+        <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
+          <Icons.X />
         </div>
-  
-        <div style={{ placeSelf: "stretch", position: "relative" }}>{children}</div>
-  
-        <div style={{ margin: "24px 0 24px", textAlign: "center", alignSelf: "end", opacity: 0.7, fontSize: "0.9em", fontStyle: "italic" }}>
-          {caption}
-        </div>      
-      </Root>
-    ),
-    document.body
-  );
-    }
+      </div>
+
+      <div style={{ placeSelf: "stretch", position: "relative" }}>
+        {children}
+
+        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
+          <Icons.ArrowLeft />
+        </div>
+
+        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
+          <Icons.ArrowRight />
+        </div>
+      </div>
+
+      <div style={{ margin: "24px 0 24px", textAlign: "center", alignSelf: "end", opacity: 0.7, fontSize: "0.9em", fontStyle: "italic" }}>
+        {caption}
+      </div>      
+    </Root>
+  )
+
+  if (typeof document === 'undefined') {
+    return el
+  } else {
+    return ReactDOM.createPortal(el, document.body);
+  }
 }
 
 export default React.forwardRef(Lightbox)
