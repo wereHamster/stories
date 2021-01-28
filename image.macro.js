@@ -180,6 +180,7 @@ Promise.all([
             mode: 0,
           },
         },
+        'sqip-plugin-blur',
         'sqip-plugin-svgo',
       ],
   }),
