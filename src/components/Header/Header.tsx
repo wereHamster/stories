@@ -10,15 +10,12 @@ const Root = styled.header`
   display: grid;
   
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr min-content 1fr;
-
-  justify-items: center;
+  grid-template-rows: 1fr;
 
   min-height: 100vh;
-
   position: relative;
 
-  .bg {
+  .sqip {
     position: absolute;
     z-index: -1;
     inset: 0;
@@ -33,15 +30,16 @@ const Root = styled.header`
   }
 
   .title {
-    margin: 0 2vw 70vh 0;
     font-size: 4rem;
-    text-align: center;
     color: #1d1f20;
-    padding: 8px 30px;
+    padding: 2vh 5vw;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: opacity .8s ease-out 1s;
     border-radius: 4px;
+
+    align-self: start;
+    justify-self: end;
   }
 `;
 
@@ -78,11 +76,9 @@ function Header(props: Props) {
   return (
     <Root ref={ref as any} {...rest}>
       <Image src={image.src} layout="fill" objectFit="cover" />
-      <div className="bg" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
+      <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
 
-      <div style={{ gridRow: 2, justifySelf: 'end', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-        <h1 className="title" style={{ opacity: loaded ? 1 : 0 }}>{title}</h1>
-      </div>
+      <h1 className="title" style={{ opacity: loaded ? 1 : 0 }}>{title}</h1>
     </Root>
   );
 }
