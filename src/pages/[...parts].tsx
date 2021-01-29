@@ -138,12 +138,6 @@ interface Props {
 
 interface State {
   images: any[];
-  lightbox?: {
-    images: any;
-    index: number;
-    image: any;
-    caption: any;
-  };
 }
 
 export default function Page({ story, focus }: Props) {
@@ -156,7 +150,6 @@ export default function Page({ story, focus }: Props) {
    */
   const [state, mutate] = useImmer<State>({
     images: [],
-    lightbox: undefined,
   });
 
   const value = React.useMemo<Value>(
@@ -186,7 +179,6 @@ export default function Page({ story, focus }: Props) {
       };
     }
   })();
-  console.log(state.images);
 
   return (
     <Context.Provider value={value}>
