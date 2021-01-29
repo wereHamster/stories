@@ -7,7 +7,9 @@ const withMDX = require('@next/mdx')({
     remarkPlugins: [
       () => (tree) => {
         visit(tree, 'jsx', node => {
-          node.value = node.value.replace(/src="(.*)"/g, (...args) => `image={importImage("${args[1]}")}`)
+          if (node.value.match(/<Image/)) {
+            node.value = node.value.replace(/src="(.*)"/g, (...args) => `image={importImage("${args[1]}")}`)
+          }
         })
       }
     ]
