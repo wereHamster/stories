@@ -100,7 +100,7 @@ function Image(props: Props) {
         <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
       </figure>
 
-      {caption && <figcaption style={{ ...style, margin: 0, height: undefined, minHeight: undefined }}>{caption}</figcaption>}
+      {caption && <figcaption style={{ ...style, margin: '8px 0', height: undefined, minHeight: undefined }}>{caption}</figcaption>}
     </Root>
   );
 }
