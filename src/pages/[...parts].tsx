@@ -133,7 +133,6 @@ interface State {
 export default function Page() {
   const router = useRouter();
   const [story, focus] = (router.query.parts as string[]) ?? [];
-  // console.log(story, focus);
 
   const { Header, Body } = stories[story] ?? {};
 
