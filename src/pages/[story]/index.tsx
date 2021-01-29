@@ -112,13 +112,15 @@ export default function Page({ story }) {
           prev={() => {
             mutate(draft => {
               const index = Math.max(0, state.lightbox.index - 1)
-              draft.lightbox = {...state.lightbox, index, image: state.lightbox.images[index]}
+              const image = state.lightbox.images[index]
+              draft.lightbox = {...state.lightbox, index, image, caption: image.caption }
             })
           }}
           next={() => {
             mutate(draft => {
               const index = Math.min(state.lightbox.images.length - 1, state.lightbox.index + 1)
-              draft.lightbox = {...state.lightbox, index, image: state.lightbox.images[index]}
+              const image = state.lightbox.images[index]
+              draft.lightbox = {...state.lightbox, index, image, caption: image.caption }
             })
           }}
         >
