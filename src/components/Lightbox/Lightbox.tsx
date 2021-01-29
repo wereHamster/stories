@@ -11,8 +11,8 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   onClose?: () => void;
   caption?: React.ReactNode;
 
-  prev?: () => {};
-  next?: () => {};
+  prev?: () => void;
+  next?: () => void;
 }
 
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
@@ -22,6 +22,10 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
     function onKeyDown(ev: KeyboardEvent) {
       if (ev.key === 'Escape') {
         onClose?.()
+      } else if (ev.key === 'ArrowLeft') {
+        prev?.()
+      } else if (ev.key === 'ArrowRight') {
+        next?.()
       }
     }
 
@@ -30,7 +34,7 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
     return () => {
       document.removeEventListener('keydown', onKeyDown)
     }
-  }, [])
+  }, [onClose, prev, next])
 
   const el = (
     <Root ref={ref as any} style={{

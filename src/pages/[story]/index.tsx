@@ -17,17 +17,41 @@ const Context = React.createContext({
 
 const components = {
   wrapper: ({ children }) => {
+    const images: any[] = [];
+    React.Children.forEach(children, function go(child: any) {
+      if (React.isValidElement(child)) {
+        if ((child.props as any).mdxType === 'Image') {
+          images.push(child)
+        }
+
+        React.Children.forEach((child.props as any).children, go)
+      }
+    })
+
     return React.Children.map(children, child => {
       if (React.isValidElement(child)) {
         if ((child.props as any).mdxType === 'Image') {
           return React.cloneElement(child as any, {
+            images: images.map(x => x.props.image),
+            index: images.indexOf(child), 
             style: { margin: "2rem auto", ...(child.props as any).style },
           })
         }
 
         if ((child.props as any).mdxType === 'Group') {
           return React.cloneElement(child as any, {
-            style: { marginTop: "4rem", marginBottom: "4rem", ...(child.props as any).style }
+            style: { marginTop: "4rem", marginBottom: "4rem", ...(child.props as any).style },
+            children: React.Children.map((child.props as any).children, child => {
+              if (React.isValidElement(child)) {
+                return React.cloneElement(child as any, {
+                  images: images.map(x => x.props.image),
+                  index: images.indexOf(child),
+                  style: { ...(child.props as any).style },
+                })
+              } else {
+                return child
+              }
+            })
           })
         }
       }
@@ -40,7 +64,7 @@ const components = {
   Image: (props: any) => {
     const { onOpen } = React.useContext(Context)
     return <Image {...props} onOpen={() => {
-      onOpen({ image: (props as any).image, caption: (props as any).caption })
+      onOpen({ images: (props as any).images, index: (props as any).index, image: (props as any).image, caption: (props as any).caption })
     }} />
   },
   Group,
@@ -59,11 +83,12 @@ export default function Page({ story }) {
   const [state, mutate] = useImmer({
     lightbox: undefined as any
   })
+  console.log(state.lightbox)
 
   return (
-    <Context.Provider value={{ onOpen: ({ image, caption }) => {
+    <Context.Provider value={{ onOpen: ({ images, index, image, caption }) => {
       mutate(draft => {
-        draft.lightbox = { image, caption }
+        draft.lightbox = { images, index, image, caption }
       })
     }}}>
       <MDXProvider components={components}>
@@ -84,8 +109,20 @@ export default function Page({ story }) {
             })
           }}
           caption={state.lightbox.caption}
+          prev={() => {
+            mutate(draft => {
+              const index = Math.max(0, state.lightbox.index - 1)
+              draft.lightbox = {...state.lightbox, index, image: state.lightbox.images[index]}
+            })
+          }}
+          next={() => {
+            mutate(draft => {
+              const index = Math.min(state.lightbox.images.length - 1, state.lightbox.index + 1)
+              draft.lightbox = {...state.lightbox, index, image: state.lightbox.images[index]}
+            })
+          }}
         >
-          <Inner image={state.lightbox.image} />
+          <Inner key={state.lightbox.image.src} image={state.lightbox.image} />
         </Lightbox>
       )}
     </Context.Provider>
