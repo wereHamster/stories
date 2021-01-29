@@ -85,9 +85,9 @@ function Image(props: Props) {
   }, [])
 
   const className = {full: 'fw', wide: 'wp', default: undefined, narrow: undefined }[size]
-  
+
   return (
-    <Root ref={ref} style={{ position: 'relative', ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={className} {...rest}>
+    <Root ref={ref} style={{ ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={className} {...rest}>
       <figure onClick={onOpen} style={{ ...style, margin: 0 }}>
         <NextImage
           src={image.src}
