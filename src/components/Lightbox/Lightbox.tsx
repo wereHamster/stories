@@ -43,7 +43,8 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
       background: 'black',
       color: 'white',
       display: 'grid',
-      gridTemplateRows: '64px 1fr min-content'
+      gridTemplateRows: '64px 1fr min-content',
+      gridTemplateColumns: "1fr"
     }} {...rest}>
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
         <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
@@ -51,14 +52,14 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
         </div>
       </div>
 
-      <div style={{ placeSelf: "stretch", position: "relative", userSelect: 'none' }}>
+      <div style={{ position: "relative", alignSelf: "stretch", justifySelf: "stretch", placeSelf: "stretch", userSelect: 'none' }}>
         {children}
 
-        <div onClick={prev} style={{ zIndex: 2, position: 'absolute', paddingRight: 32, left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
+        <div onClick={prev} style={{ zIndex: 2, position: 'absolute', paddingRight: 32, left: 0, top: 0, bottom: 0, width: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
           <Icons.ArrowLeft />
         </div>
 
-        <div onClick={next} style={{ zIndex: 2, position: 'absolute', paddingLeft: 32, right: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
+        <div onClick={next} style={{ zIndex: 2, position: 'absolute', paddingLeft: 32, right: 0, top: 0, bottom: 0, width: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
           <Icons.ArrowRight />
         </div>
       </div>
