@@ -160,9 +160,16 @@ export default function Page() {
       ),
     [Header, Body]
   );
-  
+
   /*
-   * The local state maintained by this page.
+   * The local state maintained by this page. It includes:
+   *
+   * - blocks: all blocks which can be focused, in the order as they appear
+   *   in the story. Unfortunately this info is not statically available,
+   *   it is initialized by the MDX «wrapper» component which recursively
+   *   walks the React Virtual DOM tree. That means during the initial render
+   *   we don't know what the actual block is, only it's ID (which is coming
+   *   from the router query).
    */
   const [state, mutate] = useImmer<State>({
     blocks: [],
@@ -170,10 +177,6 @@ export default function Page() {
 
   const value = React.useMemo<Value>(() => ({ mutate }), [mutate]);
   const focusBlock = state.blocks.find((x) => x.id === focus);
-
-  if (!storyId) {
-    return null;
-  }
 
   return (
     <Context.Provider value={value}>
