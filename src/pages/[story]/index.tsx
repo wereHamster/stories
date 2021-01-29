@@ -73,16 +73,16 @@ const components = {
 const stories = {
   'where-i-was-meant-to-be': {
     Header: dynamic(() => import(`../../../content/where-i-was-meant-to-be/header`)),
-    Post: dynamic(() => import(`../../../content/where-i-was-meant-to-be/index.mdx`)),
+    Body: dynamic(() => import(`../../../content/where-i-was-meant-to-be/index.mdx`)),
   }
-}
+} as const;
 
 interface Props {
   story: keyof typeof stories;
 }
 
 export default function Page({ story }: Props) {
-  const { Header, Post } = stories[story]
+  const { Header, Body } = stories[story]
 
   const [state, mutate] = useImmer({
     lightbox: undefined as any
@@ -100,7 +100,7 @@ export default function Page({ story }: Props) {
         </div>
 
         <Content>
-          <Post />
+          <Body />
         </Content>
       </MDXProvider>
 
