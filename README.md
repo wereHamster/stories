@@ -17,6 +17,14 @@ npm install
 npm run dev
 ```
 
+A story consists of:
+
+ - A header element which is shown at the very top of the page. Block element, can be as tall as it wants to.
+ - Content which is authored in MDX. Supported is: paragraphs, images, videos, groups of images/videos
+   (displayed in a grid).
+
+Certain blocks (images, videos) can be focused (shown in a lightbox).
+
 ## Routes
 
  - `/[story]` – the story page
