@@ -143,7 +143,7 @@ interface State {
 export default function Page({ story, focus }: Props) {
   const router = useRouter();
 
-  const { Header, Body } = stories[story];
+  const { Header, Body } = stories[story] ?? {};
 
   /*
    * The local state maintained by this page.
@@ -180,24 +180,30 @@ export default function Page({ story, focus }: Props) {
     }
   })();
 
+  const content = React.useMemo(
+    () => (
+      <MDXProvider components={components}>
+        <div style={{ marginBottom: "10vh" }}>
+          <Header />
+        </div>
+
+        <Content>
+          <Body />
+        </Content>
+
+        <div style={{ marginBottom: "10vh" }} />
+      </MDXProvider>
+    ),
+    [Header, Body]
+  );
+
+  if (!story) {
+    return null;
+  }
+
   return (
     <Context.Provider value={value}>
-      {React.useMemo(
-        () => (
-          <MDXProvider components={components}>
-            <div style={{ marginBottom: "10vh" }}>
-              <Header />
-            </div>
-
-            <Content>
-              <Body />
-            </Content>
-
-            <div style={{ marginBottom: "10vh" }} />
-          </MDXProvider>
-        ),
-        [Header, Body]
-      )}
+      {content}
 
       {lightbox && (
         <Lightbox
