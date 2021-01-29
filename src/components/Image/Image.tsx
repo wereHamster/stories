@@ -3,7 +3,6 @@ import NextImage from 'next/image'
 import styled from "styled-components";
 import { useImmer } from "use-immer";
 import { Lightbox } from "@/components/Lightbox";
-import { Metadata } from "@zhif/macro";
 import { useInView } from "react-intersection-observer";
 
 /**
