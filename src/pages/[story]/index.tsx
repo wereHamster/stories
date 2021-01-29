@@ -32,7 +32,7 @@ const components = {
       if (React.isValidElement(child)) {
         if ((child.props as any).mdxType === 'Image') {
           return React.cloneElement(child as any, {
-            images: images.map(x => x.props.image),
+            images: images.map(x => ({ ...x.props.image, caption: x.props.caption })),
             index: images.indexOf(child), 
             style: { margin: "2rem auto", ...(child.props as any).style },
           })
@@ -44,7 +44,7 @@ const components = {
             children: React.Children.map((child.props as any).children, child => {
               if (React.isValidElement(child)) {
                 return React.cloneElement(child as any, {
-                  images: images.map(x => x.props.image),
+                  images: images.map(x => ({ ...x.props.image, caption: x.props.caption })),
                   index: images.indexOf(child),
                   style: { ...(child.props as any).style },
                 })
