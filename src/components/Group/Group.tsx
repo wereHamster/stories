@@ -21,7 +21,14 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
 
   return (
     <Root ref={ref as any} {...rest} className="wp">
-      {children}
+      {React.Children.map(children, child => {
+        if (!React.isValidElement(child)) {
+          return child
+        }
+
+        return React.cloneElement<any>(child, { layout: "fill", objectFit: "cover"})
+      })
+      }
     </Root>
   );
 }
