@@ -47,7 +47,7 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
         </div>
       </div>
 
-      <div style={{ placeSelf: "stretch", position: "relative" }}>
+      <div style={{ placeSelf: "stretch", position: "relative", userSelect: 'none' }}>
         {children}
 
         <div onClick={prev} style={{ zIndex: 2, position: 'absolute', paddingRight: 32, left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
