@@ -210,23 +210,21 @@ export default function Page() {
             }
           }}
           next={() => {
-            mutate((draft) => {
-              const index = Math.min(
-                state.blocks.length - 1,
-                state.blocks.indexOf(focusBlock) + 1
+            const index = Math.min(
+              state.blocks.length - 1,
+              state.blocks.indexOf(focusBlock) + 1
+            );
+            const image = state.blocks[index];
+            if (image) {
+              router.replace(
+                {
+                  pathname: "[...parts]",
+                  query: { parts: [storyId, image.id] },
+                },
+                undefined,
+                { scroll: false }
               );
-              const image = state.blocks[index];
-              if (image) {
-                router.replace(
-                  {
-                    pathname: "[...parts]",
-                    query: { parts: [storyId, image.id] },
-                  },
-                  undefined,
-                  { scroll: false }
-                );
-              }
-            });
+            }
           }}
         >
           <Inner key={focusBlock.image.src} image={focusBlock.image} />
