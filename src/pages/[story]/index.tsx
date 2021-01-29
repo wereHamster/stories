@@ -59,8 +59,7 @@ export default function Page({ story }) {
   const [state, mutate] = useImmer({
     lightbox: undefined as any
   })
-  console.log(state)
-
+\
   return (
     <Context.Provider value={{ onOpen: ({ image, caption }) => {
       mutate(draft => {
