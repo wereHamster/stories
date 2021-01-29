@@ -144,9 +144,6 @@ export default function Page({ story, focus }: Props) {
   const router = useRouter();
 
   const { Header, Body } = stories[story];
-  React.useEffect(() => {
-    console.log("story changedh");
-  }, [Header, Body]);
 
   /*
    * The local state maintained by this page.
@@ -256,7 +253,16 @@ export default function Page({ story, focus }: Props) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticPaths() {
+  return {
+    paths: Object.keys(stories).map((story) => ({
+      params: { parts: [story] },
+    })),
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
   return { props: { story: params.parts[0], focus: params.parts[1] ?? null } };
 }
 
