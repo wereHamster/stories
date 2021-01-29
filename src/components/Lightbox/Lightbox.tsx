@@ -11,12 +11,12 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   onClose?: () => void;
   caption?: React.ReactNode;
 
-  next?: any;
-  prev?: any;
+  prev?: () => {};
+  next?: () => {};
 }
 
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { onClose, caption, children, ...rest } = props;
+  const { onClose, caption, prev, next, children, ...rest } = props;
 
   const el = (
     <Root ref={ref as any} style={{
@@ -36,11 +36,11 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
       <div style={{ placeSelf: "stretch", position: "relative" }}>
         {children}
 
-        <div style={{ zIndex: 2, position: 'absolute', paddingRight: 32, left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
+        <div onClick={prev} style={{ zIndex: 2, position: 'absolute', paddingRight: 32, left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
           <Icons.ArrowLeft />
         </div>
 
-        <div style={{ zIndex: 2, position: 'absolute', paddingLeft: 32, right: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
+        <div onClick={next} style={{ zIndex: 2, position: 'absolute', paddingLeft: 32, right: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
           <Icons.ArrowRight />
         </div>
       </div>
