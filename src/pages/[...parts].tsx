@@ -159,19 +159,21 @@ export default function Page() {
   })();
 
   const content = React.useMemo(
-    () => (
-      <MDXProvider components={components}>
-        <div style={{ marginBottom: "10vh" }}>
-          <Header />
-        </div>
+    () =>
+      Header &&
+      Body && (
+        <MDXProvider components={components}>
+          <div style={{ marginBottom: "10vh" }}>
+            <Header />
+          </div>
 
-        <Content>
-          <Body />
-        </Content>
+          <Content>
+            <Body />
+          </Content>
 
-        <div style={{ marginBottom: "10vh" }} />
-      </MDXProvider>
-    ),
+          <div style={{ marginBottom: "10vh" }} />
+        </MDXProvider>
+      ),
     [Header, Body]
   );
 
