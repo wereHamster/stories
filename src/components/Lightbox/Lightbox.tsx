@@ -42,17 +42,16 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
       left: 0,
       background: 'black',
       color: 'white',
-      display: 'grid',
-      gridTemplateRows: '64px 1fr min-content',
-      gridTemplateColumns: "1fr"
+      display: 'flex',
+      flexDirection: "column",
     }} {...rest}>
-      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
+      <div style={{ height: 64, flex: "64px 0 0", display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
         <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
           <Icons.X />
         </div>
       </div>
 
-      <div style={{ position: "relative", alignSelf: "stretch", justifySelf: "stretch", placeSelf: "stretch", userSelect: 'none' }}>
+      <div style={{ flexGrow: 1, position: "relative", userSelect: 'none' }}>
         {children}
 
         <div onClick={prev} style={{ zIndex: 2, position: 'absolute', paddingRight: 32, left: 0, top: 0, bottom: 0, width: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
@@ -64,7 +63,7 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
         </div>
       </div>
 
-      <div style={{ margin: "24px 0 24px", textAlign: "center", alignSelf: "end", opacity: 0.7, fontSize: "0.9em", fontStyle: "italic" }}>
+      <div style={{ margin: "24px 0 24px", textAlign: "center", width: "100%", opacity: 0.7, fontSize: "0.9em", fontStyle: "italic" }}>
         {caption}
       </div>      
     </Root>
