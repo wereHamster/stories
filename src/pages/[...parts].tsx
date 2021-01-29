@@ -144,6 +144,9 @@ export default function Page({ story, focus }: Props) {
   const router = useRouter();
 
   const { Header, Body } = stories[story];
+  React.useEffect(() => {
+    console.log("story changedh");
+  }, [Header, Body]);
 
   /*
    * The local state maintained by this page.
@@ -182,17 +185,22 @@ export default function Page({ story, focus }: Props) {
 
   return (
     <Context.Provider value={value}>
-      <MDXProvider components={components}>
-        <div style={{ marginBottom: "10vh" }}>
-          <Header />
-        </div>
+      {React.useMemo(
+        () => (
+          <MDXProvider components={components}>
+            <div style={{ marginBottom: "10vh" }}>
+              <Header />
+            </div>
 
-        <Content>
-          <Body />
-        </Content>
+            <Content>
+              <Body />
+            </Content>
 
-        <div style={{ marginBottom: "10vh" }} />
-      </MDXProvider>
+            <div style={{ marginBottom: "10vh" }} />
+          </MDXProvider>
+        ),
+        [Header, Body]
+      )}
 
       {lightbox && (
         <Lightbox
