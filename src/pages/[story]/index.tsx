@@ -77,7 +77,11 @@ const stories = {
   }
 }
 
-export default function Page({ story }) {
+interface Props {
+  story: keyof typeof stories;
+}
+
+export default function Page({ story }: Props) {
   const { Header, Post } = stories[story]
 
   const [state, mutate] = useImmer({
@@ -131,11 +135,8 @@ export default function Page({ story }) {
 };
 
 export async function getStaticPaths() {
-  const fs = await import("fs");
-  const stories = await fs.promises.readdir("./content");
-
   return {
-    paths: stories.map((story) => ({ params: { story } })),
+    paths: Object.keys(stories).map((story) => ({ params: { story } })),
     fallback: false,
   };
 }
