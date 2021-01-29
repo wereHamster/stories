@@ -18,6 +18,20 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
   const { onClose, caption, prev, next, children, ...rest } = props;
 
+  React.useEffect(() => {
+    function onKeyDown(ev: KeyboardEvent) {
+      if (ev.key === 'Escape') {
+        onClose?.()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [])
+
   const el = (
     <Root ref={ref as any} style={{
       position: 'fixed',
