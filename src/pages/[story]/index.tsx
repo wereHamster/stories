@@ -9,8 +9,15 @@ import NextImage from "next/image";
 import * as React from "react";
 import { useImmer } from "use-immer";
 
-const Context = React.createContext({
-  onOpen: (_: any) => {},
+interface Value {
+  /**
+   * Focus the given block.
+   */
+  focus: (block: any) => void;
+}
+
+const Context = React.createContext<Value>({
+  focus: (_: any) => {},
 });
 
 const components = {
@@ -78,12 +85,13 @@ const components = {
   h1: (props: any) => <h2 {...props} />,
   Header,
   Image: (props: any) => {
-    const { onOpen } = React.useContext(Context);
+    const { focus } = React.useContext(Context);
     return (
       <Image
         {...props}
         onOpen={() => {
-          onOpen({
+          focus({
+            id: (props as any).id,
             images: (props as any).images,
             index: (props as any).index,
             image: (props as any).image,
@@ -130,16 +138,19 @@ export default function Page({ story }: Props) {
     lightbox: undefined,
   });
 
+  const value = React.useMemo<Value>(
+    () => ({
+      focus: (block) => {
+        mutate((draft) => {
+          draft.lightbox = block;
+        });
+      },
+    }),
+    [mutate]
+  );
+
   return (
-    <Context.Provider
-      value={{
-        onOpen: ({ images, index, image, caption }) => {
-          mutate((draft) => {
-            draft.lightbox = { images, index, image, caption };
-          });
-        },
-      }}
-    >
+    <Context.Provider value={value}>
       <MDXProvider components={components}>
         <div style={{ marginBottom: "10vh" }}>
           <Header />
