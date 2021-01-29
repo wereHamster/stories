@@ -135,21 +135,13 @@ export default function Page() {
 
   /*
    * Extract the story ID and optional focus from the query.
+   *
+   *  - /[storyId]
+   *  - /[storyId]/[focus]
    */
   const [storyId, focus] = (router.query.parts as string[]) ?? [];
 
   const { Header, Body } = stories[storyId] ?? {};
-
-  /*
-   * The local state maintained by this page.
-   */
-  const [state, mutate] = useImmer<State>({
-    blocks: [],
-  });
-
-  const value = React.useMemo<Value>(() => ({ mutate }), [mutate]);
-  const focusBlock = state.blocks.find((x) => x.id === focus);
-
   const content = React.useMemo(
     () =>
       Header &&
@@ -168,6 +160,16 @@ export default function Page() {
       ),
     [Header, Body]
   );
+  
+  /*
+   * The local state maintained by this page.
+   */
+  const [state, mutate] = useImmer<State>({
+    blocks: [],
+  });
+
+  const value = React.useMemo<Value>(() => ({ mutate }), [mutate]);
+  const focusBlock = state.blocks.find((x) => x.id === focus);
 
   if (!storyId) {
     return null;
