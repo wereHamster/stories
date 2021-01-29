@@ -78,6 +78,7 @@ const components = {
                   return React.cloneElement(child as any, {
                     id: `${(child.props as any).image.hash}`,
                     index,
+                    caption: undefined,
                   });
                 } else {
                   return child;

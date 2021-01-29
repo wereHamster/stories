@@ -98,7 +98,7 @@ function Image(props: Props) {
         <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
       </figure>
 
-      {caption && <figcaption>{caption}</figcaption>}
+      {caption && <figcaption style={{ ...style, height: undefined, minHeight: undefined }}>{caption}</figcaption>}
     </Root>
   );
 }
