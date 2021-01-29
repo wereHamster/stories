@@ -6,9 +6,8 @@ import styled from "styled-components";
  * The underlying DOM element which is rendered by this component.
  */
 const Root = styled.div`
-  cursor: pointer;
-
   & > figure {
+    cursor: pointer;
     position: relative;
     margin: 0;
   }
