@@ -18,6 +18,10 @@ const Root = styled.header`
   .sqip {
     position: absolute;
     inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     pointer-events: none;
 
     transition: opacity .8s ease-out .5s;

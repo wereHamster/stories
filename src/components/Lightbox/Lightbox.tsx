@@ -36,6 +36,10 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
     <Root ref={ref as any} style={{
       position: 'fixed',
       inset: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
       background: 'black',
       color: 'white',
       display: 'grid',

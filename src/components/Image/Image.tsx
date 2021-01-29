@@ -19,6 +19,10 @@ const Root = styled.div`
   .sqip {
     position: absolute;
     inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     pointer-events: none;
 
     transition: opacity .8s ease-out 1.5s;
@@ -137,6 +141,10 @@ function Inner({ image }: any) {
           backgroundPosition: "50% 50%",
           transition: "opacity .5s ease-out",
           inset: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
           opacity: loaded ? 0 : 1,
           zIndex: 1,
           backgroundImage: `url(${image.sqip.src})`,
