@@ -10,6 +10,7 @@ import { Group } from "@/components/Group"
 import { Lightbox } from "@/components/Lightbox";
 import { useImmer } from "use-immer";
 import NextImage from 'next/image'
+import { X } from 'react-feather';
 
 const Context = React.createContext({
   onOpen: (_: any) => {}
@@ -31,9 +32,12 @@ const components = {
     return React.Children.map(children, child => {
       if (React.isValidElement(child)) {
         if ((child.props as any).mdxType === 'Image') {
+          const index = images.indexOf(child)
+
           return React.cloneElement(child as any, {
+            id: `${(child.props as any).image.hash}`,
             images: images.map(x => ({ ...x.props.image, caption: x.props.caption })),
-            index: images.indexOf(child), 
+            index, 
             style: { margin: "2rem auto", ...(child.props as any).style },
           })
         }
@@ -43,10 +47,12 @@ const components = {
             style: { marginTop: "4rem", marginBottom: "4rem", ...(child.props as any).style },
             children: React.Children.map((child.props as any).children, child => {
               if (React.isValidElement(child)) {
+                const index = images.indexOf(child)
+
                 return React.cloneElement(child as any, {
+                  id: `${(child.props as any).image.hash}`,
                   images: images.map(x => ({ ...x.props.image, caption: x.props.caption })),
-                  index: images.indexOf(child),
-                  style: { ...(child.props as any).style },
+                  index,
                 })
               } else {
                 return child

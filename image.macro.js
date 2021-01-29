@@ -78,6 +78,8 @@ module.exports = createMacro(({ references, babel }) => {
     const metadata = loadMetadata(path, hash);
 
     const value = {
+      hash,
+
       src: sourceImage,
 
       width: metadata.width,
