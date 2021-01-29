@@ -1,5 +1,17 @@
+const { Headphones } = require('react-feather');
+const visit = require('unist-util-visit')
+
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [
+      () => (tree) => {
+        visit(tree, 'jsx', node => {
+          node.value = node.value.replace(/src="(.*)"/g, (...args) => `image={importImage("${args[1]}")}`)
+        })
+      }
+    ]
+  }
 });
 
 module.exports = withMDX({

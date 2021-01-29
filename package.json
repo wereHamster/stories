@@ -32,6 +32,7 @@
     "sqip-plugin-primitive": "^1.0.0-alpha.34",
     "sqip-plugin-svgo": "^1.0.0-alpha.33",
     "styled-components": "^5.2.1",
+    "unist-util-visit": "^2.0.3",
     "use-immer": "^0.4.2"
   },
   "devDependencies": {
