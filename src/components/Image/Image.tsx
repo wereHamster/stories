@@ -1,9 +1,6 @@
 import * as React from "react";
 import NextImage from 'next/image'
 import styled from "styled-components";
-import { useImmer } from "use-immer";
-import { Lightbox } from "@/components/Lightbox";
-import { useInView } from "react-intersection-observer";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -69,11 +66,6 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 function Image(props: Props) {
   const { image, size = "wide", caption, onOpen, layout, objectFit, sizes, style, ...rest } = props as any;
 
-  const [pictureRef, inView] = useInView({ triggerOnce: true });
-  const [state, mutate] = useImmer({
-    lightbox: false
-  })
-
   const ref = React.useRef<null | HTMLDivElement>(null)
 
   const [loaded, setLoaded] = React.useState(false);
@@ -93,7 +85,7 @@ function Image(props: Props) {
 
   return (
     <Root ref={ref} style={{ position: 'relative', ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={{full: 'fw', wide: 'wp', default: undefined, narrow: undefined }[size]} {...rest}>
-      <figure ref={pictureRef} onClick={onOpen} style={{ ...style, margin: 0 }}>
+      <figure onClick={onOpen} style={{ ...style, margin: 0 }}>
         <NextImage
           src={image.src}
           width={layout === 'fill' ? undefined : image.width}
