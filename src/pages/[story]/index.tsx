@@ -108,8 +108,8 @@ export default function Page({ story }: Props) {
         <Content>
           <Body />
         </Content>
-        
-        <div style={{ marginBottom: '20vh' }} />
+
+        <div style={{ marginBottom: '10vh' }} />
       </MDXProvider>
 
       {state.lightbox && (
