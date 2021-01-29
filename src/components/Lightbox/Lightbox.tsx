@@ -36,11 +36,11 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
       <div style={{ placeSelf: "stretch", position: "relative" }}>
         {children}
 
-        <div style={{ position: 'absolute', paddingRight: 32, left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
+        <div style={{ zIndex: 2, position: 'absolute', paddingRight: 32, left: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
           <Icons.ArrowLeft />
         </div>
 
-        <div style={{ position: 'absolute', paddingLeft: 32, right: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
+        <div style={{ zIndex: 2, position: 'absolute', paddingLeft: 32, right: 0, top: 0, bottom: 0, width: 80, display: 'grid', placeItems: 'center', cursor: 'pointer' }}>
           <Icons.ArrowRight />
         </div>
       </div>
