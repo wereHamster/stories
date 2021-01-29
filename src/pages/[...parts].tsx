@@ -12,16 +12,10 @@ import { useImmer } from "use-immer";
 
 interface Value {
   mutate: any;
-
-  /**
-   * Focus the given block.
-   */
-  focus: (block: any) => void;
 }
 
 const Context = React.createContext<Value>({
   mutate: () => {},
-  focus: () => {},
 });
 
 const components = {
@@ -101,18 +95,20 @@ const components = {
   h1: (props: any) => <h2 {...props} />,
   Header,
   Image: (props: any) => {
-    const { focus } = React.useContext(Context);
+    const router = useRouter();
+
     return (
       <Image
         {...props}
         onOpen={() => {
-          focus({
-            id: (props as any).id,
-            images: (props as any).images,
-            index: (props as any).index,
-            image: (props as any).image,
-            caption: (props as any).caption,
-          });
+          router.replace(
+            {
+              pathname: "[...parts]",
+              query: { parts: [router.query.parts[0], (props as any).id] },
+            },
+            undefined,
+            { scroll: false }
+          );
         }}
       />
     );
@@ -130,11 +126,6 @@ const stories = {
     ),
   },
 } as const;
-
-interface Props {
-  story: keyof typeof stories;
-  focus: null | string;
-}
 
 interface State {
   images: any[];
@@ -154,22 +145,7 @@ export default function Page() {
     images: [],
   });
 
-  const value = React.useMemo<Value>(
-    () => ({
-      mutate,
-      focus: (block) => {
-        router.replace(
-          {
-            pathname: "[...parts]",
-            query: { parts: [story, block.id] },
-          },
-          undefined,
-          { scroll: false }
-        );
-      },
-    }),
-    [story, mutate]
-  );
+  const value = React.useMemo<Value>(() => ({ mutate }), [mutate]);
 
   const lightbox = (() => {
     const img = state.images.find((x) => x.hash === focus);
