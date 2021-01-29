@@ -87,11 +87,15 @@ interface Props {
   story: keyof typeof stories;
 }
 
+interface State {
+  lightbox: any
+}
+
 export default function Page({ story }: Props) {
   const { Header, Body } = stories[story]
 
-  const [state, mutate] = useImmer({
-    lightbox: undefined as any
+  const [state, mutate] = useImmer<State>({
+    lightbox: undefined
   })
 
   return (
