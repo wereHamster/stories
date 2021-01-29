@@ -132,9 +132,13 @@ interface State {
 
 export default function Page() {
   const router = useRouter();
-  const [story, focus] = (router.query.parts as string[]) ?? [];
 
-  const { Header, Body } = stories[story] ?? {};
+  /*
+   * Extract the story ID and optional focus from the query.
+   */
+  const [storyId, focus] = (router.query.parts as string[]) ?? [];
+
+  const { Header, Body } = stories[storyId] ?? {};
 
   /*
    * The local state maintained by this page.
@@ -165,7 +169,7 @@ export default function Page() {
     [Header, Body]
   );
 
-  if (!story) {
+  if (!storyId) {
     return null;
   }
 
@@ -179,7 +183,7 @@ export default function Page() {
             router.replace(
               {
                 pathname: "[...parts]",
-                query: { parts: [story] },
+                query: { parts: [storyId] },
               },
               undefined,
               { scroll: false }
@@ -193,7 +197,7 @@ export default function Page() {
               router.replace(
                 {
                   pathname: "[...parts]",
-                  query: { parts: [story, image.id] },
+                  query: { parts: [storyId, image.id] },
                 },
                 undefined,
                 { scroll: false }
@@ -211,7 +215,7 @@ export default function Page() {
                 router.replace(
                   {
                     pathname: "[...parts]",
-                    query: { parts: [story, image.id] },
+                    query: { parts: [storyId, image.id] },
                   },
                   undefined,
                   { scroll: false }
