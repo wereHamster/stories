@@ -16,3 +16,9 @@ nix-shell  # if necessary
 npm install
 npm run dev
 ```
+
+## Routes
+
+ - `/[story]` – the story page
+ - `/[story]/[block]` - focus on a specific block, eg. if image then the image is shown in a lightbox
+ 
