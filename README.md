@@ -21,7 +21,8 @@ A story consists of:
 
  - A header element which is shown at the very top of the page. Block element, can be as tall as it wants to.
  - Content which is authored in MDX. Supported is: paragraphs, images, videos, groups of images/videos
-   (displayed in a grid).
+   (displayed in a grid). The content is placed into a centered CSS grid. Elements can extend beyond the main
+   column and be even as wide as the viewport.
 
 Certain blocks (images, videos) can be focused (shown in a lightbox).
 
