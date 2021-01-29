@@ -1,20 +1,11 @@
 import * as React from "react";
-import styled from "styled-components";
 import * as Icons from 'react-feather'
 import * as ReactDOM from 'react-dom'
 
 /**
  * The underlying DOM element which is rendered by this component.
  */
-const Root = styled.div`
-  position: fixed;
-  inset: 0;
-  background: black;
-  color: white;
-
-  display: grid;
-  grid-template-rows: 64px 1fr min-content;
-`;
+const Root = 'div'
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   onClose?: () => void;
@@ -28,7 +19,14 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
   const { onClose, caption, children, ...rest } = props;
 
   const el = (
-    <Root ref={ref as any} {...rest}>
+    <Root ref={ref as any} style={{
+      position: 'fixed',
+      inset: 0,
+      background: 'black',
+      color: 'white',
+      display: 'grid',
+      gridTemplateRows: '64px 1fr min-content'
+    }} {...rest}>
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: 'center' }}>
         <div style={{ marginRight: 12, cursor: 'pointer' }} onClick={onClose}>
           <Icons.X />
