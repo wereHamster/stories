@@ -18,13 +18,15 @@ const Context = React.createContext<Value>({
   mutate: () => {},
 });
 
+type Block = { id: string; type: "Image"; image: any; caption: any };
+
 const components = {
   wrapper: ({ children }) => {
-    const images: any[] = [];
+    const blocks: any[] = [];
     React.Children.forEach(children, function go(child: any) {
       if (React.isValidElement(child)) {
         if ((child.props as any).mdxType === "Image") {
-          images.push(child);
+          blocks.push(child);
         }
 
         React.Children.forEach((child.props as any).children, go);
@@ -35,10 +37,15 @@ const components = {
     React.useEffect(() => {
       setTimeout(() => {
         mutate((draft) => {
-          draft.images = images.map((x) => ({
-            ...x.props.image,
-            caption: x.props.caption,
-          }));
+          draft.blocks = blocks.map((child: any) => {
+            const props = child.props as any;
+            return {
+              id: props.image.hash,
+              type: "Image",
+              image: props.image,
+              caption: props.caption,
+            };
+          });
         });
       });
     }, []);
@@ -46,14 +53,10 @@ const components = {
     return React.Children.map(children, (child) => {
       if (React.isValidElement(child)) {
         if ((child.props as any).mdxType === "Image") {
-          const index = images.indexOf(child);
+          const index = blocks.indexOf(child);
 
           return React.cloneElement(child as any, {
             id: `${(child.props as any).image.hash}`,
-            images: images.map((x) => ({
-              ...x.props.image,
-              caption: x.props.caption,
-            })),
             index,
             style: { margin: "2rem auto", ...(child.props as any).style },
           });
@@ -70,14 +73,10 @@ const components = {
               (child.props as any).children,
               (child) => {
                 if (React.isValidElement(child)) {
-                  const index = images.indexOf(child);
+                  const index = blocks.indexOf(child);
 
                   return React.cloneElement(child as any, {
                     id: `${(child.props as any).image.hash}`,
-                    images: images.map((x) => ({
-                      ...x.props.image,
-                      caption: x.props.caption,
-                    })),
                     index,
                   });
                 } else {
@@ -128,7 +127,7 @@ const stories = {
 } as const;
 
 interface State {
-  images: any[];
+  blocks: Block[];
 }
 
 export default function Page() {
@@ -142,21 +141,11 @@ export default function Page() {
    * The local state maintained by this page.
    */
   const [state, mutate] = useImmer<State>({
-    images: [],
+    blocks: [],
   });
 
   const value = React.useMemo<Value>(() => ({ mutate }), [mutate]);
-
-  const lightbox = (() => {
-    const img = state.images.find((x) => x.hash === focus);
-    if (img) {
-      return {
-        index: state.images.indexOf(img),
-        image: img,
-        caption: img.caption,
-      };
-    }
-  })();
+  const focusBlock = state.blocks.find((x) => x.id === focus);
 
   const content = React.useMemo(
     () =>
@@ -185,7 +174,7 @@ export default function Page() {
     <Context.Provider value={value}>
       {content}
 
-      {lightbox && (
+      {focusBlock && (
         <Lightbox
           onClose={() => {
             router.replace(
@@ -197,15 +186,15 @@ export default function Page() {
               { scroll: false }
             );
           }}
-          caption={lightbox.caption}
+          caption={focusBlock.caption}
           prev={() => {
-            const index = Math.max(0, lightbox.index - 1);
-            const image = state.images[index];
+            const index = Math.max(0, state.blocks.indexOf(focusBlock) - 1);
+            const image = state.blocks[index];
             if (image) {
               router.replace(
                 {
                   pathname: "[...parts]",
-                  query: { parts: [story, image.hash] },
+                  query: { parts: [story, image.id] },
                 },
                 undefined,
                 { scroll: false }
@@ -215,15 +204,15 @@ export default function Page() {
           next={() => {
             mutate((draft) => {
               const index = Math.min(
-                state.images.length - 1,
-                lightbox.index + 1
+                state.blocks.length - 1,
+                state.blocks.indexOf(focusBlock) + 1
               );
-              const image = state.images[index];
+              const image = state.blocks[index];
               if (image) {
                 router.replace(
                   {
                     pathname: "[...parts]",
-                    query: { parts: [story, image.hash] },
+                    query: { parts: [story, image.id] },
                   },
                   undefined,
                   { scroll: false }
@@ -232,7 +221,7 @@ export default function Page() {
             });
           }}
         >
-          <Inner key={lightbox.image.src} image={lightbox.image} />
+          <Inner key={focusBlock.image.src} image={focusBlock.image} />
         </Lightbox>
       )}
     </Context.Provider>
