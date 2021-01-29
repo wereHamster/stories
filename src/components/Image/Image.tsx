@@ -61,6 +61,8 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 
   caption?: React.ReactNode
 
+  captionStyle?: "overlay"
+
   onOpen?: () => void
 }
 
