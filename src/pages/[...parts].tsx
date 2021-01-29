@@ -140,8 +140,10 @@ interface State {
   images: any[];
 }
 
-export default function Page({ story, focus }: Props) {
+export default function Page() {
   const router = useRouter();
+  const [story, focus] = (router.query.parts as string[]) ?? [];
+  // console.log(story, focus);
 
   const { Header, Body } = stories[story] ?? {};
 
@@ -166,7 +168,7 @@ export default function Page({ story, focus }: Props) {
         );
       },
     }),
-    [mutate]
+    [story, mutate]
   );
 
   const lightbox = (() => {
@@ -257,19 +259,6 @@ export default function Page({ story, focus }: Props) {
       )}
     </Context.Provider>
   );
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: Object.keys(stories).map((story) => ({
-      params: { parts: [story] },
-    })),
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }) {
-  return { props: { story: params.parts[0], focus: params.parts[1] ?? null } };
 }
 
 function Inner({ image }: any) {
