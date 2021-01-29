@@ -58,10 +58,12 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   size?: "full" | "wide" | "default" | "narrow"
 
   caption?: React.ReactNode
+
+  onOpen?: () => void
 }
 
 function Image(props: Props) {
-  const { image, size = "wide", caption, layout, objectFit, sizes, style, ...rest } = props as any;
+  const { image, size = "wide", caption, onOpen, layout, objectFit, sizes, style, ...rest } = props as any;
 
   const [pictureRef, inView] = useInView({ triggerOnce: true });
   const [state, mutate] = useImmer({
@@ -86,43 +88,21 @@ function Image(props: Props) {
   }, [])
 
   return (
-    <>
-      {state.lightbox && (
-        <Lightbox
-          onClose={() => {
-            mutate(draft => {
-              draft.lightbox = false
-            })
-            // router.push(router.asPath.replace(/\/i\/.*/, ''))
-          }}
-          caption={caption}
-        >
-          <Inner image={image} />
-        </Lightbox>
-      )}
+    <Root ref={ref} style={{ position: 'relative', ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={{full: 'fw', wide: 'wp', default: undefined, narrow: undefined }[size]} {...rest}>
+      <figure ref={pictureRef} onClick={onOpen} style={{ ...style, margin: 0 }}>
+        <NextImage
+          src={image.src}
+          width={layout === 'fill' ? undefined : image.width}
+          height={layout === 'fill' ? undefined : image.height}
+          layout={layout}
+          objectFit={objectFit}
+          sizes={sizes}
+        />
+        <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
+      </figure>
 
-      <Root ref={ref} style={{ position: 'relative', ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={{full: 'fw', wide: 'wp', default: undefined, narrow: undefined }[size]} onClick={() => {
-        mutate(draft => {
-          draft.lightbox = true
-        })
-        // router.replace(router.asPath + '/i/foo')
-      }} 
-      {...rest}>
-        <figure ref={pictureRef} style={{ ...style, margin: 0 }}>
-          <NextImage
-            src={image.src}
-            width={layout === 'fill' ? undefined : image.width}
-            height={layout === 'fill' ? undefined : image.height}
-            layout={layout}
-            objectFit={objectFit}
-            sizes={sizes}
-          />
-          <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
-        </figure>
-
-        {caption && <figcaption>{caption}</figcaption>}
-      </Root>
-    </>
+      {caption && <figcaption>{caption}</figcaption>}
+    </Root>
   );
 }
 
