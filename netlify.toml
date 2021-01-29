@@ -1,6 +1,0 @@
-[build.environment]
-  NODE_VERSION = "12"
-
-[build]
-  command = "node_modules/.bin/next build && node_modules/.bin/next export"
-  publish = "out"

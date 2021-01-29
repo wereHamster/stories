@@ -1,6 +1,5 @@
 {
-  "name": "plog",
-  "version": "0.1.0",
+  "name": "stories.caurea.org",
   "private": true,
   "scripts": {
     "dev": "next dev",
