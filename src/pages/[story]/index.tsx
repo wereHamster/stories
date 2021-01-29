@@ -1,19 +1,16 @@
-import * as React from 'react';
-
-import dynamic from "next/dynamic";
-import { MDXProvider } from "@mdx-js/react";
-
-import { Content } from "@/components/Content"
-import { Header } from "@/components/Header"
-import { Image } from "@/components/Image"
-import { Group } from "@/components/Group"
+import { Content } from "@/components/Content";
+import { Group } from "@/components/Group";
+import { Header } from "@/components/Header";
+import { Image } from "@/components/Image";
 import { Lightbox } from "@/components/Lightbox";
+import { MDXProvider } from "@mdx-js/react";
+import dynamic from "next/dynamic";
+import NextImage from "next/image";
+import * as React from "react";
 import { useImmer } from "use-immer";
-import NextImage from 'next/image'
-import { X } from 'react-feather';
 
 const Context = React.createContext({
-  onOpen: (_: any) => {}
+  onOpen: (_: any) => {},
 });
 
 const components = {
@@ -21,66 +18,93 @@ const components = {
     const images: any[] = [];
     React.Children.forEach(children, function go(child: any) {
       if (React.isValidElement(child)) {
-        if ((child.props as any).mdxType === 'Image') {
-          images.push(child)
+        if ((child.props as any).mdxType === "Image") {
+          images.push(child);
         }
 
-        React.Children.forEach((child.props as any).children, go)
+        React.Children.forEach((child.props as any).children, go);
       }
-    })
+    });
 
-    return React.Children.map(children, child => {
+    return React.Children.map(children, (child) => {
       if (React.isValidElement(child)) {
-        if ((child.props as any).mdxType === 'Image') {
-          const index = images.indexOf(child)
+        if ((child.props as any).mdxType === "Image") {
+          const index = images.indexOf(child);
 
           return React.cloneElement(child as any, {
             id: `${(child.props as any).image.hash}`,
-            images: images.map(x => ({ ...x.props.image, caption: x.props.caption })),
-            index, 
+            images: images.map((x) => ({
+              ...x.props.image,
+              caption: x.props.caption,
+            })),
+            index,
             style: { margin: "2rem auto", ...(child.props as any).style },
-          })
+          });
         }
 
-        if ((child.props as any).mdxType === 'Group') {
+        if ((child.props as any).mdxType === "Group") {
           return React.cloneElement(child as any, {
-            style: { marginTop: "4rem", marginBottom: "4rem", ...(child.props as any).style },
-            children: React.Children.map((child.props as any).children, child => {
-              if (React.isValidElement(child)) {
-                const index = images.indexOf(child)
+            style: {
+              marginTop: "4rem",
+              marginBottom: "4rem",
+              ...(child.props as any).style,
+            },
+            children: React.Children.map(
+              (child.props as any).children,
+              (child) => {
+                if (React.isValidElement(child)) {
+                  const index = images.indexOf(child);
 
-                return React.cloneElement(child as any, {
-                  id: `${(child.props as any).image.hash}`,
-                  images: images.map(x => ({ ...x.props.image, caption: x.props.caption })),
-                  index,
-                })
-              } else {
-                return child
+                  return React.cloneElement(child as any, {
+                    id: `${(child.props as any).image.hash}`,
+                    images: images.map((x) => ({
+                      ...x.props.image,
+                      caption: x.props.caption,
+                    })),
+                    index,
+                  });
+                } else {
+                  return child;
+                }
               }
-            })
-          })
+            ),
+          });
         }
       }
 
-      return child
-    })
+      return child;
+    });
   },
   h1: (props: any) => <h2 {...props} />,
   Header,
   Image: (props: any) => {
-    const { onOpen } = React.useContext(Context)
-    return <Image {...props} onOpen={() => {
-      onOpen({ images: (props as any).images, index: (props as any).index, image: (props as any).image, caption: (props as any).caption })
-    }} />
+    const { onOpen } = React.useContext(Context);
+    return (
+      <Image
+        {...props}
+        onOpen={() => {
+          onOpen({
+            images: (props as any).images,
+            index: (props as any).index,
+            image: (props as any).image,
+            caption: (props as any).caption,
+          });
+        }}
+      />
+    );
   },
   Group,
 };
 
 const stories = {
-  'where-i-was-meant-to-be': {
-    Header: dynamic(() => import(`../../../content/where-i-was-meant-to-be/header`)),
-    Body: dynamic(() => import(`../../../content/where-i-was-meant-to-be/index.mdx`)),
-  }
+  "where-i-was-meant-to-be": {
+    Header: dynamic(
+      () => import(`../../../content/where-i-was-meant-to-be/header`)
+    ),
+    Body: dynamic(
+      () => import(`../../../content/where-i-was-meant-to-be/index.mdx`)
+    ),
+  },
 } as const;
 
 interface Props {
@@ -88,24 +112,36 @@ interface Props {
 }
 
 interface State {
-  lightbox: any
+  lightbox?: {
+    images: any;
+    index: number;
+    image: any;
+    caption: any;
+  };
 }
 
 export default function Page({ story }: Props) {
-  const { Header, Body } = stories[story]
+  const { Header, Body } = stories[story];
 
+  /*
+   * The local state maintained by this page.
+   */
   const [state, mutate] = useImmer<State>({
-    lightbox: undefined
-  })
+    lightbox: undefined,
+  });
 
   return (
-    <Context.Provider value={{ onOpen: ({ images, index, image, caption }) => {
-      mutate(draft => {
-        draft.lightbox = { images, index, image, caption }
-      })
-    }}}>
+    <Context.Provider
+      value={{
+        onOpen: ({ images, index, image, caption }) => {
+          mutate((draft) => {
+            draft.lightbox = { images, index, image, caption };
+          });
+        },
+      }}
+    >
       <MDXProvider components={components}>
-        <div style={{ marginBottom: '10vh' }}>
+        <div style={{ marginBottom: "10vh" }}>
           <Header />
         </div>
 
@@ -113,30 +149,43 @@ export default function Page({ story }: Props) {
           <Body />
         </Content>
 
-        <div style={{ marginBottom: '10vh' }} />
+        <div style={{ marginBottom: "10vh" }} />
       </MDXProvider>
 
       {state.lightbox && (
         <Lightbox
           onClose={() => {
-            mutate(draft => {
-              draft.lightbox = undefined
-            })
+            mutate((draft) => {
+              draft.lightbox = undefined;
+            });
           }}
           caption={state.lightbox.caption}
           prev={() => {
-            mutate(draft => {
-              const index = Math.max(0, state.lightbox.index - 1)
-              const image = state.lightbox.images[index]
-              draft.lightbox = {...state.lightbox, index, image, caption: image.caption }
-            })
+            mutate((draft) => {
+              const index = Math.max(0, state.lightbox.index - 1);
+              const image = state.lightbox.images[index];
+              draft.lightbox = {
+                ...state.lightbox,
+                index,
+                image,
+                caption: image.caption,
+              };
+            });
           }}
           next={() => {
-            mutate(draft => {
-              const index = Math.min(state.lightbox.images.length - 1, state.lightbox.index + 1)
-              const image = state.lightbox.images[index]
-              draft.lightbox = {...state.lightbox, index, image, caption: image.caption }
-            })
+            mutate((draft) => {
+              const index = Math.min(
+                state.lightbox.images.length - 1,
+                state.lightbox.index + 1
+              );
+              const image = state.lightbox.images[index];
+              draft.lightbox = {
+                ...state.lightbox,
+                index,
+                image,
+                caption: image.caption,
+              };
+            });
           }}
         >
           <Inner key={state.lightbox.image.src} image={state.lightbox.image} />
@@ -144,7 +193,7 @@ export default function Page({ story }: Props) {
       )}
     </Context.Provider>
   );
-};
+}
 
 export async function getStaticPaths() {
   return {
@@ -157,24 +206,25 @@ export async function getStaticProps({ params }) {
   return { props: { ...params } };
 }
 
-
 function Inner({ image }: any) {
-  const ref = React.useRef<null | HTMLDivElement>(null)
+  const ref = React.useRef<null | HTMLDivElement>(null);
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
-    const img = ref.current?.querySelector('img[decoding="async"]') as HTMLImageElement
+    const img = ref.current?.querySelector(
+      'img[decoding="async"]'
+    ) as HTMLImageElement;
     if (img) {
       const onLoad = () => {
         if (!img.src.match(/data:image\/gif/)) {
-          setLoaded(true)
-          img.removeEventListener("load", onLoad)
+          setLoaded(true);
+          img.removeEventListener("load", onLoad);
         }
-      }
+      };
 
       img.addEventListener("load", onLoad);
     }
-  }, [])
+  }, []);
 
   return (
     <div ref={ref}>
@@ -197,5 +247,5 @@ function Inner({ image }: any) {
         }}
       />
     </div>
-  )
+  );
 }
