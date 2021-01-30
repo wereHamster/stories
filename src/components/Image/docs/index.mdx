@@ -25,12 +25,12 @@ to use `object-fit: cover` so that it stretches and covers the available space.
 
 
 <Grid style={{ margin: "20px 0" }}>
-  <Exhibit caption="Intrinsic aspect ratio">
-    <Sample variant="basic" />
+  <Exhibit caption="Image in its intrinsic aspect ratio">
+    <Sample variant="basic" caption={undefined} />
   </Exhibit>
-  <Exhibit caption="Fill available area (height: 200px)">
+  <Exhibit caption="Image fills available area (height: 200px)">
     <div style={{ display: 'grid', height: 200 }}>
-      <Sample variant="basic" captionStyle="overlay" layout="fill" objectFit="cover" />
+      <Sample variant="basic" caption={undefined} layout="fill" objectFit="cover" />
     </div>
   </Exhibit>
 </Grid>
