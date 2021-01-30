@@ -26,7 +26,7 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
           return child
         }
 
-        return React.cloneElement<any>(child, { layout: "fill", objectFit: "cover"})
+        return React.cloneElement<any>(child, { captionStyle: "overlay", layout: "fill", objectFit: "cover" })
       })
       }
     </Root>
