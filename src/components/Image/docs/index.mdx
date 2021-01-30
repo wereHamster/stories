@@ -1,4 +1,5 @@
-import { Viewport } from "@timvir/blocks";
+import { Grid, Exhibit } from "@timvir/blocks";
+import { Sample } from "@timvir/macro";
 
 # Image
 
@@ -13,7 +14,16 @@ The layout options are:
 
 The height of the image is always as determined by the image aspect ratio.
 
-The component allows caption text to be added, which is shown below the image.
+## Caption
 
-<Viewport src="/docs/components/Image/samples/basic" />
+The caption can be shown either below the image (default), or in an overlay
+on hover. The later is used when the image is placed in a `<Group>`.
 
+<Grid style={{ margin: "20px 0" }}>
+  <Exhibit caption="Caption below the image">
+    <Sample variant="basic" />
+  </Exhibit>
+  <Exhibit caption="Caption shown in overlay on hover">
+    <Sample variant="basic" captionStyle="overlay" />
+  </Exhibit>
+</Grid>

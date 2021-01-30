@@ -17,6 +17,7 @@
     "@next/mdx": "^10.0.5",
     "@timvir/blocks": "^0.1.8",
     "@timvir/core": "^0.1.8",
+    "@timvir/macro": "^0.1.10",
     "@types/styled-components": "^5.1.7",
     "@zeit/next-css": "^1.0.1",
     "@zhif/components": "0.0.3",

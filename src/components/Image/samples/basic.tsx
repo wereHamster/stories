@@ -8,7 +8,6 @@ export default function Sample(props: Props) {
   return (
     <Image
       image={importImage("https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/DJI_0059.jpg")}
-      layout="responsive"
       caption="Ligula ullamcorper malesuada proin libero."
       {...props}
     />
