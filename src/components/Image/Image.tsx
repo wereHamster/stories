@@ -19,21 +19,15 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
     }
   };
 
-  size?: "full" | "wide" | "default" | "narrow"
+  layout?: 'intrinsic' | 'fill';
 
   caption?: React.ReactNode
 
-  captionStyle?: "overlay"
-
   onOpen?: () => void
-
-  objectFit?: any;
-  layout?: any;
-  sizes?: any;
 }
 
 function Image(props: Props) {
-  const { image, size = "wide", caption, captionStyle, onOpen, layout, objectFit, sizes, style, ...rest } = props;
+  const { image, layout = 'intrinsic', caption, onOpen, style, className, ...rest } = props;
 
   const ref = React.useRef<null | HTMLDivElement>(null)
 
@@ -52,23 +46,15 @@ function Image(props: Props) {
     }
   }, [])
 
-  const className = {
-    full: 'fw',
-    wide: 'wp',
-    default: undefined,
-    narrow: undefined,
-  }[size]
-
   return (
-    <Root ref={ref} style={{ ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={cx(classes.root, classes.captionStyle[captionStyle], className)} {...rest}>
+    <Root ref={ref} style={style} className={cx(classes.root, className, layout === 'fill' && classes.captionStyle.overlay)} {...rest}>
       <figure onClick={onOpen}>
         <NextImage
           src={image.src}
           width={layout === 'fill' ? undefined : image.width}
           height={layout === 'fill' ? undefined : image.height}
-          layout={layout}
-          objectFit={objectFit}
-          sizes={sizes}
+          layout={layout as any}
+          objectFit={layout === 'fill' ? 'cover' : undefined}
         />
         <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
       </figure>

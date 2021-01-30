@@ -19,7 +19,7 @@ The DOM tree looks roughly as follows:
 </div>
 ```
 
-## Sizing
+## Layout
 
 By default the image is displayed in its intrinsic aspect ratio. It's also possible
 to make it fill the available space (~ `object-fit: cover`).
@@ -30,7 +30,7 @@ to make it fill the available space (~ `object-fit: cover`).
   </Exhibit>
   <Exhibit caption="Image fills available area (height: 200px)">
     <div style={{ display: 'grid', height: 200 }}>
-      <Sample variant="basic" caption={undefined} layout="fill" objectFit="cover" />
+      <Sample variant="basic" caption={undefined} layout="fill" />
     </div>
   </Exhibit>
 </Grid>
@@ -43,37 +43,30 @@ in its place. Once the image is loaded, the placeholder image is faded away.
 <Grid style={{ margin: "20px 0" }}>
   <Exhibit caption="Placeholder showing while image is loading.">
     <div style={{ display: 'grid', height: 200 }}>
-      <Sample variant="placeholder" layout="fill" objectFit="cover" />
+      <Sample variant="placeholder" layout="fill" />
     </div>
   </Exhibit>
   <Exhibit caption="After image is loaded.">
     <div style={{ display: 'grid', height: 200 }}>
-      <Sample variant="basic" caption={undefined} layout="fill" objectFit="cover" />
+      <Sample variant="basic" caption={undefined} layout="fill" />
     </div>
   </Exhibit>
 </Grid>
 
-The layout options are:
-
- - **full**: all the way to the edge of the viewport
- - **extended**: slighty wider than the text column
- - **regular**: same width as the text column
- - **narrow**: narrower than the text column
-
-The height of the image is always as determined by the image aspect ratio.
-
 ## Caption
 
-The caption can be shown either below the image (default), or in an overlay
-on hover. The later is used when the image is placed in a `<Group>`.
+The caption is shown either below the image (layout=intrinsic) or in an overlay (layout=fill).
 
 <Grid style={{ margin: "20px 0" }}>
   <Exhibit caption="Caption below the image">
     <Sample variant="basic" />
   </Exhibit>
   <Exhibit caption="Caption shown in overlay on hover">
-    <Sample variant="basic" captionStyle="overlay" />
+    <div style={{ display: 'grid', height: 200 }}>
+      <Sample variant="basic" layout="fill" />
+    </div>
   </Exhibit>
+  
 </Grid>
 
 [SQIP]: https://github.com/axe312ger/sqip
