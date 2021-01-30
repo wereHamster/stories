@@ -40,11 +40,18 @@ to make it fill the available space (~ `object-fit: cover`).
 As long as the image is not loaded yet, a placeholder image (generted by [SQIP]) is shown
 in its place. Once the image is loaded, the placeholder image is faded away.
 
-<Exhibit caption="Placeholder image">
-  <div style={{ display: 'grid', height: 200 }}>
-    <Sample variant="placeholder" />
-  </div>
-</Exhibit>
+<Grid style={{ margin: "20px 0" }}>
+  <Exhibit caption="Placeholder showing while image is not loaded yet.">
+    <div style={{ display: 'grid', height: 200 }}>
+      <Sample variant="placeholder" layout="fill" objectFit="cover" />
+    </div>
+  </Exhibit>
+  <Exhibit caption="After image is loaded.">
+    <div style={{ display: 'grid', height: 200 }}>
+      <Sample variant="basic" layout="fill" objectFit="cover" />
+    </div>
+  </Exhibit>
+</Grid>
 
 The layout options are:
 
