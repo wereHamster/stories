@@ -106,7 +106,7 @@ const components = {
               query: { parts: [router.query.parts[0], (props as any).id] },
             },
             undefined,
-            { scroll: false }
+            { scroll: false, shallow: true }
           );
         }}
       />
@@ -182,7 +182,7 @@ export default function Page() {
     <Context.Provider value={value}>
       {content}
 
-      {focusBlock && (
+      {focus && (
         <Lightbox
           onClose={() => {
             router.replace(
@@ -191,10 +191,10 @@ export default function Page() {
                 query: { parts: [storyId] },
               },
               undefined,
-              { scroll: false }
+              { scroll: false, shallow: true }
             );
           }}
-          caption={focusBlock.caption}
+          caption={focusBlock?.caption}
           prev={() => {
             const index = Math.max(0, state.blocks.indexOf(focusBlock) - 1);
             const image = state.blocks[index];
@@ -227,7 +227,7 @@ export default function Page() {
             }
           }}
         >
-          <Inner key={focusBlock.image.src} image={focusBlock.image} />
+          {focusBlock && <Inner key={focusBlock.image.src} image={focusBlock.image} />}
         </Lightbox>
       )}
     </Context.Provider>
