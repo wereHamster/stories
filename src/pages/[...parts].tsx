@@ -58,7 +58,11 @@ const components = {
           return React.cloneElement(child as any, {
             id: `${(child.props as any).image.hash}`,
             index,
-            style: { margin: "2rem auto", ...(child.props as any).style },
+            style: { margin: "2rem auto", ...(child.props as any).style, maxWidth: (child.props as any).size === 'narrow' ? 400 : undefined },
+            className: {
+              full: "fw",
+              wide: "wp"
+            }[(child.props as any).size]
           });
         }
 
