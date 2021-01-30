@@ -234,19 +234,6 @@ export default function Page() {
   );
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: Object.keys(stories).map((story) => ({
-      params: { parts: [story] },
-    })),
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }) {
-  return { props: { ...params } };
-}
-
 function Inner({ image }: any) {
   const ref = React.useRef<null | HTMLDivElement>(null);
 
