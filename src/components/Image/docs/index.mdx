@@ -5,7 +5,7 @@ import { Sample } from "@timvir/macro";
 
 The `<Image>` component is used to display images inside stories.
 
-It is a block element, semantically ~
+It is a block element. The DOM tree looks roughly as follows:
 
 ```html
 <div>
@@ -17,7 +17,11 @@ It is a block element, semantically ~
 </div>
 ```
 
-By default the image is displayed with its intrinsic aspect ratio.
+The caption is optional. When available it is displayed either below the figure,
+or on top of it on hover. See example further below.
+
+By default the image is displayed with its intrinsic aspect ratio. It's also possible
+to use `object-fit: cover` so that it stretches and covers the available space.
 
 As long as the image is not loaded yet, a placeholder image (based on [SQIP]) is shown in its place.
 
