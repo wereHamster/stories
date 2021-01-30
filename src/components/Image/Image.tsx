@@ -26,10 +26,14 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   captionStyle?: "overlay"
 
   onOpen?: () => void
+
+  objectFit?: any;
+  layout?: any;
+  sizes?: any;
 }
 
 function Image(props: Props) {
-  const { image, size = "wide", caption, captionStyle, onOpen, layout, objectFit, sizes, style, ...rest } = props as any;
+  const { image, size = "wide", caption, captionStyle, onOpen, layout, objectFit, sizes, style, ...rest } = props;
 
   const ref = React.useRef<null | HTMLDivElement>(null)
 
