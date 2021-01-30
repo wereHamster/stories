@@ -23,6 +23,19 @@ or on top of it on hover. See example further below.
 By default the image is displayed in its intrinsic aspect ratio. It's also possible
 to use `object-fit: cover` so that it stretches and covers the available space.
 
+
+<Grid style={{ margin: "20px 0" }}>
+  <Exhibit caption="Intrinsic aspect ratio">
+    <Sample variant="basic" />
+  </Exhibit>
+  <Exhibit caption="Fill available area (height: 200px)">
+    <div style={{ display: 'grid', height: 200 }}>
+      <Sample variant="basic" captionStyle="overlay" layout="fill" objectFit="cover" />
+    </div>
+  </Exhibit>
+</Grid>
+
+
 As long as the image is not loaded yet, a placeholder image (based on [SQIP]) is shown
 in its place. Once the image is loaded, the placeholder image is faded away.
 
