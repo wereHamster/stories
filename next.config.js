@@ -1,6 +1,6 @@
-const { Headphones } = require('react-feather');
 const visit = require('unist-util-visit')
 
+const withCSS = require("@zeit/next-css");
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
@@ -16,10 +16,24 @@ const withMDX = require('@next/mdx')({
   }
 });
 
-module.exports = withMDX({
+module.exports = withCSS(withMDX({
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
   images: {
     domains: ['storage.googleapis.com'],
   },
-});
+
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.(js|ts)x?$/,
+      use: [
+        {
+          loader: "@linaria/webpack-loader",
+          options: { sourceMap: true }
+        }
+      ]
+    });
+
+    return config;
+  }
+}));

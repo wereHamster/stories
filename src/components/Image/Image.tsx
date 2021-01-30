@@ -1,49 +1,11 @@
 import * as React from "react";
 import NextImage from 'next/image'
-import styled from "styled-components";
+import { css, cx } from '@linaria/core';
 
 /**
  * The underlying DOM element which is rendered by this component.
  */
-const Root = styled.div`
-  display: grid;
-
-  & > figure {
-    cursor: pointer;
-    position: relative;
-    margin: 0;
-  }
-
-  .sqip {
-    position: absolute;
-    inset: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
-
-    transition: opacity .8s ease-out 1.5s;
-
-    background-size: cover;
-    background-position: 50% 50%;
-
-    z-index: -1;
-  }
-
-  & > figure > div {
-    display: block !important;
-    z-index: -2;
-  }
-
-  & > figcaption {
-    text-align: center;
-    margin: 8px 0;
-    font-size: .75em;
-    font-style: italic;
-    opacity: 0.7;
-  }
-`;
+const Root = 'div'
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   image?: {
@@ -86,10 +48,15 @@ function Image(props: Props) {
     }
   }, [])
 
-  const className = {full: 'fw', wide: 'wp', default: undefined, narrow: undefined }[size]
+  const className = {
+    full: 'fw',
+    wide: 'wp',
+    default: undefined,
+    narrow: undefined,
+  }[size]
 
   return (
-    <Root ref={ref} style={{ ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={className} {...rest}>
+    <Root ref={ref} style={{ ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={cx(classes.root, className)} {...rest}>
       <figure onClick={onOpen} style={{ ...style, margin: 0 }}>
         <NextImage
           src={image.src}
@@ -108,3 +75,45 @@ function Image(props: Props) {
 }
 
 export default Image
+
+const classes = {
+  root: css`
+    display: grid;
+
+    & > figure {
+      cursor: pointer;
+      position: relative;
+      margin: 0;
+    }
+
+    .sqip {
+      position: absolute;
+      inset: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+
+      transition: opacity .8s ease-out 1.5s;
+
+      background-size: cover;
+      background-position: 50% 50%;
+
+      z-index: -1;
+    }
+
+    & > figure > div {
+      display: block !important;
+      z-index: -2;
+    }
+
+    & > figcaption {
+      text-align: center;
+      margin: 8px 0;
+      font-size: .75em;
+      font-style: italic;
+      opacity: 0.7;
+    }
+  `
+}
