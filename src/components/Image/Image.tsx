@@ -114,6 +114,7 @@ const classes = {
       text-align: center;
       margin: 8px 0;
       font-size: .75em;
+      line-height: 1.3;
       font-style: italic;
       opacity: 0.7;
     }
