@@ -57,7 +57,7 @@ function Image(props: Props) {
 
   return (
     <Root ref={ref} style={{ ...style, maxWidth: size === 'narrow' ? 400 : undefined }} className={cx(classes.root, className)} {...rest}>
-      <figure onClick={onOpen} style={{ ...style, margin: 0 }}>
+      <figure onClick={onOpen}>
         <NextImage
           src={image.src}
           width={layout === 'fill' ? undefined : image.width}
@@ -69,7 +69,7 @@ function Image(props: Props) {
         <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
       </figure>
 
-      {caption && <figcaption style={{ ...style, margin: '8px 0', height: undefined, minHeight: undefined }}>{caption}</figcaption>}
+      {caption && <figcaption>{caption}</figcaption>}
     </Root>
   );
 }
