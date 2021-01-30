@@ -3,7 +3,23 @@ import { Sample } from "@timvir/macro";
 
 # Image
 
-The `<Image>` component displays an image.
+The `<Image>` component is used to display images inside stories.
+
+It is a block element, semantically ~
+
+```html
+<div>
+  <figure>
+    <img />
+  </figure>
+
+  <figcaption />
+</div>
+```
+
+By default the image is displayed with its intrinsic aspect ratio.
+
+As long as the image is not loaded yet, a placeholder image (based on [SQIP]) is shown in its place.
 
 The layout options are:
 
@@ -27,3 +43,5 @@ on hover. The later is used when the image is placed in a `<Group>`.
     <Sample variant="basic" captionStyle="overlay" />
   </Exhibit>
 </Grid>
+
+[SQIP]: https://github.com/axe312ger/sqip
