@@ -152,6 +152,8 @@ const loadMetadata = (() => {
       inMemoryCache.set(key, metadata);
       return metadata;
     } catch (e) {
+      console.log(`Failed to load metadata for ${key}. Running script…`, e)
+
       /*
        * This small inline module exists for the sole reason so that we can get the image
        * metadata inside synchronous code.
