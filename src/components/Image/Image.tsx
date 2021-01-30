@@ -22,12 +22,13 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   layout?: 'intrinsic' | 'fill';
 
   caption?: React.ReactNode
+  captionPlacement?: "below" | "overlay"
 
   onOpen?: () => void
 }
 
 function Image(props: Props) {
-  const { image, layout = 'intrinsic', caption, onOpen, style, className, ...rest } = props;
+  const { image, layout = 'intrinsic', caption, captionPlacement = "below", onOpen, style, className, ...rest } = props;
 
   const ref = React.useRef<null | HTMLDivElement>(null)
 
@@ -47,7 +48,7 @@ function Image(props: Props) {
   }, [])
 
   return (
-    <Root ref={ref} style={style} className={cx(classes.root, className, layout === 'fill' && classes.captionStyle.overlay)} {...rest}>
+    <Root ref={ref} style={style} className={cx(classes.root, className, classes.captionPlacement[captionPlacement])} {...rest}>
       <figure onClick={onOpen}>
         <NextImage
           src={image.src}
@@ -109,7 +110,7 @@ const classes = {
       opacity: 0.7;
     }
   `,
-  captionStyle: {
+  captionPlacement: {
     overlay: css`
       & > figcaption {
         position: absolute;

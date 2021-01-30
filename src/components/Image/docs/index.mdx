@@ -28,7 +28,7 @@ to make it fill the available space (~ `object-fit: cover`).
   <Exhibit caption="Image in its intrinsic aspect ratio">
     <Sample variant="basic" caption={undefined} />
   </Exhibit>
-  <Exhibit caption="Image fills available area (height: 200px)">
+  <Exhibit caption="Image fills available space (height: 200px)">
     <div style={{ display: 'grid', height: 200 }}>
       <Sample variant="basic" caption={undefined} layout="fill" />
     </div>
@@ -55,18 +55,16 @@ in its place. Once the image is loaded, the placeholder image is faded away.
 
 ## Caption
 
-The caption is shown either below the image (layout=intrinsic) or in an overlay (layout=fill).
+The caption can be either placed below the image (default), or into an overlay which is visible
+on hover. The later is used when the image is placed into a `<Group>`.
 
 <Grid style={{ margin: "20px 0" }}>
   <Exhibit caption="Caption below the image">
-    <Sample variant="basic" />
+    <Sample variant="basic" captionPlacement="below" />
   </Exhibit>
   <Exhibit caption="Caption shown in overlay on hover">
-    <div style={{ display: 'grid', height: 200 }}>
-      <Sample variant="basic" layout="fill" />
-    </div>
+    <Sample variant="basic" captionPlacement="overlay" />
   </Exhibit>
-  
 </Grid>
 
 [SQIP]: https://github.com/axe312ger/sqip
