@@ -58,11 +58,15 @@ const components = {
           return React.cloneElement(child as any, {
             id: `${(child.props as any).image.hash}`,
             index,
-            style: { margin: "2rem auto", ...(child.props as any).style, maxWidth: (child.props as any).size === 'narrow' ? 400 : undefined },
+            style: {
+              margin: "2rem auto",
+              ...(child.props as any).style,
+              maxWidth: (child.props as any).size === "narrow" ? 400 : undefined,
+            },
             className: {
               full: "fw",
-              wide: "wp"
-            }[(child.props as any).size]
+              wide: "wp",
+            }[(child.props as any).size],
           });
         }
 
@@ -73,21 +77,18 @@ const components = {
               marginBottom: "4rem",
               ...(child.props as any).style,
             },
-            children: React.Children.map(
-              (child.props as any).children,
-              (child) => {
-                if (React.isValidElement(child)) {
-                  const index = blocks.indexOf(child);
+            children: React.Children.map((child.props as any).children, (child) => {
+              if (React.isValidElement(child)) {
+                const index = blocks.indexOf(child);
 
-                  return React.cloneElement(child as any, {
-                    id: `${(child.props as any).image.hash}`,
-                    index,
-                  });
-                } else {
-                  return child;
-                }
+                return React.cloneElement(child as any, {
+                  id: `${(child.props as any).image.hash}`,
+                  index,
+                });
+              } else {
+                return child;
               }
-            ),
+            }),
           });
         }
       }
@@ -121,12 +122,8 @@ const components = {
 
 const stories = {
   "where-i-was-meant-to-be": {
-    Header: dynamic(
-      () => import(`../../content/where-i-was-meant-to-be/header`)
-    ),
-    Body: dynamic(
-      () => import(`../../content/where-i-was-meant-to-be/index.mdx`)
-    ),
+    Header: dynamic(() => import(`../../content/where-i-was-meant-to-be/header`)),
+    Body: dynamic(() => import(`../../content/where-i-was-meant-to-be/index.mdx`)),
   },
 } as const;
 
@@ -214,10 +211,7 @@ export default function Page() {
             }
           }}
           next={() => {
-            const index = Math.min(
-              state.blocks.length - 1,
-              state.blocks.indexOf(focusBlock) + 1
-            );
+            const index = Math.min(state.blocks.length - 1, state.blocks.indexOf(focusBlock) + 1);
             const image = state.blocks[index];
             if (image) {
               router.replace(
@@ -256,9 +250,7 @@ function Inner({ image }: any) {
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
-    const img = ref.current?.querySelector(
-      'img[decoding="async"]'
-    ) as HTMLImageElement;
+    const img = ref.current?.querySelector('img[decoding="async"]') as HTMLImageElement;
     if (img) {
       const onLoad = () => {
         if (!img.src.match(/data:image\/gif/)) {
