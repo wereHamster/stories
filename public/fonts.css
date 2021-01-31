@@ -20,6 +20,7 @@
   font-style: normal;
   font-weight: 400;
   src: url("/fonts/Tuna/371F3E_7_0.woff2") format("woff2");
+  font-display: swap;
 }
 
 /* Tuna RegularItalic */
@@ -28,6 +29,7 @@
   font-style: italic;
   font-weight: 400;
   src: url("/fonts/Tuna/371F3E_9_0.woff2") format("woff2");
+  font-display: swap;
 }
 
 /* Tuna Bold */
@@ -36,6 +38,7 @@
   font-style: normal;
   font-weight: 700;
   src: url("/fonts/Tuna/371F3E_0_0.woff2") format("woff2");
+  font-display: swap;
 }
 
 /* Tuna BoldItalic */
@@ -44,4 +47,5 @@
   font-style: italic;
   font-weight: 700;
   src: url("/fonts/Tuna/371F3E_1_0.woff2") format("woff2");
+  font-display: swap;
 }
