@@ -22,9 +22,7 @@ export default class extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <link rel="stylesheet" href="/fonts.css" />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
