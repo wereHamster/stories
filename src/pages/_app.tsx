@@ -26,7 +26,7 @@ css`
     font-family: 'Tuna', system-ui, sans-serif;
 
     /*
-     * Font size goes from 16px to 21px, changes
+     * Font size goes from 17px to 21px, changes
      * at fixed breakpoints.
      */
     font-size: 17px;
