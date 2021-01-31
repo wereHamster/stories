@@ -5,15 +5,19 @@ import { Viewport } from "@timvir/blocks";
 Container for the story content. It establishes a CSS grid layout with a specific
 configuration of columns:
 
- - A center column which has a max width such that text remains readable and isn't
+ - **center**: a center column which has a max width such that text remains readable and isn't
    displayed in too wide lines. Content is placed into this column unless instructed
    otherwise.
- - When space permits, two columns to the left and right of the center column are
+ - **extended**: when space permits, two columns to the left and right of the center column are
    created for content which needs to be displayed slightly wider than the text.
    These side columns have a max width as well and do not extend all the way to
    the viewport edges.
- - The rest of the space outside of the side columns is made available for blocks
+ - **full**: the rest of the space outside of the side columns is made available for blocks
    which need to extend all the way to the edges of the viewport.
+
+Note that there is always a bit of margin between the `center` and `extended` columns
+and the viewport edges. While the `full` column extends all the way to the edge of the
+viewport.
 
 <Viewport src="/docs/components/Content/samples/basic" />
 
