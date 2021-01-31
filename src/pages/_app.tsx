@@ -20,8 +20,27 @@ css`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+
     overscroll-behavior: none;
+
     font-family: 'Tuna', system-ui, sans-serif;
+
+    /*
+     * Font size goes from 16px to 21px, changes
+     * at fixed breakpoints.
+     */
+    font-size: 16px;
+    line-height: 1.8;
+
+    @media (min-width: 720px) {
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 21px;
+      line-height: 1.6;
+    }
   }
 
   *, *:before, *:after {

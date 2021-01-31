@@ -37,7 +37,7 @@ const Root = styled.header`
   }
 
   .title {
-    font-size: 4rem;
+    font-size: 3rem;
     color: #1d1f20;
     padding: 5vh 5vw;
     text-transform: uppercase;

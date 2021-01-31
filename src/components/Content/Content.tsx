@@ -7,18 +7,10 @@ import styled from "styled-components";
 const Root = styled.div`
   display: grid;
 
-  grid-template-columns: [le] 16px [lex lc] 1fr [rc rex] 16px [re];
-
-  @media (min-width: 48rem) {
-    grid-template-columns: [le] 24px [lex] 1fr [lc] minmax(0, 48rem) [rc] 1fr [rex] 24px [re];
+  grid-template-columns: [le] 1rem [lex lc] 1fr [rc rex] 1rem [re];
+  @media (min-width: calc(36rem + 2rem)) {
+    grid-template-columns: [le] 1fr 1rem [lex] minmax(0, 12rem) [lc] 36rem [rc] minmax(0, 12rem) [rex] 1rem 1fr [re];
   }
-
-  @media (min-width: 72rem) {
-    grid-template-columns: [le] 1fr 24px [lex] minmax(0, 12rem) [lc] 48rem [rc] minmax(0, 12rem) [rex] 24px 1fr [re];
-  }
-
-  font-size: 21px;
-  line-height: 1.6;
 
   .wp {
     grid-column: lex / rex;
