@@ -11,7 +11,6 @@ export default function Sample(props: Props) {
       <Lightbox {...props}>
         <Image
           image={importImage("https://storage.googleapis.com/caurea.org/stories/kyrgyzstan/DJI_0059.jpg")}
-          objectFit="contain"
           layout="fill"
           style={{width:"100%", height: "100%"}}
         />
