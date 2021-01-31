@@ -29,11 +29,11 @@ css`
      * Font size goes from 16px to 21px, changes
      * at fixed breakpoints.
      */
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.8;
 
     @media (min-width: 720px) {
-      font-size: 18px;
+      font-size: 19px;
       line-height: 1.7;
     }
 
