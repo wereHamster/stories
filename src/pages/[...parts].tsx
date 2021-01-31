@@ -209,7 +209,7 @@ export default function Page() {
                   query: { parts: [storyId, image.id] },
                 },
                 undefined,
-                { scroll: false }
+                { scroll: false, shallow: true }
               );
             }
           }}
@@ -226,7 +226,7 @@ export default function Page() {
                   query: { parts: [storyId, image.id] },
                 },
                 undefined,
-                { scroll: false }
+                { scroll: false, shallow: true }
               );
             }
           }}
