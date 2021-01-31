@@ -18,7 +18,6 @@
     "@timvir/blocks": "^0.1.8",
     "@timvir/core": "^0.1.8",
     "@timvir/macro": "^0.1.10",
-    "@types/styled-components": "^5.1.7",
     "@zeit/next-css": "^1.0.1",
     "@zhif/components": "0.0.3",
     "blurhash": "^1.1.3",
@@ -38,7 +37,6 @@
     "sqip-plugin-data-uri": "^1.0.0-alpha.33",
     "sqip-plugin-primitive": "^1.0.0-alpha.34",
     "sqip-plugin-svgo": "^1.0.0-alpha.33",
-    "styled-components": "^5.2.1",
     "unist-util-visit": "^2.0.3",
     "use-immer": "^0.4.2"
   },

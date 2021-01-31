@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css, cx } from '@linaria/core';
+import { css, cx } from "@linaria/core";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -18,7 +18,7 @@ function Content(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof R
   );
 }
 
-export default React.forwardRef(Content)
+export default React.forwardRef(Content);
 
 const classes = {
   root: css`
@@ -48,5 +48,5 @@ const classes = {
     & > p {
       margin: 1em 0;
     }
-  `
+  `,
 };
