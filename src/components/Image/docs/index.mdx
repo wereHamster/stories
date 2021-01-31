@@ -3,11 +3,16 @@ import { Sample } from "@timvir/macro";
 
 # Image
 
-The `<Image>` component is used to display images inside stories.
+The `<Image>` component is a wrapper around the [next/image](https://nextjs.org/docs/api-reference/next/image) component and in addition
+to it provides the following features:
+
+ - Shows a placeholder while the real image is loading.
+ - Has the option to show the caption below the image or as an overlay over it.
 
 ## DOM
 
-The DOM tree looks roughly as follows:
+The component renders a `<div>`, with `<figure>` and `<figcaption>` inside it, so semantically
+it should hold up well. The DOM tree looks roughly as follows:
 
 ```html
 <div>
@@ -21,8 +26,9 @@ The DOM tree looks roughly as follows:
 
 ## Layout
 
-By default the image is displayed in its intrinsic aspect ratio. It's also possible
-to make it fill the available space (~ `object-fit: cover`).
+The image is displayed either in its intrinsict aspect ratio, or such that it fills the available
+space (equivalent to `object-fit: cover`). In the later case you need to make sure that the element
+is stretched vertically by placing it it inside a grid, using explict height, or similar techniques.
 
 <Grid style={{ margin: "20px 0" }}>
   <Exhibit caption="Image in its intrinsic aspect ratio">
@@ -56,7 +62,7 @@ in its place. Once the image is loaded, the placeholder image is faded away.
 ## Caption
 
 The caption can be either placed below the image (default), or into an overlay which is visible
-on hover. The later is used when the image is placed into a `<Group>`.
+on hover.
 
 <Grid style={{ margin: "20px 0" }}>
   <Exhibit caption="Caption below the image">
