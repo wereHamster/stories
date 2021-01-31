@@ -41,6 +41,7 @@ css`
     font-style: normal;
     font-weight: 300;
     src: url("/fonts/Tuna/371F3E_3_0.woff2") format("woff2");
+    font-display: swap;
   }
 
   /* Tuna LightItalic */
@@ -49,6 +50,7 @@ css`
     font-style: italic;
     font-weight: 300;
     src: url("/fonts/Tuna/371F3E_5_0.woff2") format("woff2");
+    font-display: swap;
   }
 
   /* Tuna Regular */
