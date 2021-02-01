@@ -18,10 +18,18 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
           return child;
         }
 
-        return React.cloneElement<any>(child, {
-          captionPlacement: "overlay",
-          layout: "fill",
-        });
+        const { style, span = [], aspectRatio } = (child.props as any)
+
+        if (style) {
+          return React.cloneElement<any>(child, { style, captionPlacement: "overlay", layout: "fill" })
+        }
+
+        return (
+          <div className={cx(classes.span[span[0] ?? 12], classes.span[`md:${span[1] ?? 12}`])} style={{ position: 'relative' }}>
+            <div style={{ height: 0, paddingBottom: `calc(100% / ${aspectRatio ?? 1})` }} />
+            {React.cloneElement<any>(child, { style: { position: 'absolute', inset: 0 }, captionPlacement: "overlay", layout: "fill" })}
+          </div>
+        );
       })}
     </Root>
   );
@@ -39,4 +47,56 @@ const classes = {
     justify-items: stretch;
     align-items: stretch;
   `,
+
+  span: {
+    [`1`]: css`
+      grid-column-end: span 1;
+    `,
+    [`3`]: css`
+      grid-column-end: span 3;
+    `,
+    [`4`]: css`
+      grid-column-end: span 4;
+    `,
+    [`5`]: css`
+      grid-column-end: span 5;
+    `,
+    [`6`]: css`
+      grid-column-end: span 6;
+    `,
+    [`12`]: css`
+      grid-column-end: span 12;
+    `,
+
+    [`md:1`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 1;
+      }
+    `,
+    [`md:3`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 3;
+      }
+    `,
+    [`md:4`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 4;
+      }
+    `,
+    [`md:5`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 5;
+      }
+    `,
+    [`md:6`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 6;
+      }
+    `,
+    [`md:12`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 12;
+      }
+    `,
+  }
 };
