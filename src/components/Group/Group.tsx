@@ -25,9 +25,9 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
         }
 
         return (
-          <div className={cx(classes.span[span[0] ?? 12], classes.span[`md:${span[1] ?? 12}`])} style={{ position: 'relative' }}>
-            <div style={{ height: 0, paddingBottom: `calc(100% / ${aspectRatio ?? 1})` }} />
-            {React.cloneElement<any>(child, { style: { position: 'absolute', inset: 0, top: 0, right: 0, bottom: 0, left: 0 }, captionPlacement: "overlay", layout: "fill" })}
+          <div className={cx(classes.span[span[0] ?? 12], classes.span[`md:${span[1] ?? 12}`])} style={{ display: 'grid', position: 'relative' }}>
+            <div style={{ gridArea: '1 / 1 / 1 / 1', height: 0, paddingBottom: `calc(100% / ${aspectRatio ?? 1})` }} />
+            {React.cloneElement<any>(child, { style: { gridArea: '1 / 1 / 1 / 1', placeSelf: 'stretch' }, captionPlacement: "overlay", layout: "fill" })}
           </div>
         );
       })}
