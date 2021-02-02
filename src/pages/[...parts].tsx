@@ -119,7 +119,7 @@ const components = {
     );
   },
   Group: (props: any) => {
-    return <Group className="wp" {...props} />
+    return <Group className="wp" {...props} />;
   },
 };
 
@@ -148,8 +148,8 @@ export default function Page() {
   const [storyId, focus] = (router.query.parts as string[]) ?? [];
 
   const { meta, Header, Body, Image } = stories[storyId] ?? {};
-  if (storyId && focus === 'og:image' && Image) {
-    return <Image />
+  if (storyId && focus === "og:image" && Image) {
+    return <Image />;
   }
 
   const content = React.useMemo(
@@ -162,7 +162,12 @@ export default function Page() {
             <title>{meta.title}</title>
 
             <meta property="og:title" content={meta.title} />
-            <meta property="og:image" content={`https://${process.env.VERCEL_URL ?? "http://localhost:3000"}/api/screenshot?path=/${storyId}/og:image`} />
+            <meta
+              property="og:image"
+              content={`https://${
+                process.env.VERCEL_URL ?? "http://localhost:3000"
+              }/api/screenshot?path=/${storyId}/og:image`}
+            />
 
             <meta name="twitter:card" content="summary_large_image" />
           </Head>
@@ -213,6 +218,11 @@ export default function Page() {
               undefined,
               { scroll: false, shallow: true }
             );
+
+            document.getElementById(focus)?.scrollIntoView({
+              block: "center",
+              inline: "center",
+            });
           }}
           caption={focusBlock?.caption}
           prev={() => {
