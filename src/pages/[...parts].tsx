@@ -5,6 +5,7 @@ import { Image } from "@/components/Image";
 import { Lightbox } from "@/components/Lightbox";
 import { MDXProvider } from "@mdx-js/react";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -124,6 +125,7 @@ const components = {
 
 const stories = {
   "where-i-was-meant-to-be": {
+    meta: require("../../content/where-i-was-meant-to-be/meta").default,
     Header: dynamic(() => import(`../../content/where-i-was-meant-to-be/header`)),
     Body: dynamic(() => import(`../../content/where-i-was-meant-to-be/index.mdx`)),
   },
@@ -144,12 +146,17 @@ export default function Page() {
    */
   const [storyId, focus] = (router.query.parts as string[]) ?? [];
 
-  const { Header, Body } = stories[storyId] ?? {};
+  const { meta, Header, Body } = stories[storyId] ?? {};
   const content = React.useMemo(
     () =>
+      meta &&
       Header &&
       Body && (
         <MDXProvider components={components}>
+          <Head>
+            <title>{meta.title}</title>
+          </Head>
+
           <div style={{ marginBottom: "10vh" }}>
             <Header />
           </div>
