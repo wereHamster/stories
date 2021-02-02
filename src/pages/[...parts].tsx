@@ -127,7 +127,7 @@ const stories = {
   "where-i-was-meant-to-be": {
     meta: require("../../content/where-i-was-meant-to-be/meta").default,
     Header: dynamic(() => import(`../../content/where-i-was-meant-to-be/header`)),
-    Body: dynamic(() => import(`../../content/where-i-was-meant-to-be/index.mdx`)),
+    Body: dynamic(() => import(`../../content/where-i-was-meant-to-be/body.mdx`)),
   },
 } as const;
 
