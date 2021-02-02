@@ -6,8 +6,8 @@ import { Sample } from "@timvir/macro";
 The `<Image>` component is a wrapper around the [next/image](https://nextjs.org/docs/api-reference/next/image) component and in addition
 to it provides the following features:
 
- - Shows a placeholder while the real image is loading.
- - Has the option to show the caption below the image or as an overlay over it.
+- Shows a placeholder while the real image is loading.
+- Has the option to show the caption below the image or as an overlay over it.
 
 ## DOM
 
@@ -35,7 +35,7 @@ is stretched vertically by placing it it inside a grid, using explict height, or
     <Sample variant="basic" caption={undefined} />
   </Exhibit>
   <Exhibit caption="Image fills available space (height: 200px)">
-    <div style={{ display: 'grid', height: 200 }}>
+    <div style={{ display: "grid", height: 200 }}>
       <Sample variant="basic" caption={undefined} layout="fill" />
     </div>
   </Exhibit>
@@ -48,12 +48,12 @@ in its place. Once the image is loaded, the placeholder image is faded away.
 
 <Grid style={{ margin: "20px 0" }}>
   <Exhibit caption="Placeholder showing while image is loading.">
-    <div style={{ display: 'grid', height: 200 }}>
+    <div style={{ display: "grid", height: 200 }}>
       <Sample variant="placeholder" layout="fill" />
     </div>
   </Exhibit>
   <Exhibit caption="After image is loaded.">
-    <div style={{ display: 'grid', height: 200 }}>
+    <div style={{ display: "grid", height: 200 }}>
       <Sample variant="basic" caption={undefined} layout="fill" />
     </div>
   </Exhibit>
@@ -73,4 +73,14 @@ on hover.
   </Exhibit>
 </Grid>
 
-[SQIP]: https://github.com/axe312ger/sqip
+## Highlight
+
+When the image is highlighted, a black outline is displayed around it.
+
+<Exhibit style={{ margin: "20px 0" }}>
+  <div style={{ display: "grid", height: 200 }}>
+    <Sample variant="basic" layout="fill" captionPlacement="overlay" highlight />
+  </div>
+</Exhibit>
+
+[sqip]: https://github.com/axe312ger/sqip
