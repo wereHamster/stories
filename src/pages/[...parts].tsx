@@ -160,7 +160,11 @@ export default function Page() {
         <MDXProvider components={components}>
           <Head>
             <title>{meta.title}</title>
+
+            <meta property="og:title" content={meta.title} />
             <meta property="og:image" content={`https://${process.env.VERCEL_URL ?? "http://localhost:3000"}/api/screenshot?path=/${storyId}/og:image`} />
+
+            <meta name="twitter:card" content="summary_large_image" />
           </Head>
 
           <div style={{ marginBottom: "10vh" }}>
