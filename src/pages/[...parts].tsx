@@ -117,7 +117,9 @@ const components = {
       />
     );
   },
-  Group,
+  Group: (props: any) => {
+    return <Group className="wp" {...props} />
+  },
 };
 
 const stories = {

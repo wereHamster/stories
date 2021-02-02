@@ -12,7 +12,7 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
   const { children, className, ...rest } = props;
 
   return (
-    <Root ref={ref} className={cx(className, "wp", classes.root)} {...rest}>
+    <Root ref={ref} className={cx(className, classes.root)} {...rest}>
       {React.Children.map(children, (child) => {
         if (!React.isValidElement(child)) {
           return child;
@@ -25,7 +25,7 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
         }
 
         return (
-          <div className={cx(classes.span[span[0] ?? 12], classes.span[`md:${span[1] ?? 12}`])} style={{ display: 'grid', position: 'relative' }}>
+          <div className={cx(classes.span[span[0] ?? 12], span[1] && classes.span[`md:${span[1]}`])} style={{ display: 'grid', position: 'relative' }}>
             <div style={{ gridArea: '1 / 1 / 1 / 1', height: 0, paddingBottom: `calc(100% / ${aspectRatio ?? 1})` }} />
             {React.cloneElement<any>(child, { style: { gridArea: '1 / 1 / 1 / 1', placeSelf: 'stretch' }, captionPlacement: "overlay", layout: "fill" })}
           </div>

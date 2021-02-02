@@ -25,6 +25,9 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   captionPlacement?: "below" | "overlay"
 
   onOpen?: () => void
+
+  span?: number | number[]
+  aspectRatio?: number
 }
 
 function Image(props: Props) {
