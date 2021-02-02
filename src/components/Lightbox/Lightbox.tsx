@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Icons from "react-feather";
 import * as ReactDOM from "react-dom";
+import { css, cx } from "@linaria/core";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -9,6 +10,7 @@ const Root = "div";
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   onClose?: () => void;
+
   caption?: React.ReactNode;
 
   prev?: () => void;
@@ -16,8 +18,11 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
-  const { onClose, caption, prev, next, children, ...rest } = props;
+  const { onClose, caption, prev, next, className, children, ...rest } = props;
 
+  /*
+   * Attach event handlers to 'document' to handle keyboard shortcuts.
+   */
   React.useEffect(() => {
     function onKeyDown(ev: KeyboardEvent) {
       if (ev.key === "Escape") {
@@ -37,82 +42,26 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
   }, [onClose, prev, next]);
 
   const el = (
-    <Root
-      ref={ref}
-      style={{
-        position: "fixed",
-        inset: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-        background: "black",
-        color: "white",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      {...rest}
-    >
-      <div style={{ height: 64, flex: "64px 0 0", display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-        <div style={{ marginRight: 12, cursor: "pointer" }} onClick={onClose}>
+    <Root ref={ref} className={cx(className, classes.root)} {...rest}>
+      <div className={classes.top}>
+        <div className={classes.close} onClick={onClose}>
           <Icons.X />
         </div>
       </div>
 
-      <div style={{ flexGrow: 1, position: "relative", userSelect: "none" }}>
+      <div className={classes.center}>
         {children}
 
-        <div
-          onClick={prev}
-          style={{
-            zIndex: 2,
-            position: "absolute",
-            paddingRight: 32,
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: 80,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-        >
+        <div onClick={prev} className={classes.prev}>
           <Icons.ArrowLeft />
         </div>
 
-        <div
-          onClick={next}
-          style={{
-            zIndex: 2,
-            position: "absolute",
-            paddingLeft: 32,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            width: 80,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-        >
+        <div onClick={next} className={classes.next}>
           <Icons.ArrowRight />
         </div>
       </div>
 
-      <div
-        style={{
-          margin: "24px 0 24px",
-          textAlign: "center",
-          width: "100%",
-          opacity: 0.7,
-          fontSize: "0.9em",
-          fontStyle: "italic",
-        }}
-      >
-        {caption}
-      </div>
+      <div className={classes.caption}>{caption}</div>
     </Root>
   );
 
@@ -124,3 +73,73 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
 }
 
 export default React.forwardRef(Lightbox);
+
+const classes = {
+  root: css`
+    position: fixed;
+    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+  `,
+
+  top: css`
+    height: 64px;
+    flex: 64px 0 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  `,
+
+  close: css`
+    margin-right: 12px;
+    cursor: pointer;
+  `,
+
+  center: css`
+    flex-grow: 1;
+    position: relative;
+    user-select: none;
+  `,
+
+  prev: css`
+    z-index: 2;
+    position: absolute;
+    padding-right: 32px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  `,
+  next: css`
+    z-index: 2;
+    position: absolute;
+    padding-left: 32px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  `,
+
+  caption: css`
+    margin: 24px 0;
+    text-align: center;
+    width: 100%;
+    opacity: 0.7;
+    font-size: 0.9em;
+    font-style: italic;
+  `,
+};
