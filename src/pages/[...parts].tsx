@@ -13,10 +13,12 @@ import { useImmer } from "use-immer";
 
 interface Value {
   mutate: any;
+  highlight: undefined | string;
 }
 
 const Context = React.createContext<Value>({
   mutate: () => {},
+  highlight: undefined,
 });
 
 type Block = { id: string; type: "Image"; image: any; caption: any };
@@ -101,15 +103,17 @@ const components = {
   Header,
   Image: (props: any) => {
     const router = useRouter();
+    const { highlight } = React.useContext(Context);
 
     return (
       <Image
         {...props}
+        highlight={props.id === highlight}
         onOpen={() => {
           router.replace(
             {
               pathname: "[...parts]",
-              query: { parts: [router.query.parts[0], (props as any).id] },
+              query: { parts: [router.query.parts[0], props.id] },
             },
             undefined,
             { scroll: false, shallow: true }
@@ -134,6 +138,7 @@ const stories = {
 
 interface State {
   blocks: Block[];
+  highlight: undefined | string;
 }
 
 export default function Page() {
@@ -198,9 +203,10 @@ export default function Page() {
    */
   const [state, mutate] = useImmer<State>({
     blocks: [],
+    highlight: undefined,
   });
 
-  const value = React.useMemo<Value>(() => ({ mutate }), [mutate]);
+  const value = React.useMemo<Value>(() => ({ mutate, highlight: state.highlight }), [mutate, state.highlight]);
   const focusBlock = state.blocks.find((x) => x.id === focus);
 
   return (
@@ -223,6 +229,21 @@ export default function Page() {
               block: "center",
               inline: "center",
             });
+
+            setTimeout(() => {
+              mutate((draft) => {
+                draft.highlight = focus;
+              });
+              document.addEventListener(
+                "scroll",
+                () => {
+                  mutate((draft) => {
+                    draft.highlight = undefined;
+                  });
+                },
+                { once: true }
+              );
+            }, 20);
           }}
           caption={focusBlock?.caption}
           prev={() => {

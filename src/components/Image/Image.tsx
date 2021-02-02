@@ -1,11 +1,11 @@
 import * as React from "react";
-import NextImage from 'next/image'
-import { css, cx } from '@linaria/core';
+import NextImage from "next/image";
+import { css, cx } from "@linaria/core";
 
 /**
  * The underlying DOM element which is rendered by this component.
  */
-const Root = 'div'
+const Root = "div";
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   image?: {
@@ -15,50 +15,67 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
     height: number;
 
     sqip: {
-      src: string
-    }
+      src: string;
+    };
   };
 
-  layout?: 'intrinsic' | 'fill';
+  layout?: "intrinsic" | "fill";
 
-  caption?: React.ReactNode
-  captionPlacement?: "below" | "overlay"
+  caption?: React.ReactNode;
+  captionPlacement?: "below" | "overlay";
 
-  onOpen?: () => void
+  onOpen?: () => void;
 
-  span?: number | number[]
-  aspectRatio?: number
+  span?: number | number[];
+  aspectRatio?: number;
+
+  highlight?: boolean;
 }
 
 function Image(props: Props) {
-  const { image, layout = 'intrinsic', caption, captionPlacement = "below", onOpen, style, className, ...rest } = props;
+  const {
+    image,
+    layout = "intrinsic",
+    caption,
+    captionPlacement = "below",
+    onOpen,
+    highlight,
+    style,
+    className,
+    ...rest
+  } = props;
 
-  const ref = React.useRef<null | HTMLDivElement>(null)
+  const ref = React.useRef<null | HTMLDivElement>(null);
 
   const [loaded, setLoaded] = React.useState(false);
   React.useEffect(() => {
-    const img = ref.current?.querySelector('img[decoding="async"]') as HTMLImageElement
+    const img = ref.current?.querySelector('img[decoding="async"]') as HTMLImageElement;
     if (img) {
       const onLoad = () => {
         if (!img.src.match(/data:image\/gif/)) {
-          setLoaded(true)
-          img.removeEventListener("load", onLoad)
+          setLoaded(true);
+          img.removeEventListener("load", onLoad);
         }
-      }
+      };
 
       img.addEventListener("load", onLoad);
     }
-  }, [])
+  }, []);
 
   return (
-    <Root ref={ref} style={style} className={cx(classes.root, className, classes.captionPlacement[captionPlacement])} {...rest}>
-      <figure onClick={onOpen}>
+    <Root
+      ref={ref}
+      style={style}
+      className={cx(classes.root, className, classes.captionPlacement[captionPlacement])}
+      {...rest}
+    >
+      <figure onClick={onOpen} className={cx(highlight && classes.highlight)}>
         <NextImage
           src={image.src}
-          width={layout === 'fill' ? undefined : image.width}
-          height={layout === 'fill' ? undefined : image.height}
+          width={layout === "fill" ? undefined : image.width}
+          height={layout === "fill" ? undefined : image.height}
           layout={layout as any}
-          objectFit={layout === 'fill' ? 'cover' : undefined}
+          objectFit={layout === "fill" ? "cover" : undefined}
         />
         <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
       </figure>
@@ -68,7 +85,7 @@ function Image(props: Props) {
   );
 }
 
-export default Image
+export default Image;
 
 const classes = {
   root: css`
@@ -80,6 +97,7 @@ const classes = {
       cursor: pointer;
       position: relative;
       margin: 0;
+      transition: box-shadow 0.5s;
     }
 
     .sqip {
@@ -91,7 +109,7 @@ const classes = {
       left: 0;
       pointer-events: none;
 
-      transition: opacity .8s ease-out 1.5s;
+      transition: opacity 0.8s ease-out 1.5s;
 
       background-size: cover;
       background-position: 50% 50%;
@@ -107,12 +125,17 @@ const classes = {
     & > figcaption {
       text-align: center;
       margin: 8px 0;
-      font-size: .75em;
+      font-size: 0.75em;
       line-height: 1.3;
       font-style: italic;
       opacity: 0.7;
     }
   `,
+
+  highlight: css`
+    box-shadow: 0 0 2px 1px white, 0 0 5px 5px black;
+  `,
+
   captionPlacement: {
     overlay: css`
       & > figcaption {
@@ -121,18 +144,18 @@ const classes = {
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(to top, rgba(0,0,0,.7), transparent);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
         color: white;
         padding: 30px 20px 12px;
         text-align: left;
         pointer-events: none;
         opacity: 0;
-        transition: opacity .2s;
+        transition: opacity 0.2s;
       }
 
       &:hover > figcaption {
         opacity: 1;
       }
-    `
-  }
-}
+    `,
+  },
+};
