@@ -128,6 +128,7 @@ const stories = {
     meta: require("../../content/where-i-was-meant-to-be/meta").default,
     Header: dynamic(() => import(`../../content/where-i-was-meant-to-be/header`)),
     Body: dynamic(() => import(`../../content/where-i-was-meant-to-be/body.mdx`)),
+    Image: dynamic(() => import(`../../content/where-i-was-meant-to-be/image`)),
   },
 } as const;
 
@@ -146,7 +147,11 @@ export default function Page() {
    */
   const [storyId, focus] = (router.query.parts as string[]) ?? [];
 
-  const { meta, Header, Body } = stories[storyId] ?? {};
+  const { meta, Header, Body, Image } = stories[storyId] ?? {};
+  if (storyId && focus === 'og:image' && Image) {
+    return <Image />
+  }
+
   const content = React.useMemo(
     () =>
       meta &&
@@ -155,6 +160,7 @@ export default function Page() {
         <MDXProvider components={components}>
           <Head>
             <title>{meta.title}</title>
+            <meta property="og:image" content={`https://${process.env.VERCEL_URL ?? "http://localhost:3000"}/api/screenshot?path=/${storyId}/og:image`} />
           </Head>
 
           <div style={{ marginBottom: "10vh" }}>
