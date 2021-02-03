@@ -169,9 +169,7 @@ export default function Page() {
             <meta property="og:title" content={meta.title} />
             <meta
               property="og:image"
-              content={`https://${
-                process.env.VERCEL_URL ?? "http://localhost:3000"
-              }/api/screenshot?path=/${storyId}/og:image`}
+              content={`${process.env.NEXT_PUBLIC_URL ? `https://${process.env.NEXT_PUBLIC_URL}` : "http://localhost:3000"}/api/screenshot?path=/${storyId}/og:image`}
             />
 
             <meta name="twitter:card" content="summary_large_image" />
