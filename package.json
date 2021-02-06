@@ -14,7 +14,7 @@
     "@linaria/shaker": "^3.0.0-beta.1",
     "@linaria/webpack-loader": "^3.0.0-beta.1",
     "@mdx-js/loader": "^1.6.22",
-    "@next/mdx": "^10.0.5",
+    "@next/mdx": "^10.0.6",
     "@timvir/blocks": "^0.1.10",
     "@timvir/core": "^0.1.10",
     "@timvir/macro": "^0.1.10",
