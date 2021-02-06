@@ -1,3 +1,4 @@
+import chromium from "chrome-aws-lambda";
 import { either, pipeable } from "fp-ts";
 import * as t from "io-ts";
 import { NumberFromString } from "io-ts-types/lib/NumberFromString";
@@ -35,7 +36,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
            * We have a valid request, and can proceed with launching the browser,
            * and capturing the image.
            */
-          const browser = await puppeteer.launch();
+          const browser = await puppeteer.launch({
+            dumpio: true,
+            executablePath: await chromium.executablePath,
+          });
           const deviceScaleFactor = query.deviceScaleFactor || 1;
           const page = await browser.newPage();
           await page.setViewport({ width: 1200, height: 630, deviceScaleFactor });
