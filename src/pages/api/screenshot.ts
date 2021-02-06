@@ -1,4 +1,4 @@
-import chromium from "chrome-aws-lambda";
+import chrome from "chrome-aws-lambda";
 import { either, pipeable } from "fp-ts";
 import * as t from "io-ts";
 import { NumberFromString } from "io-ts-types/lib/NumberFromString";
@@ -38,7 +38,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
            */
           const browser = await puppeteer.launch({
             dumpio: true,
-            executablePath: await chromium.executablePath,
+            args: chrome.args,
+            executablePath: await chrome.executablePath,
+            headless: chrome.headless,
           });
           const deviceScaleFactor = query.deviceScaleFactor || 1;
           const page = await browser.newPage();
