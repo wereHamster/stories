@@ -1,34 +1,47 @@
-# Stories
+# Introduction
 
-Very simple photo story framework, inspired by https://exposure.co.
+A simple photo story website built in top of [Next.js](https://nextjs.org/),
+[React](https://reactjs.org/), and [MDX](https://mdxjs.com/).
 
-- [Next.js](https://nextjs.org/) / [React](https://reactjs.org/)
-- Focus on performance, usable without JavaScript enabled.
-- No external runtime dependencies (CMS, image hosting).
-- Content authoring through [mdx](https://mdxjs.com/).
+## Goals, constraints, and focus
 
-## Content
+The main focus of this project is on performance. The website aims reach
+the highest score on all Web Vital metrics.
 
-A story consists of:
+The second focus is on User Experience (UX). Reading the stories, and expecially
+viewing the images should be a pleasant and intuitive experience.
 
- - A header element which is shown at the very top of the page.
- - Content which is authored in MDX. Supported is: paragraphs, images, groups of images
-   (displayed in a grid). The content is placed into a centered CSS grid. Elements
-   can extend beyond the main column and be even as wide as the viewport.
+One important constraint is that the project avoids hard dependencies
+on external services. Everything that the project requires (content and
+images) must be possible to be stored within the repository.
 
-Certain blocks (images) can be focused (shown in a lightbox).
+## Stories
 
-## Routes
+Stories are written in MDX (a variation of Markdown which allows use of React
+components).
 
-The following routes are handled by the application:
+Each story is stored in a separate folder under `content/`.
 
- - `/[story]` – the story page
- - `/[story]/[block]` - focus on a specific block, eg. if image then the image is shown in a lightbox
+Each story folder contains multiple files:
 
-## Testing
+ - `body.mdx` – The story content.
+ - `header.tsx` – The header element which is shown at the very top of the page.
+ - `meta.ts` – Meta information of the story (title, description, …).
+ - `image.tsx` – Renders the Open Graph image.
 
-```bash
-nix-shell  # if necessary
-npm install
-npm run dev
-```
+Note that not all Markdown constructs are supported, use only paragraphs and headings.
+
+To add a story… TODO
+
+## Hosting
+
+Project should work out of the box when deployed to [Vercel](https://vercel.com).
+
+## Inspiration
+
+This project was inspired by https://exposure.co.
+
+## Credits
+
+Initial work by [Yves Ineichen](https://github.com/iff), with contributions
+by [Tomas Carnecky](https://github.com/wereHamster).
