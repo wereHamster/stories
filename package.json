@@ -37,7 +37,6 @@
     "react-hotkeys-hook": "^3.0.3",
     "react-intersection-observer": "^8.31.0",
     "react-intl": "^5.12.1",
-    "sharp": "^0.27.1",
     "sqip": "^1.0.0-alpha.32",
     "sqip-plugin-blur": "^1.0.0-alpha.33",
     "sqip-plugin-data-uri": "^1.0.0-alpha.33",
