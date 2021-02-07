@@ -1,15 +1,12 @@
 const { join, dirname, basename, extname } = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
-const { performance } = require("perf_hooks");
-const { cpus } = require("os");
 const { execFileSync } = require("child_process");
 
 /*
  * Third-party dependencies
  */
 const { parseExpression } = require("@babel/parser");
-const sharp = require("sharp");
 const { createMacro } = require("babel-plugin-macros");
 const pkgDir = require("pkg-dir");
 const mkdirp = require("mkdirp");
@@ -29,15 +26,7 @@ const metadataCacheDirectory = `${outputDirectory}/.cache`;
 mkdirp.sync(imageCacheDirectory);
 mkdirp.sync(metadataCacheDirectory);
 
-const sourceImageFetcher = (url, path) => `
-const { get } = require("https");
-const { createWriteStream } = require("fs");
-get("${url}", res => { res.pipe(createWriteStream("${path}")); })
-`;
-
 module.exports = createMacro(({ references, babel }) => {
-  const t = babel.types;
-
   const toValue = (referencePath, sourceImage) => {
     /*
      * Resolve the path to the source image and make it absolute. We also
@@ -48,10 +37,7 @@ module.exports = createMacro(({ references, babel }) => {
       const name = basename(sourceImage, ext);
 
       if (sourceImage.startsWith("https://")) {
-        const path = join(
-          imageCacheDirectory,
-          `${fingerprint(sourceImage, "source")}`
-        );
+        const path = join(imageCacheDirectory, `${fingerprint(sourceImage, "source")}`);
         fetchSourceImage(sourceImage, path);
         return { name, path };
       } else {
@@ -68,11 +54,6 @@ module.exports = createMacro(({ references, babel }) => {
     const hash = fingerprint(fs.readFileSync(path));
 
     /*
-     * Load the file into Sharp.
-     */
-    //const image = sharp(path);
-
-    /*
      * Synchronously get the metadata.
      */
     const metadata = loadMetadata(path, hash);
@@ -86,7 +67,7 @@ module.exports = createMacro(({ references, babel }) => {
       height: metadata.height,
 
       sqip: {
-        src: `data:image/svg+xml;base64,${Buffer.from(metadata.sqip.content).toString("base64")}`
+        src: `data:image/svg+xml;base64,${Buffer.from(metadata.sqip.content).toString("base64")}`,
       },
     };
 
@@ -95,10 +76,7 @@ module.exports = createMacro(({ references, babel }) => {
 
   if (references.importImage) {
     references.importImage.forEach((referencePath) => {
-      const { sourceImage, value } = toValue(
-        referencePath,
-        referencePath.parent.arguments[0].value
-      );
+      const { sourceImage, value } = toValue(referencePath, referencePath.parent.arguments[0].value);
 
       const replacement = parseExpression(`${JSON.stringify(value)}`);
       referencePath.parentPath.replaceWith(replacement);
@@ -152,7 +130,7 @@ const loadMetadata = (() => {
       inMemoryCache.set(key, metadata);
       return metadata;
     } catch (e) {
-      console.log(`Failed to load metadata for ${key}. Running script…`, e)
+      console.log(`Failed to load metadata for ${key}. Running script…`, e);
 
       /*
        * This small inline module exists for the sole reason so that we can get the image
@@ -199,10 +177,8 @@ Promise.all([
 })
 `;
 
-      console.log('loadMetadata', path, '->', cachePath)
-      const metadata = JSON.parse(
-        execFileSync(process.execPath, ["-e", script])
-      );
+      console.log("loadMetadata", path, "->", cachePath);
+      const metadata = JSON.parse(execFileSync(process.execPath, ["-e", script]));
       inMemoryCache.set(key, metadata);
       fs.writeFileSync(cachePath, JSON.stringify(metadata));
       return metadata;
