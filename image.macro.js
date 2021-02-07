@@ -147,9 +147,7 @@ const loadMetadata = (() => {
        */
       const script = `
 const sqip = require("sqip").default;
-const source = require("sharp")("${path}");
 Promise.all([
-  source.metadata(),
   sqip({
     input: "${path}",
     plugins: [
@@ -169,9 +167,10 @@ Promise.all([
         'sqip-plugin-svgo',
       ],
   }),
-]).then(([metadata, sqip]) => {
+]).then(([sqip]) => {
   process.stdout.write(JSON.stringify({
-    ...metadata,
+    width: sqip.metadata.originalWidth,
+    height: sqip.metadata.originalHeight,
     sqip,
   }));
 })
