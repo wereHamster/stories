@@ -122,7 +122,7 @@ const loadMetadata = (() => {
      * metadata inside synchronous code.
      *
      * The code running in a babel macro must be synchronous (no async code). But
-     * the sharp function to get the image metadata is async. There is a 'deasync'
+     * the sqip function to get the image metadata is async. There is a 'deasync'
      * node module which one can use to convert async code to sync code, but its
      * use is discouraged.
      *
