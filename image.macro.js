@@ -14,49 +14,27 @@ const mkdirp = require("mkdirp");
 /*
  * Configuration
  */
-
 const outputDirectory = pkgDir.sync();
-const imageCacheDirectory = `${outputDirectory}/node_modules/.cache/zhif`;
 const metadataCacheDirectory = `${outputDirectory}/.cache`;
 
 /*
  * .init section
  */
-
-mkdirp.sync(imageCacheDirectory);
 mkdirp.sync(metadataCacheDirectory);
 
 module.exports = createMacro(({ references, babel }) => {
-  const toValue = (referencePath, sourceImage) => {
+  const toValue = (referencePath, sourceImage /** @type string */) => {
     /*
-     * Resolve the path to the source image and make it absolute. We also
-     * get the filename (without the extension).
+     * The fingerprint is constructed entirely using just the 'sourceImage'
+     * (relative path or URL).
      */
-    const { path, name } = (() => {
-      const ext = extname(sourceImage);
-      const name = basename(sourceImage, ext);
-
-      if (sourceImage.startsWith("https://")) {
-        const path = join(imageCacheDirectory, `${fingerprint(sourceImage, "source")}`);
-        fetchSourceImage(sourceImage, path);
-        return { name, path };
-      } else {
-        const { sourceFileName } = referencePath.hub.file.opts.parserOpts;
-        return { name, path: join(dirname(sourceFileName), sourceImage) };
-      }
-    })();
+    const hash = fingerprint(sourceImage);
 
     /*
-     * Read the file so we can construct its hash, which we use to generate
-     * the output filenames. This needs to happen synchronously, because we
-     * use this hash in the generated code.
+     * Load the metadata (fetching the image and generating the metadata
+     * if not in cache).
      */
-    const hash = fingerprint(fs.readFileSync(path));
-
-    /*
-     * Synchronously get the metadata.
-     */
-    const metadata = loadMetadata(path, hash);
+    const metadata = loadMetadata(referencePath, sourceImage, hash);
 
     const value = {
       hash,
@@ -116,7 +94,7 @@ function fetchSourceImage(url, path) {
 const loadMetadata = (() => {
   const inMemoryCache = new Map();
 
-  return (path, hash) => {
+  return (referencePath, sourceImage, hash) => {
     /*
      * This small inline module exists for the sole reason so that we can get the image
      * metadata inside synchronous code.
@@ -131,10 +109,27 @@ const loadMetadata = (() => {
      * prints it to stdout, where we can read it from.
      */
     const script = `
-const sqip = require("sqip").default;
-Promise.all([
-  sqip({
-    input: "${path}",
+(async function main() {
+  const input = await (async (sourceImage) => {
+    if (sourceImage.startsWith("https://")) {
+      return new Promise((resolve) => {
+        const { get } = require("https");
+        const { createWriteStream } = require("fs");
+        get(sourceImage, res => {
+          const chunks = []
+          res.on('data', chunk => chunks.push(chunk))
+          res.on('end', () => resolve(Buffer.concat(chunks)))
+        });
+      });
+    } else {
+      const { join, dirname, basename, extname } = require("path");
+      const fs = require("fs");
+      return fs.readFileSync(join(dirname("${referencePath.hub.file.opts.parserOpts.sourceFileName}"), sourceImage))
+    }
+  })("${sourceImage}");
+
+  const sqip = await require("sqip").default({
+    input,
     plugins: [
         {
           name: 'sqip-plugin-primitive',
@@ -151,14 +146,14 @@ Promise.all([
         },
         'sqip-plugin-svgo',
       ],
-  }),
-]).then(([sqip]) => {
+  });
+
   process.stdout.write(JSON.stringify({
     width: sqip.metadata.originalWidth,
     height: sqip.metadata.originalHeight,
     sqip,
   }));
-})
+})();
 `;
 
     /*
@@ -181,7 +176,7 @@ Promise.all([
     } catch (e) {
       console.log(`Failed to load metadata for ${key}. Running script…`, e.message);
 
-      console.log("loadMetadata", path, "->", cachePath);
+      console.log("loadMetadata", sourceImage, hash);
       const metadata = JSON.parse(execFileSync(process.execPath, ["-e", script]));
       inMemoryCache.set(key, metadata);
       fs.writeFileSync(cachePath, JSON.stringify(metadata));
