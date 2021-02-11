@@ -23,7 +23,10 @@ const metadataCacheDirectory = `${outputDirectory}/.cache`;
 mkdirp.sync(metadataCacheDirectory);
 
 module.exports = createMacro(({ references, babel }) => {
+  
   const toValue = (referencePath, sourceImage /** @type string */) => {
+    console.log(fingerprint("https://storage.googleapis.com/plog-imgix/ticino/DSCF0171.jpg"), referencePath.hub.file.opts.parserOpts.sourceFileName)
+
     /*
      * The fingerprint is constructed entirely using just the 'sourceImage'
      * (relative path or URL).
@@ -108,7 +111,7 @@ const loadMetadata = (() => {
      * (child_process execFileSync). The code loads the metadata from the image and
      * prints it to stdout, where we can read it from.
      */
-    const script = `
+    const script = (sourceImage, sourceFileName) => `
 (async function main() {
   const input = await (async (sourceImage) => {
     if (sourceImage.startsWith("https://")) {
@@ -124,7 +127,7 @@ const loadMetadata = (() => {
     } else {
       const { join, dirname, basename, extname } = require("path");
       const fs = require("fs");
-      return fs.readFileSync(join(dirname("${referencePath.hub.file.opts.parserOpts.sourceFileName}"), sourceImage))
+      return fs.readFileSync(join(dirname("${sourceFileName}"), sourceImage))
     }
   })("${sourceImage}");
 
@@ -161,7 +164,7 @@ const loadMetadata = (() => {
      * as well as the script which does the metadata extraction. This is to allow the
      * script to change, in which case we want to use a different cache key.
      */
-    const key = `${fingerprint(hash, script)}`;
+    const key = `${fingerprint(hash, script("", ""))}`;
 
     const fromCache = inMemoryCache.get(key);
     if (fromCache) {
@@ -177,7 +180,7 @@ const loadMetadata = (() => {
       console.log(`Failed to load metadata for ${key}. Running script…`, e.message);
 
       console.log("loadMetadata", sourceImage, hash);
-      const metadata = JSON.parse(execFileSync(process.execPath, ["-e", script]));
+      const metadata = JSON.parse(execFileSync(process.execPath, ["-e", script(sourceImage, referencePath.hub.file.opts.parserOpts.sourceFileName)]));
       inMemoryCache.set(key, metadata);
       fs.writeFileSync(cachePath, JSON.stringify(metadata));
       return metadata;
