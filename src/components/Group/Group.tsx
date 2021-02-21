@@ -18,16 +18,34 @@ function Group(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Roo
           return child;
         }
 
-        const { style, span = [], aspectRatio } = (child.props as any)
+        const { style, span = [], aspectRatio, ...props } = child.props;
 
+        /*
+         * This is to support older stories which still use inline styles in groups.
+         * These stories should be migrated to the new syntax using span / aspectRatio
+         * (once that API stabilizes).
+         */
         if (style) {
-          return React.cloneElement<any>(child, { style, captionPlacement: "overlay", layout: "fill" })
+          return React.createElement<any>(child.type, {
+            ...props,
+            style,
+            captionPlacement: "overlay",
+            layout: "fill",
+          });
         }
 
         return (
-          <div className={cx(classes.span[span[0] ?? 12], span[1] && classes.span[`md:${span[1]}`])} style={{ display: 'grid', position: 'relative' }}>
-            <div style={{ gridArea: '1 / 1 / 1 / 1', height: 0, paddingBottom: `calc(100% / ${aspectRatio ?? 1})` }} />
-            {React.cloneElement<any>(child, { style: { gridArea: '1 / 1 / 1 / 1', placeSelf: 'stretch' }, captionPlacement: "overlay", layout: "fill" })}
+          <div
+            className={cx(classes.span[span[0] ?? 12], span[1] && classes.span[`md:${span[1]}`])}
+            style={{ display: "grid", position: "relative" }}
+          >
+            <div style={{ gridArea: "1 / 1 / 1 / 1", height: 0, paddingBottom: `calc(100% / ${aspectRatio ?? 1})` }} />
+            {React.createElement<any>(child.type, {
+              ...props,
+              style: { gridArea: "1 / 1 / 1 / 1", placeSelf: "stretch" },
+              captionPlacement: "overlay",
+              layout: "fill",
+            })}
           </div>
         );
       })}
@@ -98,5 +116,5 @@ const classes = {
         grid-column-end: span 12;
       }
     `,
-  }
+  },
 };
