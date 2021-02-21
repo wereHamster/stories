@@ -82,6 +82,21 @@ const classes = {
     [`6`]: css`
       grid-column-end: span 6;
     `,
+    [`7`]: css`
+      grid-column-end: span 7;
+    `,
+    [`8`]: css`
+      grid-column-end: span 8;
+    `,
+    [`9`]: css`
+      grid-column-end: span 9;
+    `,
+    [`10`]: css`
+      grid-column-end: span 10;
+    `,
+    [`11`]: css`
+      grid-column-end: span 11;
+    `,
     [`12`]: css`
       grid-column-end: span 12;
     `,
@@ -109,6 +124,31 @@ const classes = {
     [`md:6`]: css`
       @media (min-width: 720px) {
         grid-column-end: span 6;
+      }
+    `,
+    [`md:7`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 7;
+      }
+    `,
+    [`md:8`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 8;
+      }
+    `,
+    [`md:9`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 9;
+      }
+    `,
+    [`md:10`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 10;
+      }
+    `,
+    [`md:11`]: css`
+      @media (min-width: 720px) {
+        grid-column-end: span 11;
       }
     `,
     [`md:12`]: css`
