@@ -28,7 +28,7 @@
     "io-ts": "^2.2.14",
     "io-ts-types": "^0.5.15",
     "next": "10.0.5",
-    "prism-react-renderer": "^1.1.1",
+    "prism-react-renderer": "^1.2.0",
     "puppeteer": "^5.5.0",
     "react": "^17.0.1",
     "react-blurhash": "^0.1.3",
