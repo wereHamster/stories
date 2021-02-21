@@ -97,8 +97,12 @@ const classes = {
   `,
 
   close: css`
-    margin-right: 12px;
+    padding: 12px;
     cursor: pointer;
+
+    svg {
+      display: block;
+    }
   `,
 
   center: css`
