@@ -113,10 +113,10 @@ const classes = {
 
   prev: css`
     z-index: 2;
-    position: absolute;
+    position: fixed;
     padding-right: 32px;
     left: 0;
-    top: 0;
+    top: 64px;
     bottom: 0;
     width: 80px;
     display: flex;
@@ -126,10 +126,10 @@ const classes = {
   `,
   next: css`
     z-index: 2;
-    position: absolute;
+    position: fixed;
     padding-left: 32px;
     right: 0;
-    top: 0;
+    top: 64px;
     bottom: 0;
     width: 80px;
     display: flex;
