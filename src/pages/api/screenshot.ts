@@ -1,30 +1,8 @@
-import chromium from "chrome-aws-lambda";
+import chrome from "chrome-aws-lambda";
 import { either, pipeable } from "fp-ts";
 import * as t from "io-ts";
 import { NumberFromString } from "io-ts-types/lib/NumberFromString";
 import { NextApiRequest, NextApiResponse } from "next";
-import { Browser } from "puppeteer";
-import { URL } from "url";
-
-/**
- * We start a new browser instance for each request. This may seem a bit expensive (and it is),
- * but gives us a clean browser each time.
- */
-async function withBrowser<T>(f: (browser: Browser) => Promise<T>) {
-  const browser = await chromium.puppeteer.launch({
-    dumpio: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--hide-scrollbars", "--disable-extensions", ...chromium.args],
-    executablePath: await chromium.executablePath,
-  });
-
-  try {
-    return await f(browser);
-  } finally {
-    // Don't wait for the browser to close. Let this happen asynchronously
-    // so we can return the response as soon as possible.
-    browser.close();
-  }
-}
 
 /**
  * The shape of the query params. If the params can not be parsed
@@ -53,59 +31,61 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           },
         }),
         async (query) => {
+          const browser = await chrome.puppeteer.launch({
+            executablePath: await chrome.executablePath,
+            args: [...chrome.args],
+            headless: chrome.headless,
+          });
+
+          const deviceScaleFactor = query.deviceScaleFactor || 1;
+          const page = await browser.newPage();
+          await page.setViewport({ width: 1200, height: 630, deviceScaleFactor });
+          await page.goto(`http://${req.headers.host}${query.path}`, {
+            waitUntil: process.env.NODE_ENV === "production" ? "networkidle0" : "load",
+          });
+
           /*
-           * We have a valid request, and can proceed with launching the browser,
-           * and capturing the image.
+           * Wait a bit longer still to give the page chance to finish rendering.
            */
-          return withBrowser(async (browser) => {
-            const deviceScaleFactor = query.deviceScaleFactor || 1;
-            const page = await browser.newPage();
-            await page.setViewport({ width: 1200, height: 630, deviceScaleFactor });
-            await page.goto(`http://${req.headers.host}${query.path}`, { waitUntil: process.env.NODE_ENV === "production" ? "networkidle0" : "load" });
+          await new Promise((resolve) => setTimeout(resolve, 500));
 
+          const headers: Record<string, string> = { "Content-Type": "image/png" };
+          if (query.download) {
+            headers["Content-Disposition"] = `attachment; filename=${query.download}.png`;
+          }
+
+          if (query.element) {
             /*
-             * Wait a bit longer still to give the page chance to finish rendering.
+             * The request is for a screenshot of a specific element. This elment may not
+             * exist though. If it doesn't it's treated as a client error (status 400).
              */
-            await new Promise((resolve) => setTimeout(resolve, 500));
-
-            const headers: Record<string, string> = { "Content-Type": "image/png" };
-            if (query.download) {
-              headers["Content-Disposition"] = `attachment; filename=${query.download}.png`;
-            }
-
-            if (query.element) {
-              /*
-               * The request is for a screenshot of a specific element. This elment may not
-               * exist though. If it doesn't it's treated as a client error (status 400).
-               */
-              await page.waitForSelector(query.element);
-              const elementHandle = await page.$(query.element);
-              if (!elementHandle) {
-                return {
-                  status: 400,
-                  body: JSON.stringify({ error: `Element ${query.element} not found` }),
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                };
-              } else {
-                return {
-                  status: 200,
-                  body: await elementHandle.screenshot({ type: "png" }),
-                  headers,
-                };
-              }
+            await page.waitForSelector(query.element);
+            const elementHandle = await page.$(query.element);
+            if (!elementHandle) {
+              return {
+                status: 400,
+                body: JSON.stringify({ error: `Element ${query.element} not found` }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              };
             } else {
-              /*
-               * Full-page screenshot.
-               */
               return {
                 status: 200,
-                body: await page.screenshot({ type: "png", fullPage: true }),
+                body: await elementHandle.screenshot({ type: "png" }),
                 headers,
               };
             }
-          });
+          } else {
+            /*
+             * Full-page screenshot.
+             */
+            return {
+              status: 200,
+              body: await page.screenshot({ type: "png", fullPage: true }),
+              headers,
+            };
+          }
         }
       )
     );
