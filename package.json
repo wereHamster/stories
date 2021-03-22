@@ -43,7 +43,7 @@
     "sqip-plugin-primitive": "^1.0.0-alpha.34",
     "sqip-plugin-svgo": "^1.0.0-alpha.33",
     "unist-util-visit": "^2.0.3",
-    "use-immer": "^0.4.2",
+    "use-immer": "^0.5.1",
     "webpack": "^4.46.0"
   },
   "devDependencies": {
