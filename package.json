@@ -15,7 +15,7 @@
     "@linaria/webpack-loader": "^3.0.0-beta.3",
     "@mdx-js/loader": "^1.6.22",
     "@next/mdx": "^10.1.3",
-    "@timvir/blocks": "^0.1.13",
+    "@timvir/blocks": "^0.1.14",
     "@timvir/core": "^0.1.13",
     "@timvir/macro": "^0.1.13",
     "@types/puppeteer": "^5.4.2",
