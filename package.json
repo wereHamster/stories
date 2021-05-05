@@ -42,7 +42,7 @@
     "sqip-plugin-data-uri": "^1.0.0-alpha.33",
     "sqip-plugin-primitive": "^1.0.0-alpha.34",
     "sqip-plugin-svgo": "^1.0.0-alpha.33",
-    "unist-util-visit": "^2.0.3",
+    "unist-util-visit": "^3.0.1",
     "use-immer": "^0.5.1",
     "webpack": "^4.46.0"
   },
