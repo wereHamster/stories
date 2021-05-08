@@ -313,7 +313,17 @@ function Inner({ image }: any) {
 
   return (
     <div ref={ref}>
-      <NextImage src={image.src} objectFit="contain" layout="fill" />
+      <NextImage
+        src={image.src}
+        objectFit="contain"
+        layout="fill"
+        onError={(ev) => {
+          ev.currentTarget.style.visibility = "hidden";
+        }}
+        onLoad={(ev) => {
+          ev.currentTarget.style.visibility = "inherit";
+        }}
+      />
       <div
         style={{
           backgroundRepeat: "no-repeat",

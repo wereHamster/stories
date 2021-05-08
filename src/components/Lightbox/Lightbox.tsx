@@ -89,11 +89,13 @@ const classes = {
   `,
 
   top: css`
-    height: 64px;
-    flex: 64px 0 0;
+    z-index: 3;
+    min-height: 64px;
+    flex: 64px 0 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
   `,
 
   close: css`
@@ -116,9 +118,10 @@ const classes = {
     position: fixed;
     padding-right: 32px;
     left: 0;
-    top: 64px;
+    top: 0;
     bottom: 0;
-    width: 80px;
+    width: calc(80px + env(safe-area-inset-left));
+    padding-left: env(safe-area-inset-left);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -129,9 +132,10 @@ const classes = {
     position: fixed;
     padding-left: 32px;
     right: 0;
-    top: 64px;
+    top: 0;
     bottom: 0;
-    width: 80px;
+    width: calc(80px + env(safe-area-inset-right));
+    padding-right: env(safe-area-inset-right);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -139,7 +143,8 @@ const classes = {
   `,
 
   caption: css`
-    margin: 24px 0;
+    min-height: 64px;
+    padding: 24px 0 max(24px, env(safe-area-inset-bottom));
     text-align: center;
     width: 100%;
     opacity: 0.7;

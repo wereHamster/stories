@@ -2,12 +2,17 @@ import { css } from "@linaria/core";
 import Head from "next/head";
 import { IntlProvider } from "react-intl";
 
+import "@timvir/core/styles.css";
+import "@timvir/blocks/styles.css";
+
 function App({ Component, pageProps }) {
   return (
     <IntlProvider locale="en" defaultLocale="en">
       <Head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.png" />
       </Head>
+
       <Component {...pageProps} />
     </IntlProvider>
   );
@@ -20,6 +25,10 @@ export default App;
  */
 css`
   :global() {
+    :root {
+      -webkit-text-size-adjust: 100%;
+    }
+
     html,
     body {
       padding: 0;
@@ -31,9 +40,9 @@ css`
       font-family: "Tuna", system-ui, sans-serif;
 
       /*
-     * Font size goes from 17px to 21px, changes
-     * at fixed breakpoints.
-     */
+       * Font size goes from 17px to 21px, changes
+       * at fixed breakpoints.
+       */
       font-size: 17px;
       line-height: 1.8;
 
@@ -49,8 +58,8 @@ css`
     }
 
     *,
-    *:before,
-    *:after {
+    *::before,
+    *::after {
       box-sizing: inherit;
     }
   }

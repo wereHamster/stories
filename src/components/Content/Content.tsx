@@ -24,9 +24,46 @@ const classes = {
   root: css`
     display: grid;
 
-    grid-template-columns: [le] 1rem [lex lc] 1fr [rc rex] 1rem [re];
+    /*
+     * The width of the main (center) column. Choose so that lines
+     * of text are neither too long nor too short.
+     */
+    --center-column: 36rem;
+
+    /*
+     * The (max) width of the extended columns
+     */
+    --extended-column: 12rem;
+
+    grid-template-columns:
+      [le]
+        max(1rem, env(safe-area-inset-left))
+      [lex lc]
+        1fr
+      [rc rex]
+        max(1rem, env(safe-area-inset-right))
+      [re];
+
+    /*
+     * Can't use var() nor env() in media queries :(
+     *
+     * > (min-width: calc(var(--center-column) + max(1rem, env(safe-area-inset-left)) + max(1rem, env(safe-area-inset-right))))
+     */
     @media (min-width: calc(36rem + 2rem)) {
-      grid-template-columns: [le] 1fr 1rem [lex] minmax(0, 12rem) [lc] 36rem [rc] minmax(0, 12rem) [rex] 1rem 1fr [re];
+      grid-template-columns:
+        [le]
+          1fr
+          max(1rem, env(safe-area-inset-left))
+        [lex]
+          minmax(0, var(--extended-column))
+        [lc]
+          var(--center-column)
+        [rc]
+          minmax(0, var(--extended-column))
+        [rex]
+          max(1rem, env(safe-area-inset-right))
+          1fr
+        [re];
     }
 
     .wp {
