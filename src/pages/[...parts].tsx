@@ -109,15 +109,9 @@ const components = {
       <Image
         {...props}
         highlight={props.id === highlight}
-        onOpen={() => {
-          router.replace(
-            {
-              pathname: "[...parts]",
-              query: { parts: [router.query.parts[0], props.id] },
-            },
-            undefined,
-            { scroll: false, shallow: true }
-          );
+        href={{
+          pathname: "[...parts]",
+          query: { parts: [router.query.parts[0], props.id] },
         }}
       />
     );
@@ -169,7 +163,9 @@ export default function Page() {
             <meta property="og:title" content={meta.title} />
             <meta
               property="og:image"
-              content={`${process.env.NEXT_PUBLIC_URL ? `https://${process.env.NEXT_PUBLIC_URL}` : "http://localhost:3000"}/api/screenshot?path=/${storyId}/og:image`}
+              content={`${
+                process.env.NEXT_PUBLIC_URL ? `https://${process.env.NEXT_PUBLIC_URL}` : "http://localhost:3000"
+              }/api/screenshot?path=/${storyId}/og:image`}
             />
 
             <meta name="twitter:card" content="summary_large_image" />

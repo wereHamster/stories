@@ -1,6 +1,7 @@
 import * as React from "react";
 import NextImage from "next/image";
 import { css, cx } from "@linaria/core";
+import Link, { LinkProps } from "next/link";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -24,12 +25,12 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
   caption?: React.ReactNode;
   captionPlacement?: "below" | "overlay";
 
-  onOpen?: () => void;
-
   span?: number | number[];
   aspectRatio?: number;
 
   highlight?: boolean;
+
+  href?: LinkProps["href"];
 }
 
 function Image(props: Props) {
@@ -38,9 +39,9 @@ function Image(props: Props) {
     layout = "intrinsic",
     caption,
     captionPlacement = "below",
-    onOpen,
     highlight,
     style,
+    href,
     className,
     ...rest
   } = props;
@@ -62,6 +63,12 @@ function Image(props: Props) {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (highlight) {
+      ref.current?.querySelector("a")?.focus();
+    }
+  }, [highlight]);
+
   return (
     <Root
       ref={ref}
@@ -69,15 +76,19 @@ function Image(props: Props) {
       className={cx(classes.root, className, classes.captionPlacement[captionPlacement])}
       {...rest}
     >
-      <figure onClick={onOpen} className={cx(highlight && classes.highlight)}>
-        <NextImage
-          src={image.src}
-          width={layout === "fill" ? undefined : image.width}
-          height={layout === "fill" ? undefined : image.height}
-          layout={layout as any}
-          objectFit={layout === "fill" ? "cover" : undefined}
-        />
-        <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
+      <figure>
+        <Link passHref href={href}>
+          <a>
+            <NextImage
+              src={image.src}
+              width={layout === "fill" ? undefined : image.width}
+              height={layout === "fill" ? undefined : image.height}
+              layout={layout as any}
+              objectFit={layout === "fill" ? "cover" : undefined}
+            />
+            <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
+          </a>
+        </Link>
       </figure>
 
       {caption && <figcaption>{caption}</figcaption>}
@@ -93,11 +104,27 @@ const classes = {
     contain: layout;
     display: grid;
 
+    & a {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      height: 100%;
+
+      outline-offset: 2px;
+    }
+
+    & a > div {
+      display: block !important;
+    }
+
+    & img {
+      display: block;
+    }
+
     & > figure {
       cursor: pointer;
       position: relative;
       margin: 0;
-      transition: box-shadow 0.5s;
     }
 
     .sqip {
@@ -132,9 +159,6 @@ const classes = {
     }
   `,
 
-  highlight: css`
-    box-shadow: 0 0 2px 1px white, 0 0 5px 5px black;
-  `,
 
   captionPlacement: {
     overlay: css`
@@ -154,6 +178,9 @@ const classes = {
       }
 
       &:hover > figcaption {
+        opacity: 1;
+      }
+      &:focus-within > figcaption {
         opacity: 1;
       }
     `,
