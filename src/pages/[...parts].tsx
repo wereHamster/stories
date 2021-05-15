@@ -128,6 +128,12 @@ const stories = {
     Body: dynamic(() => import(`../../content/where-i-was-meant-to-be/body.mdx`)),
     Image: dynamic(() => import(`../../content/where-i-was-meant-to-be/image`)),
   },
+  "one-more-rush": {
+    meta: require("../../content/one-more-rush/meta").default,
+    Header: dynamic(() => import(`../../content/one-more-rush/header`)),
+    Body: dynamic(() => import(`../../content/one-more-rush/body.mdx`)),
+    Image: dynamic(() => import(`../../content/one-more-rush/image`)),
+  },
 } as const;
 
 interface State {

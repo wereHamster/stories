@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+
+const [, , dir] = process.argv;
+
+const images = [];
+for (const f of fs.readdirSync(dir)) {
+  if (f.match(/(jpg|jpeg|png)$/)) {
+    images.push(f);
+  }
+}
+
+for (const image of images) {
+  console.log(`<Image src="__prefix__/${image}" />\n`)
+}
