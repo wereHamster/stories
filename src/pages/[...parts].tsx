@@ -10,6 +10,7 @@ import NextImage from "next/image";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { useImmer } from "use-immer";
+import { css, cx } from "@linaria/core";
 
 interface Value {
   mutate: any;
@@ -119,6 +120,21 @@ const components = {
   Group: (props: any) => {
     return <Group className="wp" {...props} />;
   },
+  blockquote: (props: any) => {
+    return (
+      <blockquote
+        className={css`
+          padding-left: 1em;
+          border-left: 2px solid #fe762a;
+
+          & > p {
+            margin: 0;
+          }
+        `}
+        {...props}
+      />
+    );
+  },
 };
 
 const stories = {
@@ -127,6 +143,12 @@ const stories = {
     Header: dynamic(() => import(`../../content/where-i-was-meant-to-be/header`)),
     Body: dynamic(() => import(`../../content/where-i-was-meant-to-be/body.mdx`)),
     Image: dynamic(() => import(`../../content/where-i-was-meant-to-be/image`)),
+  },
+  "one-more-rush": {
+    meta: require("../../content/one-more-rush/meta").default,
+    Header: dynamic(() => import(`../../content/one-more-rush/header`)),
+    Body: dynamic(() => import(`../../content/one-more-rush/body.mdx`)),
+    Image: dynamic(() => import(`../../content/one-more-rush/image`)),
   },
 } as const;
 

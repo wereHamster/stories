@@ -8,7 +8,7 @@ const withMDX = require('@next/mdx')({
       () => (tree) => {
         visit(tree, 'jsx', node => {
           if (node.value.match(/<Image/)) {
-            node.value = node.value.replace(/src="(.*)"/g, (...args) => `image={importImage("${args[1]}")}`)
+            node.value = node.value.replace(/src="([^"]*)"/g, (...args) => `image={importImage("${args[1]}")}`)
           }
         })
       }
