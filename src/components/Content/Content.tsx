@@ -83,7 +83,7 @@ const classes = {
     }
 
     & > p {
-      margin: 1em 0;
+      margin: .5em 0;
     }
   `,
 };

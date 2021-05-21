@@ -62,25 +62,31 @@ const components = {
           return React.cloneElement(child as any, {
             id: `${(child.props as any).image.hash}`,
             index,
-            style: {
-              margin: "2rem auto",
-              ...(child.props as any).style,
-              maxWidth: (child.props as any).size === "narrow" ? 400 : undefined,
-            },
-            className: {
-              full: "fw",
-              wide: "wp",
-            }[(child.props as any).size],
+            className: cx(
+              (child.props as any).className,
+              {
+                full: "fw",
+                wide: "wp",
+              }[(child.props as any).size],
+              css`
+                margin: 2em auto;
+              `,
+              (child.props as any).size === "narrow" &&
+                css`
+                  max-width: 400px;
+                `
+            ),
           });
         }
 
         if ((child.props as any).mdxType === "Group") {
           return React.cloneElement(child as any, {
-            style: {
-              marginTop: "4rem",
-              marginBottom: "4rem",
-              ...(child.props as any).style,
-            },
+            className: cx(
+              (child.props as any).className,
+              css`
+                margin: 2em 0;
+              `
+            ),
             children: React.Children.map((child.props as any).children, (child) => {
               if (React.isValidElement(child)) {
                 const index = blocks.indexOf(child);
@@ -118,7 +124,7 @@ const components = {
     );
   },
   Group: (props: any) => {
-    return <Group className="wp" {...props} />;
+    return <Group {...props} className={cx(props.className, "wp")} />;
   },
   blockquote: (props: any) => {
     return (
