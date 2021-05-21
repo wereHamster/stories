@@ -256,28 +256,14 @@ export default function Page() {
             const index = Math.max(0, state.blocks.indexOf(focusBlock) - 1);
             const image = state.blocks[index];
             if (image) {
-              router.replace(
-                {
-                  pathname: "[...parts]",
-                  query: { parts: [storyId, image.id] },
-                },
-                undefined,
-                { scroll: false, shallow: true }
-              );
+              router.replace(`/${storyId}/${image.id}`, undefined, { scroll: false, shallow: true });
             }
           }}
           next={() => {
             const index = Math.min(state.blocks.length - 1, state.blocks.indexOf(focusBlock) + 1);
             const image = state.blocks[index];
             if (image) {
-              router.replace(
-                {
-                  pathname: "[...parts]",
-                  query: { parts: [storyId, image.id] },
-                },
-                undefined,
-                { scroll: false, shallow: true }
-              );
+              router.replace(`/${storyId}/${image.id}`, undefined, { scroll: false, shallow: true });
             }
           }}
         >
