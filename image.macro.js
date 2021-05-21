@@ -1,4 +1,4 @@
-const { join, dirname, basename, extname } = require("path");
+const { join } = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
 const { execFileSync } = require("child_process");
@@ -22,11 +22,9 @@ const metadataCacheDirectory = `${outputDirectory}/.cache`;
  */
 mkdirp.sync(metadataCacheDirectory);
 
-module.exports = createMacro(({ references, babel }) => {
+module.exports = createMacro(({ references }) => {
   
   const toValue = (referencePath, sourceImage /** @type string */) => {
-    console.log(fingerprint("https://storage.googleapis.com/plog-imgix/ticino/DSCF0171.jpg"), referencePath.hub.file.opts.parserOpts.sourceFileName)
-
     /*
      * The fingerprint is constructed entirely using just the 'sourceImage'
      * (relative path or URL).
@@ -57,7 +55,7 @@ module.exports = createMacro(({ references, babel }) => {
 
   if (references.importImage) {
     references.importImage.forEach((referencePath) => {
-      const { sourceImage, value } = toValue(referencePath, referencePath.parent.arguments[0].value);
+      const { value } = toValue(referencePath, referencePath.parent.arguments[0].value);
 
       const replacement = parseExpression(`${JSON.stringify(value)}`);
       referencePath.parentPath.replaceWith(replacement);
@@ -82,17 +80,6 @@ const fingerprint = (...buffers) => {
   }
   return ret.toString("utf8");
 };
-
-function fetchSourceImage(url, path) {
-  if (!fs.existsSync(path)) {
-    const script = `
-  const { get } = require("https");
-  const { createWriteStream } = require("fs");
-  get("${url}", res => { res.pipe(createWriteStream("${path}")); })
-      `;
-    execFileSync(process.execPath, ["-e", script]);
-  }
-}
 
 const loadMetadata = (() => {
   const inMemoryCache = new Map();
