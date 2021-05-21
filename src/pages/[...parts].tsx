@@ -112,16 +112,7 @@ const components = {
     const router = useRouter();
     const { highlight } = React.useContext(Context);
 
-    return (
-      <Image
-        {...props}
-        highlight={props.id === highlight}
-        href={{
-          pathname: "[...parts]",
-          query: { parts: [router.query.parts[0], props.id] },
-        }}
-      />
-    );
+    return <Image {...props} highlight={props.id === highlight} href={`/${router.query.parts[0]}/${props.id}`} />;
   },
   Group: (props: any) => {
     return <Group {...props} className={cx(props.className, "wp")} />;
@@ -238,14 +229,7 @@ export default function Page() {
       {focus && (
         <Lightbox
           onClose={() => {
-            router.replace(
-              {
-                pathname: "[...parts]",
-                query: { parts: [storyId] },
-              },
-              undefined,
-              { scroll: false, shallow: true }
-            );
+            router.replace(`/${storyId}`, undefined, { scroll: false, shallow: true });
 
             document.getElementById(focus)?.scrollIntoView({
               block: "center",
