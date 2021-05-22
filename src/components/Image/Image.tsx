@@ -76,7 +76,7 @@ function Image(props: Props) {
       className={cx(classes.root, className, classes.captionPlacement[captionPlacement])}
       {...rest}
     >
-      <figure>
+      <figure className={classes.figure}>
         <Link passHref href={href}>
           <a>
             <NextImage
@@ -86,12 +86,15 @@ function Image(props: Props) {
               layout={layout as any}
               objectFit={layout === "fill" ? "cover" : undefined}
             />
-            <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
+            <div
+              className={classes.sqip}
+              style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }}
+            />
           </a>
         </Link>
       </figure>
 
-      {caption && <figcaption>{caption}</figcaption>}
+      {caption && <figcaption className={classes.figcaption}>{caption}</figcaption>}
     </Root>
   );
 }
@@ -120,43 +123,43 @@ const classes = {
     & img {
       display: block;
     }
+  `,
 
-    & > figure {
-      cursor: pointer;
-      position: relative;
-      margin: 0;
-    }
+  sqip: css`
+    position: absolute;
+    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
 
-    .sqip {
-      position: absolute;
-      inset: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      pointer-events: none;
+    transition: opacity 0.8s ease-out 1.5s;
 
-      transition: opacity 0.8s ease-out 1.5s;
+    background-size: cover;
+    background-position: 50% 50%;
 
-      background-size: cover;
-      background-position: 50% 50%;
+    z-index: -1;
+  `,
 
-      z-index: -1;
-    }
+  figure: css`
+    cursor: pointer;
+    position: relative;
+    margin: 0;
 
-    & > figure > div {
+    & > div {
       display: block !important;
       z-index: -2;
     }
+  `,
 
-    & > figcaption {
-      text-align: center;
-      margin: 8px 0;
-      font-size: 0.75em;
-      line-height: 1.3;
-      font-style: italic;
-      opacity: 0.7;
-    }
+  figcaption: css`
+    text-align: center;
+    margin: 8px 0;
+    font-size: 0.75em;
+    line-height: 1.3;
+    font-style: italic;
+    opacity: 0.7;
   `,
 
   captionPlacement: {
@@ -167,7 +170,7 @@ const classes = {
         left: 6px;
         right: 6px;
         bottom: 6px;
-        background: rgba(0, 0, 0, .85);
+        background: rgba(0, 0, 0, 0.85);
         color: #fefefe;
         padding: 8px 10px;
         text-align: left;
@@ -175,7 +178,7 @@ const classes = {
         opacity: 0;
         transition: opacity 0.4s;
         border-radius: 3px;
-        border: 1px solid rgba(255,255,255,.4);
+        border: 1px solid rgba(255, 255, 255, 0.4);
         box-shadow: 0 0 6px black;
       }
 
