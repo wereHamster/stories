@@ -52,11 +52,19 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
       <div className={classes.center}>
         {children}
 
-        <div onClick={prev} className={classes.prev}>
+        <div
+          onClick={prev}
+          className={classes.prev}
+          style={{ opacity: prev ? 1 : 0, pointerEvents: prev ? undefined : "none" }}
+        >
           <Icons.ArrowLeft />
         </div>
 
-        <div onClick={next} className={classes.next}>
+        <div
+          onClick={next}
+          className={classes.next}
+          style={{ opacity: next ? 1 : 0, pointerEvents: next ? undefined : "none" }}
+        >
           <Icons.ArrowRight />
         </div>
       </div>
@@ -126,6 +134,7 @@ const classes = {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: opacity 0.2s;
   `,
   next: css`
     z-index: 2;
@@ -140,6 +149,7 @@ const classes = {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: opacity 0.2s;
   `,
 
   caption: css`

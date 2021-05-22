@@ -252,20 +252,20 @@ export default function Page() {
             }, 20);
           }}
           caption={focusBlock?.caption}
-          prev={() => {
-            const index = Math.max(0, state.blocks.indexOf(focusBlock) - 1);
+          prev={(() => {
+            const index = state.blocks.indexOf(focusBlock) - 1;
             const image = state.blocks[index];
             if (image) {
-              router.replace(`/${storyId}/${image.id}`, undefined, { scroll: false, shallow: true });
+              return () => router.replace(`/${storyId}/${image.id}`, undefined, { scroll: false, shallow: true });
             }
-          }}
-          next={() => {
-            const index = Math.min(state.blocks.length - 1, state.blocks.indexOf(focusBlock) + 1);
+          })()}
+          next={(() => {
+            const index = state.blocks.indexOf(focusBlock) + 1;
             const image = state.blocks[index];
             if (image) {
-              router.replace(`/${storyId}/${image.id}`, undefined, { scroll: false, shallow: true });
+              return () => router.replace(`/${storyId}/${image.id}`, undefined, { scroll: false, shallow: true });
             }
-          }}
+          })()}
         >
           {focusBlock && <Inner key={focusBlock.image.src} image={focusBlock.image} />}
         </Lightbox>
