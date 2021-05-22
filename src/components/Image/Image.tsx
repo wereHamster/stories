@@ -159,22 +159,24 @@ const classes = {
     }
   `,
 
-
   captionPlacement: {
     overlay: css`
       & > figcaption {
         position: absolute;
         margin: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-        color: white;
-        padding: 30px 20px 12px;
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
+        background: rgba(0, 0, 0, .85);
+        color: #fefefe;
+        padding: 8px 10px;
         text-align: left;
         pointer-events: none;
         opacity: 0;
-        transition: opacity 0.2s;
+        transition: opacity 0.4s;
+        border-radius: 3px;
+        border: 1px solid rgba(255,255,255,.4);
+        box-shadow: 0 0 6px black;
       }
 
       &:hover > figcaption {
