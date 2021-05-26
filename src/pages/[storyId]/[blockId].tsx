@@ -30,16 +30,8 @@ export default function Page(props: Props) {
         document.getElementById(blockId)?.scrollIntoView({ block: "center", inline: "center" });
       }}
       caption={block.caption}
-      prev={(() => {
-        if (prev) {
-          return () => router.replace(`/${storyId}/${prev}`);
-        }
-      })()}
-      next={(() => {
-        if (next) {
-          return () => router.replace(`/${storyId}/${next}`);
-        }
-      })()}
+      prev={prev && (() => router.replace(`/${storyId}/${prev}`))}
+      next={next && (() => router.replace(`/${storyId}/${next}`))}
     >
       <Inner key={block.image.src} image={block.image} />
     </Lightbox>
@@ -57,39 +49,36 @@ export const getStaticProps: GetStaticProps<Props, Query> = async ({ params }) =
   const Body = require(`../../../content/${params.storyId}/body.mdx`).default;
   const { children } = Body({}).props;
 
-  const blocks: Array<React.ReactElement<unknown, string | React.JSXElementConstructor<any>>> = [];
+  const blocks: Array<{ __typename: string; id: string; image: any; caption: any }> = [];
   React.Children.forEach(children, function go(child: any) {
     if (React.isValidElement(child)) {
-      if ((child.props as any).mdxType === "Image") {
-        blocks.push(child);
+      const props = child.props as any;
+
+      if (props.mdxType === "Image") {
+        blocks.push({
+          __typename: "Image",
+          id: props.image.hash,
+          image: props.image,
+          caption: props.caption,
+        });
       }
 
-      React.Children.forEach((child.props as any).children, go);
+      React.Children.forEach(props.children, go);
     }
   });
 
-  const blocksX = blocks.map((child) => {
-    const props = child.props as any;
-    return {
-      id: props.image.hash,
-      type: "Image",
-      image: props.image,
-      caption: props.caption,
-    };
-  });
-
-  const focusBlock = blocksX.find((x) => x.id === params.blockId);
-  const index = blocksX.indexOf(focusBlock);
+  const block = blocks.find((x) => x.id === params.blockId);
+  const index = blocks.indexOf(block);
 
   return {
     props: {
       ...params,
       block: {
-        ...focusBlock,
-        caption: focusBlock.caption ?? null
+        ...block,
+        caption: block.caption ?? null,
       },
-      prev: blocksX[index - 1]?.id ?? null,
-      next: blocksX[index + 1]?.id ?? null,
+      prev: blocks[index - 1]?.id ?? null,
+      next: blocks[index + 1]?.id ?? null,
     },
   };
 };
