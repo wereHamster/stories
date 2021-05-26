@@ -30,8 +30,8 @@ export default function Page(props: Props) {
         document.getElementById(blockId)?.scrollIntoView({ block: "center", inline: "center" });
       }}
       caption={block.caption}
-      prev={prev && (() => router.replace(`/${storyId}/${prev}`))}
-      next={next && (() => router.replace(`/${storyId}/${next}`))}
+      prev={prev && { href: `/${storyId}/${prev}` }}
+      next={next && { href: `/${storyId}/${next}` }}
     >
       <Inner key={block.image.src} image={block.image} />
     </Lightbox>
