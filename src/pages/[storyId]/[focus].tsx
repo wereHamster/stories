@@ -32,20 +32,11 @@ export default function Page(props: Props) {
 
   const { storyId, focus, block, next, prev } = props;
 
-  const { Image } = stories[storyId] ?? {};
-  if (focus === "og:image" && Image) {
-    return <Image />;
-  }
-
   return (
     <Lightbox
       onClose={async () => {
         await router.replace(`/${storyId}`);
-
-        const el = document.getElementById(focus);
-        if (el) {
-          el.scrollIntoView({ block: "center", inline: "center" });
-        }
+        document.getElementById(focus)?.scrollIntoView({ block: "center", inline: "center" });
       }}
       caption={block.caption}
       prev={(() => {
