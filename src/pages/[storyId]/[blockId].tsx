@@ -1,42 +1,33 @@
 import { Lightbox } from "@/components/Lightbox";
-import dynamic from "next/dynamic";
+import { GetStaticPaths, GetStaticProps } from "next";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import * as React from "react";
 
-const stories = {
-  "where-i-was-meant-to-be": {
-    meta: require("../../../content/where-i-was-meant-to-be/meta").default,
-    Header: dynamic(() => import(`../../../content/where-i-was-meant-to-be/header`)),
-    Body: dynamic(() => import(`../../../content/where-i-was-meant-to-be/body.mdx`)),
-    Image: dynamic(() => import(`../../../content/where-i-was-meant-to-be/image`)),
-  },
-  "one-more-rush": {
-    meta: require("../../../content/one-more-rush/meta").default,
-    Header: dynamic(() => import(`../../../content/one-more-rush/header`)),
-    Body: dynamic(() => import(`../../../content/one-more-rush/body.mdx`)),
-    Image: dynamic(() => import(`../../../content/one-more-rush/image`)),
-  },
-} as const;
+export interface Query extends ParsedUrlQuery {
+  storyId: string;
+  blockId: string;
+}
 
 interface Props {
   storyId: string;
-  focus: string;
+  blockId: string;
   block: any;
-  next: string;
-  prev: string;
+  next: null | string;
+  prev: null | string;
 }
 
 export default function Page(props: Props) {
   const router = useRouter();
 
-  const { storyId, focus, block, next, prev } = props;
+  const { storyId, blockId, block, next, prev } = props;
 
   return (
     <Lightbox
       onClose={async () => {
         await router.replace(`/${storyId}`);
-        document.getElementById(focus)?.scrollIntoView({ block: "center", inline: "center" });
+        document.getElementById(blockId)?.scrollIntoView({ block: "center", inline: "center" });
       }}
       caption={block.caption}
       prev={(() => {
@@ -55,18 +46,18 @@ export default function Page(props: Props) {
   );
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths<Query> = async () => {
   return {
     paths: [],
     fallback: "blocking",
   };
-}
+};
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps<Props, Query> = async ({ params }) => {
   const Body = require(`../../../content/${params.storyId}/body.mdx`).default;
   const { children } = Body({}).props;
 
-  const blocks: any[] = [];
+  const blocks: Array<React.ReactElement<unknown, string | React.JSXElementConstructor<any>>> = [];
   React.Children.forEach(children, function go(child: any) {
     if (React.isValidElement(child)) {
       if ((child.props as any).mdxType === "Image") {
@@ -77,7 +68,7 @@ export async function getStaticProps({ params }) {
     }
   });
 
-  const blocksX = blocks.map((child: any) => {
+  const blocksX = blocks.map((child) => {
     const props = child.props as any;
     return {
       id: props.image.hash,
@@ -87,19 +78,21 @@ export async function getStaticProps({ params }) {
     };
   });
 
-  const focusBlock = blocksX.find((x) => x.id === params.focus);
+  const focusBlock = blocksX.find((x) => x.id === params.blockId);
   const index = blocksX.indexOf(focusBlock);
 
   return {
     props: {
       ...params,
-      block: focusBlock,
+      block: {
+        ...focusBlock,
+        caption: focusBlock.caption ?? null
+      },
       prev: blocksX[index - 1]?.id ?? null,
       next: blocksX[index + 1]?.id ?? null,
     },
-    revalidate: 10,
   };
-}
+};
 
 function Inner({ image }: any) {
   const ref = React.useRef<null | HTMLDivElement>(null);
