@@ -19,13 +19,6 @@ interface Props {
   storyId: string;
 }
 
-interface Value {
-  mutate: any;
-  highlight: undefined | string;
-}
-
-type Block = { id: string; type: "Image"; image: any; caption: any };
-
 const components = {
   wrapper: ({ children }) => {
     return React.Children.map(children, (child) => {
@@ -78,7 +71,6 @@ const components = {
   Header,
   Image: (props: any) => {
     const router = useRouter();
-
     return <Image {...props} href={`/${router.query.storyId}/${props.id}`} />;
   },
   Group: (props: any) => {
@@ -113,11 +105,6 @@ const stories = {
     Body: dynamic(() => import(`../../../content/one-more-rush/body.mdx`)),
   },
 } as const;
-
-interface State {
-  blocks: Block[];
-  highlight: undefined | string;
-}
 
 export default function Page(props: Props) {
   const { storyId } = props;
