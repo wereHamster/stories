@@ -37,12 +37,7 @@ export default function Page(props: Props) {
 
         <meta property="og:title" content={title} />
         {block.caption && <meta property="og:description" content={block.caption} />}
-        <meta
-          property="og:image"
-          content={`${
-            process.env.NEXT_PUBLIC_URL ? `https://${process.env.NEXT_PUBLIC_URL}` : "http://localhost:3000"
-          }/api/screenshot?path=/${storyId}/${blockId}/og:image`}
-        />
+        <meta property="og:image" content={block.image.src} />
 
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
