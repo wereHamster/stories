@@ -36,6 +36,7 @@ export default function Page(props: Props) {
         <title>{title}</title>
 
         <meta property="og:title" content={title} />
+        {block.caption && <meta property="og:description" content={block.caption} />}
         <meta
           property="og:image"
           content={`${
