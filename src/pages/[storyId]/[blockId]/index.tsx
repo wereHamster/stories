@@ -70,7 +70,7 @@ export const getStaticPaths: GetStaticPaths<Query> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Query> = async ({ params }) => {
-  const Body = require(`../../../content/${params.storyId}/body.mdx`).default;
+  const Body = require(`../../../../content/${params.storyId}/body.mdx`).default;
   const { children } = Body({}).props;
 
   const blocks: Array<{ __typename: "Image"; id: string; image: any; caption: null | string }> = [];
@@ -94,7 +94,7 @@ export const getStaticProps: GetStaticProps<Props, Query> = async ({ params }) =
   const block = blocks.find((x) => x.id === params.blockId);
   const index = blocks.indexOf(block);
 
-  const { title } = require(`../../../content/${params.storyId}/meta`).default;
+  const { title } = require(`../../../../content/${params.storyId}/meta`).default;
 
   return {
     props: {
