@@ -13,10 +13,12 @@ export interface Query extends ParsedUrlQuery {
 interface Props {
   storyId: string;
   blockId: string;
-  block: any;
+  block: Block;
   next: null | string;
   prev: null | string;
 }
+
+type Block = { __typename: "Image"; id: string; image: { src: string; sqip: { src: string } }; caption: null | string };
 
 export default function Page(props: Props) {
   const router = useRouter();
@@ -49,7 +51,7 @@ export const getStaticProps: GetStaticProps<Props, Query> = async ({ params }) =
   const Body = require(`../../../content/${params.storyId}/body.mdx`).default;
   const { children } = Body({}).props;
 
-  const blocks: Array<{ __typename: string; id: string; image: any; caption: any }> = [];
+  const blocks: Array<{ __typename: "Image"; id: string; image: any; caption: null | string }> = [];
   React.Children.forEach(children, function go(child: any) {
     if (React.isValidElement(child)) {
       const props = child.props as any;
@@ -83,7 +85,7 @@ export const getStaticProps: GetStaticProps<Props, Query> = async ({ params }) =
   };
 };
 
-function Inner({ image }: any) {
+function Inner({ image }: { image: { src: string; sqip: { src: string } } }) {
   const ref = React.useRef<null | HTMLDivElement>(null);
 
   const [loaded, setLoaded] = React.useState(false);
