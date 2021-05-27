@@ -41,7 +41,7 @@ export default function Page(props: Props) {
           property="og:image"
           content={`${
             process.env.NEXT_PUBLIC_URL ? `https://${process.env.NEXT_PUBLIC_URL}` : "http://localhost:3000"
-          }/api/screenshot?path=/${storyId}/og:image`}
+          }/api/screenshot?path=/${storyId}/${blockId}/og:image`}
         />
 
         <meta name="twitter:card" content="summary_large_image" />
