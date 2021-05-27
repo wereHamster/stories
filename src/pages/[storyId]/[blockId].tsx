@@ -1,5 +1,7 @@
 import { Lightbox } from "@/components/Lightbox";
+import { css } from "@linaria/core";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
@@ -13,9 +15,12 @@ export interface Query extends ParsedUrlQuery {
 interface Props {
   storyId: string;
   blockId: string;
+
   block: Block;
   next: null | string;
   prev: null | string;
+
+  title?: string;
 }
 
 type Block = { __typename: "Image"; id: string; image: { src: string; sqip: { src: string } }; caption: null | string };
@@ -23,20 +28,36 @@ type Block = { __typename: "Image"; id: string; image: { src: string; sqip: { sr
 export default function Page(props: Props) {
   const router = useRouter();
 
-  const { storyId, blockId, block, next, prev } = props;
+  const { storyId, blockId, block, next, prev, title } = props;
 
   return (
-    <Lightbox
-      onClose={async () => {
-        await router.replace(`/${storyId}`);
-        document.getElementById(blockId)?.scrollIntoView({ block: "center", inline: "center" });
-      }}
-      caption={block.caption}
-      prev={prev && { href: `/${storyId}/${prev}` }}
-      next={next && { href: `/${storyId}/${next}` }}
-    >
-      <Inner key={block.image.src} image={block.image} />
-    </Lightbox>
+    <>
+      <Head>
+        <title>{title}</title>
+
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:image"
+          content={`${
+            process.env.NEXT_PUBLIC_URL ? `https://${process.env.NEXT_PUBLIC_URL}` : "http://localhost:3000"
+          }/api/screenshot?path=/${storyId}/og:image`}
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+
+      <Lightbox
+        onClose={async () => {
+          await router.replace(`/${storyId}`);
+          document.getElementById(blockId)?.scrollIntoView({ block: "center", inline: "center" });
+        }}
+        caption={block.caption}
+        prev={prev && { href: `/${storyId}/${prev}` }}
+        next={next && { href: `/${storyId}/${next}` }}
+      >
+        <Inner key={block.image.src} image={block.image} />
+      </Lightbox>
+    </>
   );
 }
 
@@ -72,6 +93,8 @@ export const getStaticProps: GetStaticProps<Props, Query> = async ({ params }) =
   const block = blocks.find((x) => x.id === params.blockId);
   const index = blocks.indexOf(block);
 
+  const { title } = require(`../../../content/${params.storyId}/meta`).default;
+
   return {
     props: {
       ...params,
@@ -81,6 +104,8 @@ export const getStaticProps: GetStaticProps<Props, Query> = async ({ params }) =
       },
       prev: blocks[index - 1]?.id ?? null,
       next: blocks[index + 1]?.id ?? null,
+
+      title: `${params.blockId} - ${title}`,
     },
   };
 };
@@ -117,19 +142,24 @@ function Inner({ image }: { image: { src: string; sqip: { src: string } } }) {
         }}
       />
       <div
+        className={css`
+          position: absolute;
+          z-index: 1;
+
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: 50% 50%;
+
+          transition: opacity 0.5s ease-out;
+          opacity: 1;
+
+          inset: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        `}
         style={{
-          backgroundRepeat: "no-repeat",
-          position: "absolute",
-          backgroundSize: "contain",
-          backgroundPosition: "50% 50%",
-          transition: "opacity .5s ease-out",
-          inset: 0,
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
           opacity: loaded ? 0 : 1,
-          zIndex: 1,
           backgroundImage: `url(${image.sqip.src})`,
         }}
       />
