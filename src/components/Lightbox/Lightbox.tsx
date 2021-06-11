@@ -1,7 +1,9 @@
-import * as React from "react";
-import * as Icons from "react-feather";
-import * as ReactDOM from "react-dom";
 import { css, cx } from "@linaria/core";
+import Link, { LinkProps } from "next/link";
+import { useRouter } from "next/router";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as Icons from "react-feather";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -13,11 +15,13 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 
   caption?: React.ReactNode;
 
-  prev?: () => void;
-  next?: () => void;
+  prev?: LinkProps | (() => void);
+  next?: LinkProps | (() => void);
 }
 
 function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof Root>>) {
+  const router = useRouter();
+
   const { onClose, caption, prev, next, className, children, ...rest } = props;
 
   /*
@@ -28,9 +32,17 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
       if (ev.key === "Escape") {
         onClose?.();
       } else if (ev.key === "ArrowLeft") {
-        prev?.();
+        if (typeof prev === "function") {
+          prev();
+        } else if (prev) {
+          router.push(prev.href);
+        }
       } else if (ev.key === "ArrowRight") {
-        next?.();
+        if (typeof next === "function") {
+          next();
+        } else if (next) {
+          router.push(next.href);
+        }
       }
     }
 
@@ -52,21 +64,13 @@ function Lightbox(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof 
       <div className={classes.center}>
         {children}
 
-        <div
-          onClick={prev}
-          className={classes.prev}
-          style={{ opacity: prev ? 1 : 0, pointerEvents: prev ? undefined : "none" }}
-        >
+        <Nav action={prev} className={classes.prev}>
           <Icons.ArrowLeft />
-        </div>
+        </Nav>
 
-        <div
-          onClick={next}
-          className={classes.next}
-          style={{ opacity: next ? 1 : 0, pointerEvents: next ? undefined : "none" }}
-        >
+        <Nav action={next} className={classes.next}>
           <Icons.ArrowRight />
-        </div>
+        </Nav>
       </div>
 
       <div className={classes.caption}>{caption}</div>
@@ -135,6 +139,8 @@ const classes = {
     justify-content: center;
     cursor: pointer;
     transition: opacity 0.2s;
+    text-decoration: none;
+    color: inherit;
   `,
   next: css`
     z-index: 2;
@@ -150,6 +156,8 @@ const classes = {
     justify-content: center;
     cursor: pointer;
     transition: opacity 0.2s;
+    text-decoration: none;
+    color: inherit;
   `,
 
   caption: css`
@@ -162,3 +170,19 @@ const classes = {
     font-style: italic;
   `,
 };
+
+function Nav(props: { action?: LinkProps | (() => void); className?: string; children?: React.ReactNode }) {
+  const { action, ...rest } = props;
+
+  if (!action) {
+    return null;
+  } else if (typeof action === "function") {
+    return <div onClick={action} {...rest} />;
+  } else {
+    return (
+      <Link {...action}>
+        <a {...rest} />
+      </Link>
+    );
+  }
+}
