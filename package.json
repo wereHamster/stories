@@ -7,7 +7,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@babel/core": "^7.14.3",
+    "@babel/core": "^7.14.5",
     "@linaria/babel-preset": "^3.0.0-beta.4",
     "@linaria/core": "^3.0.0-beta.4",
     "@linaria/react": "^3.0.0-beta.4",
@@ -47,7 +47,7 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@types/node": "^15.6.1",
+    "@types/node": "^15.12.2",
     "@types/react": "^17.0.9",
     "babel-plugin-macros": "^3.1.0",
     "typescript": "^4.3.2"
