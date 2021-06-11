@@ -11,10 +11,10 @@
     "@linaria/babel-preset": "^3.0.0-beta.4",
     "@linaria/core": "^3.0.0-beta.4",
     "@linaria/react": "^3.0.0-beta.4",
-    "@linaria/shaker": "^3.0.0-beta.4",
+    "@linaria/shaker": "^3.0.0-beta.5",
     "@linaria/webpack-loader": "^3.0.0-beta.4",
     "@mdx-js/loader": "^1.6.22",
-    "@next/mdx": "^10.2.2",
+    "@next/mdx": "^10.2.3",
     "@timvir/blocks": "^0.1.13",
     "@timvir/core": "^0.1.13",
     "@timvir/macro": "^0.1.13",
@@ -27,7 +27,7 @@
     "immer": "^9.0.2",
     "io-ts": "^2.2.16",
     "io-ts-types": "^0.5.16",
-    "next": "^10.2.2",
+    "next": "^10.2.3",
     "prism-react-renderer": "^1.2.1",
     "puppeteer": "^5.5.0",
     "react": "^17.0.2",
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/node": "^15.12.2",
-    "@types/react": "^17.0.9",
+    "@types/react": "^17.0.11",
     "babel-plugin-macros": "^3.1.0",
     "typescript": "^4.3.2"
   }
