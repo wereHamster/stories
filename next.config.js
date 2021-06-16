@@ -17,6 +17,8 @@ const withMDX = require('@next/mdx')({
 });
 
 module.exports = withCSS(withMDX({
+  webpack5: true,
+
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
   images: {
