@@ -22,6 +22,10 @@ export default [
           label: "Lightbox",
           path: "/docs/components/Lightbox",
         },
+        {
+          label: "StoryCard",
+          path: "/docs/components/StoryCard",
+        },
       ],
     },
   ] as const;
