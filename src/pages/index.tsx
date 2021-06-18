@@ -7,7 +7,13 @@ import stories from "../../content";
 export default function Page() {
   return (
     <>
-      <Hero />
+      <Hero
+        story={{
+          id: "one-more-rush",
+          title: "One More Rush",
+          lead: <>In early February 2021 I was still hurting, and wanted to leave Switzerland once more.</>,
+        }}
+      />
 
       <div className={classes.stories}>
         {Object.keys(stories).map((storyId) => (
@@ -27,7 +33,7 @@ const classes = {
   `,
 
   stories: css`
-    position: relative;
+    margin-top: 40vh;
 
     a {
       text-decoration: none;

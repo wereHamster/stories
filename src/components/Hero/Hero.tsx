@@ -1,6 +1,8 @@
 import { css, cx } from "@linaria/core";
-import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import * as React from "react";
+import * as Icons from "react-feather";
 import { importImage } from "../../../image.macro";
 
 /**
@@ -8,12 +10,18 @@ import { importImage } from "../../../image.macro";
  */
 const Root = "div";
 
-interface Props extends React.ComponentPropsWithoutRef<typeof Root> {}
+interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
+  story: {
+    id: string;
+    title: React.ReactNode;
+    lead: React.ReactNode;
+  };
+}
 
-const image = importImage("https://storage.googleapis.com/stories.caurea.org/one-more-rush/IMG_3676.jpeg");
+const image = importImage("https://storage.googleapis.com/stories.caurea.org/one-more-rush/IMG_4340.jpeg");
 
 function Hero(props: Props) {
-  const { className, ...rest } = props;
+  const { story, className, ...rest } = props;
 
   const ref = React.useRef<null | HTMLDivElement>(null);
 
@@ -46,14 +54,18 @@ function Hero(props: Props) {
           <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
         </div>
 
-        <div className={classes.title}>Semper viverra nam libero justo laoreet</div>
+        <h1 className={classes.title}>{story.title}</h1>
       </div>
 
       <div>
-        <div className={classes.teaser}>
-          Suspendisse ultrices gravida dictum fusce ut. Vestibulum lectus mauris ultrices eros in cursus turpis massa
-          tincidunt. Amet cursus sit amet dictum sit amet justo donec enim. Ut tortor pretium viverra suspendisse
-          potenti.
+        <div className={classes.lead}>
+          {story.lead}
+
+          <Link href={`/${story.id}`}>
+            <a className={classes.read}>
+              <Icons.ArrowRight size={"1.1em"} /> read this story
+            </a>
+          </Link>
         </div>
       </div>
     </Root>
@@ -128,30 +140,57 @@ const classes = {
     left: 116px;
     z-index: 2;
 
-    padding: 20px;
+    margin: 0;
+    padding: 24px 24px 20px;
 
     background: black;
     color: white;
 
     font-size: 56px;
     line-height: 56px;
+    font-weight: inherit;
+
+    min-width: 530px;
   `,
 
-  teaser: css`
+  lead: css`
     background: black;
     color: white;
 
-    padding: 24px 20px;
+    padding: 24px 24px;
 
     font-size: 28px;
-    line-height: 34px;
+    line-height: 38px;
 
-    max-width: 530px;
+    width: 530px;
 
     margin-top: -88px;
     margin-left: 116px;
 
     z-index: 1;
     position: relative;
+  `,
+
+  read: css`
+    display: block;
+    margin-top: 56px;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 6px;
+
+    color: inherit;
+    text-decoration: none;
+
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    & > svg {
+      margin: 0 8px 0 0;
+    }
   `,
 };

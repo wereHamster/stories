@@ -50,12 +50,8 @@ function StoryCard(props: Props) {
   return (
     <div ref={ref as any} {...rest} className={cx(classes.root, tweaks[layout])}>
       <h2 className={classes.title}>{caption}</h2>
-      <div className={classes.byline}>Duis aute irure dolor in reprehenderit in voluptate.</div>
 
-      <div
-        className={cx(classes.image)}
-        style={({ regular: { gridColumn: "ns / me" }, inverted: { gridColumn: "ms / ne" } } as const)[layout]}
-      >
+      <div className={cx(classes.image)}>
         <Image src={image.src} layout="fill" objectFit="cover" />
         <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
       </div>
@@ -123,26 +119,26 @@ const classes = {
   image: css`
     position: relative;
     grid-column: ns / me;
-    grid-row: 3 / span 2;
-    min-height: 300px;
-  `,
+    grid-row: 2 / span 2;
+    height: 0;
+    padding-bottom: calc((11 / 16) * 100%);
 
-  title: css`
-    font-size: 40px;
-    line-height: 1.3;
-    color: black;
-    margin: 0;
-
-    grid-column: ns / ve;
+    grid-column: xs / me;
     ${tweaks.inverted} & {
-      grid-column: ms / ve;
+      grid-column: ms / xe;
     }
   `,
 
-  byline: css`
-    font-size: 0.8rem;
-    color: #666;
-    margin: 0 0 32px;
+  title: css`
+    font-size: 56px;
+    line-height: 56px;
+    font-weight: inherit;
+
+    margin: 0 0 40px 0;
+    padding: 24px 24px 20px;
+
+    background: black;
+    color: white;
 
     grid-column: ns / ve;
     ${tweaks.inverted} & {
@@ -153,11 +149,11 @@ const classes = {
   teaser: css`
     padding: 0 32px;
     margin-top: -0.2em;
-    font-size: 18px;
-    line-height: 1.5;
+    font-size: 24px;
+    line-height: 34px;
 
     & > div {
-      max-width: 320px;
+      max-width: 530px;
     }
 
     grid-column: me / ve;
