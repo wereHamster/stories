@@ -1,6 +1,8 @@
 import { css, cx } from "@linaria/core";
 import Image from "next/image";
+import Link from "next/link";
 import * as React from "react";
+import * as Icons from "react-feather";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -19,6 +21,10 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
     };
   };
 
+  story: {
+    id: string;
+  };
+
   caption: React.ReactNode;
 
   teaser?: React.ReactNode;
@@ -27,7 +33,7 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 function StoryCard(props: Props) {
-  const { image, caption, teaser, layout = "regular", ...rest } = props;
+  const { story, image, caption, teaser, layout = "regular", ...rest } = props;
 
   const ref = React.useRef<null | HTMLDivElement>(null);
 
@@ -57,7 +63,15 @@ function StoryCard(props: Props) {
       </div>
 
       <div className={classes.teaser}>
-        <div>{teaser}</div>
+        <div>
+          {teaser}
+
+          <Link href={`/${story.id}`}>
+            <a className={classes.read}>
+              <Icons.ArrowRight size={"1.1em"} /> read this story
+            </a>
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -134,7 +148,7 @@ const classes = {
     line-height: 56px;
     font-weight: inherit;
 
-    margin: 0 0 40px 0;
+    margin: 0 0 32px 0;
     padding: 24px 24px 20px;
 
     background: black;
@@ -147,13 +161,17 @@ const classes = {
   `,
 
   teaser: css`
-    padding: 0 32px;
-    margin-top: -0.2em;
+    margin: 0 32px;
     font-size: 24px;
     line-height: 34px;
 
     & > div {
       max-width: 530px;
+
+      background: black;
+      color: white;
+
+      padding: 24px 24px;
     }
 
     grid-column: me / ve;
@@ -161,6 +179,29 @@ const classes = {
       grid-column: vs / ms;
       display: flex;
       justify-content: flex-end;
+    }
+  `,
+
+  read: css`
+    display: block;
+    margin-top: 56px;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 6px;
+
+    color: inherit;
+    text-decoration: none;
+
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    & > svg {
+      margin: 0 8px 0 0;
     }
   `,
 };

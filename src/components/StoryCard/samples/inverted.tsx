@@ -7,6 +7,7 @@ type Props = Partial<React.ComponentPropsWithoutRef<typeof StoryCard>>;
 export default function Sample(props: Props) {
   return (
     <StoryCard
+      story={{ id: "ID" }}
       layout="inverted"
       image={importImage("https://storage.googleapis.com/stories.caurea.org/one-more-rush/IMG_4340.jpeg")}
       caption="Semper viverra nam libero justo laoreet"
