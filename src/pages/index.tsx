@@ -1,6 +1,5 @@
 import { Hero } from "@/components/Hero";
 import { css } from "@linaria/core";
-import Link from "next/link";
 import * as React from "react";
 import stories from "../../content";
 
@@ -17,9 +16,7 @@ export default function Page() {
 
       <div className={classes.stories}>
         {Object.keys(stories).map((storyId) => (
-          <Link href={`/${storyId}`} key={storyId}>
-            <a style={{ display: "block", margin: "25vh 0" }}>{React.createElement(stories[storyId].Card)}</a>
-          </Link>
+          <div style={{ margin: "25vh 0" }}>{React.createElement(stories[storyId].Card)}</div>
         ))}
       </div>
     </>

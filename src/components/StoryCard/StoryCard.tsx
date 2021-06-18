@@ -25,6 +25,8 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
     id: string;
   };
 
+  blocks?: Array<Props["image"]>;
+
   caption: React.ReactNode;
 
   teaser?: React.ReactNode;
@@ -33,7 +35,7 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 function StoryCard(props: Props) {
-  const { story, image, caption, teaser, layout = "regular", ...rest } = props;
+  const { story, blocks = [], image, caption, teaser, layout = "regular", ...rest } = props;
 
   const ref = React.useRef<null | HTMLDivElement>(null);
 
@@ -72,6 +74,14 @@ function StoryCard(props: Props) {
             </a>
           </Link>
         </div>
+      </div>
+
+      <div className={cx(classes.image2)}>
+        <Image src={(blocks[0] ?? image).src} layout="fill" objectFit="cover" />
+        <div
+          className="sqip"
+          style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${(blocks[0] ?? image).sqip.src})` }}
+        />
       </div>
     </div>
   );
@@ -114,6 +124,8 @@ const classes = {
       1fr
       [ve];
 
+    grid-template-rows: min-content minmax(0, min-content) 1fr;
+
     .sqip {
       position: absolute;
       inset: 0;
@@ -132,14 +144,26 @@ const classes = {
 
   image: css`
     position: relative;
-    grid-column: ns / me;
-    grid-row: 2 / span 2;
     height: 0;
     padding-bottom: calc((11 / 16) * 100%);
 
+    grid-row: 2 / span 2;
     grid-column: xs / me;
     ${tweaks.inverted} & {
       grid-column: ms / xe;
+    }
+  `,
+
+  image2: css`
+    position: relative;
+    height: calc(100% - 32px + 10vh);
+
+    margin: 32px;
+
+    grid-row: 3 / span 1;
+    grid-column: me / ve;
+    ${tweaks.inverted} & {
+      grid-column: vs / ms;
     }
   `,
 
