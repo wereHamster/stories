@@ -10,19 +10,12 @@ export default function Page({ component }: any) {
       <Component />
     </Wrapper>
   );
-};
+}
 
 export async function getStaticPaths() {
-  const fs = await import("fs");
-  const components = (await fs.promises.readdir("src/components")).filter((d) =>
-    fs.existsSync(`src/components/${d}/docs/index.mdx`)
-  );
-
   return {
-    paths: components.map((component) => ({
-      params: { component },
-    })),
-    fallback: false,
+    paths: [],
+    fallback: "blocking",
   };
 }
 
