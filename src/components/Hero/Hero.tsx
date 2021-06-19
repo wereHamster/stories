@@ -48,7 +48,7 @@ function Hero(props: Props) {
 
       <div className={classes.box}>
         <Brandmark className={classes.brandmark} />
-        <div className={classes.lead}>Nothing remains of us but the vibrations we leave behind.</div>
+        <div className={classes.lead}>…for nothing remains of us but the vibrations we leave behind.</div>
       </div>
     </Root>
   );
@@ -74,7 +74,7 @@ const classes = {
   `,
 
   brandmark: css`
-    font-size: 5vw;
+  font-size: clamp(32px, 4vw, 80px);
   `,
 
   lead: css`
@@ -84,10 +84,10 @@ const classes = {
 
     padding: 0.7em 1em;
 
-    font-size: 2vw;
+    font-size: clamp(18px, 1.5vw, 36px);
     line-height: 1.3;
 
-    max-width: 600px;
+    max-width: 30ch;
 
     margin-top: 50px;
   `,
@@ -95,11 +95,23 @@ const classes = {
   image: css`
     position: relative;
     z-index: -1;
-    width: calc(100vw - 176px);
-    height: calc(100vh - 140px);
+    width: 100vw;
+    height: 100vh;
 
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
+
+    &:after {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: radial-gradient(circle, transparent 70%, black 200%);
+      z-index: 2;
+    }
 
     .sqip {
       position: absolute;
@@ -113,6 +125,11 @@ const classes = {
       background-position: 50% 50%;
 
       z-index: 1;
+    }
+
+    @media (min-width: 720px) {
+      width: calc(100vw - 176px);
+      height: calc(100vh - 140px);
     }
   `,
 };
