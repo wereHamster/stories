@@ -25,9 +25,7 @@ function Hero(props: Props) {
     <Root className={cx(classes.root, className)} {...rest}>
       <div className={classes.box}>
         <Brandmark className={classes.brandmark} />
-        <div className={classes.lead}>
-          a world's traveler
-        </div>
+        <div className={classes.lead}>Nothing remains of us but the vibrations we leave behind.</div>
       </div>
     </Root>
   );
@@ -63,7 +61,7 @@ const classes = {
     font-size: 2vw;
     line-height: 1.3;
 
-    max-width: 700px;
+    max-width: 600px;
 
     margin-top: 50px;
   `,
