@@ -8,18 +8,12 @@ import { importImage } from "../../../image.macro";
  */
 const Root = "div";
 
-interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
-  story: {
-    id: string;
-    title: React.ReactNode;
-    lead: React.ReactNode;
-  };
-}
+interface Props extends React.ComponentPropsWithoutRef<typeof Root> {}
 
 const image = importImage("https://storage.googleapis.com/stories.caurea.org/one-more-rush/IMG_4340.jpeg");
 
 function Hero(props: Props) {
-  const { story, className, ...rest } = props;
+  const { className, ...rest } = props;
 
   return (
     <Root className={cx(classes.root, className)} {...rest}>

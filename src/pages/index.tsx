@@ -6,16 +6,10 @@ import stories from "../../content";
 export default function Page() {
   return (
     <>
-      <Hero
-        story={{
-          id: "one-more-rush",
-          title: "One More Rush",
-          lead: <>In early February 2021 I was still hurting, and wanted to leave Switzerland once more.</>,
-        }}
-      />
+      <Hero />
 
-      <div className={classes.stories}>
-        {Object.keys(stories).map((storyId) => (
+      <div className={classes.featuredStories}>
+        {featuredStories.map((storyId) => (
           <div style={{ margin: "30vh 0" }}>{React.createElement(stories[storyId].Card)}</div>
         ))}
       </div>
@@ -24,16 +18,7 @@ export default function Page() {
 }
 
 const classes = {
-  title: css`
-    text-align: center;
-    margin: 10vh 0 3vh;
-  `,
-
-  stories: css`
-    margin-top: 0vh;
-
-    a {
-      text-decoration: none;
-    }
-  `,
+  featuredStories: css``,
 };
+
+const featuredStories = ["one-more-rush", "where-i-was-meant-to-be"];
