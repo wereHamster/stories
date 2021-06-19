@@ -74,7 +74,7 @@ const classes = {
   `,
 
   brandmark: css`
-  font-size: clamp(32px, 4vw, 80px);
+    font-size: clamp(44px, 4vw, 80px);
   `,
 
   lead: css`
@@ -84,12 +84,11 @@ const classes = {
 
     padding: 0.7em 1em;
 
-    font-size: clamp(18px, 1.5vw, 36px);
+    font-size: clamp(20px, 1.5vw, 36px);
     line-height: 1.3;
 
-    max-width: 30ch;
-
-    margin-top: 50px;
+    max-width: min(30ch, 80vw);
+    margin-top: 2em;
   `,
 
   image: css`

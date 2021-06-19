@@ -91,7 +91,14 @@ export default StoryCard;
 
 const tweaks = {
   regular: css``,
-  inverted: css``,
+  inverted: css`
+    @media (min-width: 720px) {
+      grid-template-areas:
+        ". . . title title title title title title"
+        "teaser teaser teaser image image image . . ."
+        "si si si image image image . . ." !important;
+    }
+  `,
 };
 
 const classes = {
@@ -101,30 +108,63 @@ const classes = {
     color: black;
     text-decoration: none;
 
+    --gap: 16px;
+
     --nc-w: 384px;
     --mc-w: 160px;
     --xc-w: 192px;
 
     grid-template-columns:
       [vs]
-      1fr
       max(16px, env(safe-area-inset-left))
       [xs]
-      minmax(0, var(--xc-w))
+      0
       [ms]
-      var(--mc-w)
+      0
       [ns]
-      var(--nc-w)
+      1fr
       [ne]
-      var(--mc-w)
+      0
       [me]
-      minmax(0, var(--xc-w))
+      0
       [xe]
       max(16px, env(safe-area-inset-right))
-      1fr
       [ve];
 
-    grid-template-rows: min-content minmax(0, min-content) 1fr;
+    grid-template-areas:
+      ". title title title title title title"
+      "image image image image image image image"
+      ". teaser teaser teaser teaser teaser .";
+
+    @media (min-width: 720px) {
+      --gap: 32px;
+
+      grid-template-columns:
+        [vs]
+        1fr
+        max(16px, env(safe-area-inset-left))
+        [xs]
+        minmax(0, var(--xc-w))
+        [ms]
+        var(--mc-w)
+        [ns]
+        var(--nc-w)
+        [ne]
+        var(--mc-w)
+        [me]
+        minmax(0, var(--xc-w))
+        [xe]
+        max(16px, env(safe-area-inset-right))
+        1fr
+        [ve];
+
+      grid-template-rows: min-content minmax(0, min-content) 1fr;
+
+      grid-template-areas:
+        ". . . . title title title title title"
+        ". . image image image image teaser teaser teaser"
+        ". . image image image image si si si";
+    }
 
     .sqip {
       position: absolute;
@@ -145,12 +185,12 @@ const classes = {
   image: css`
     position: relative;
     height: 0;
-    padding-bottom: calc((11 / 16) * 100%);
+    padding-bottom: 100%;
 
-    grid-row: 2 / span 2;
-    grid-column: xs / me;
-    ${tweaks.inverted} & {
-      grid-column: ms / xe;
+    grid-area: image;
+
+    @media (min-width: 720px) {
+      padding-bottom: calc((11 / 16) * 100%);
     }
   `,
 
@@ -160,49 +200,53 @@ const classes = {
 
     margin: 32px;
 
-    grid-row: 3 / span 1;
-    grid-column: me / ve;
-    ${tweaks.inverted} & {
-      grid-column: vs / ms;
+    grid-area: si;
+
+    display: none;
+    @media (min-width: 720px) {
+      display: block;
     }
   `,
 
   title: css`
-    font-size: 56px;
-    line-height: 56px;
+    font-size: clamp(32px, 3vw, 60px);
+    line-height: 1.2;
     font-weight: inherit;
 
-    margin: 0 0 32px 0;
-    padding: 24px 24px 20px;
+    margin: 0 0 var(--gap) 0;
+    padding: 0.5em 0.7em 0.4em;
 
     background: black;
     color: white;
 
-    grid-column: ns / ve;
-    ${tweaks.inverted} & {
-      grid-column: ms / ve;
-    }
+    grid-area: title;
   `,
 
   teaser: css`
-    margin: 0 32px;
-    font-size: 24px;
-    line-height: 34px;
+    font-size: clamp(20px, 1.5vw, 24px);
+    line-height: 1.4;
+
+    margin: var(--gap) 0 0 0;
 
     & > div {
-      max-width: 530px;
-
       background: black;
       color: white;
 
       padding: 24px 24px;
     }
 
-    grid-column: me / ve;
-    ${tweaks.inverted} & {
-      grid-column: vs / ms;
-      display: flex;
-      justify-content: flex-end;
+    grid-area: teaser;
+
+    @media (min-width: 720px) {
+      margin: 0 32px;
+      ${tweaks.inverted} & {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      & > div {
+        max-width: 530px;
+      }
     }
   `,
 
