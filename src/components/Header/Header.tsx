@@ -83,16 +83,12 @@ const classes = {
     position: relative;
     height: 100%;
 
-    & > div:first-child {
-      margin: 56px 0 56px 88px !important;
-    }
-
     .sqip {
       position: absolute;
-      top: 56px;
+      top: 0;
       right: 0;
-      bottom: 56px;
-      left: 88px;
+      bottom: 0;
+      left: 0;
       pointer-events: none;
       transition: opacity 0.8s ease-out 0.2s;
       background-size: cover;
@@ -100,13 +96,27 @@ const classes = {
 
       z-index: 1;
     }
+
+    @media (min-width: 720px) {
+      & > div:first-child {
+        margin: 56px 0 56px 88px !important;
+      }
+
+      .sqip {
+        top: 56px;
+        right: 0;
+        bottom: 56px;
+        left: 88px;
+      }
+    }
   `,
 
   title: css`
     position: absolute;
-    bottom: 112px;
-    left: 116px;
     z-index: 2;
+
+    bottom: 24px;
+    left: 24px;
 
     margin: 0;
     padding: 24px 24px 20px;
@@ -114,10 +124,15 @@ const classes = {
     background: black;
     color: white;
 
-    font-size: 56px;
-    line-height: 56px;
+    font-size: clamp(32px, 3.5vw, 80px);
+    line-height: 1.2;
     font-weight: inherit;
 
-    min-width: 530px;
+    @media (min-width: 720px) {
+      bottom: 112px;
+      left: 148px;
+
+      min-width: 530px;
+    }
   `,
 };
