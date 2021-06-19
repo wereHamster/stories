@@ -4,6 +4,7 @@ import Link from "next/link";
 import * as React from "react";
 import * as Icons from "react-feather";
 import { importImage } from "../../../image.macro";
+import { Brandmark } from "../Brandmark";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -43,10 +44,7 @@ function Hero(props: Props) {
 
   return (
     <Root ref={ref} className={cx(classes.root, className)} {...rest}>
-      <div className={classes.brandmark}>
-        <div>Stories</div>
-        <div>by Tomas Carnecky</div>
-      </div>
+      <Brandmark className={classes.brandmark} />
 
       <div className={classes.top}>
         <div className={classes.image}>
@@ -85,25 +83,6 @@ const classes = {
     top: 24px;
     left: 24px;
     z-index: 2;
-
-    padding: 22px 28px;
-
-    background: black;
-    color: white;
-
-    & > *:first-child {
-      font-weight: 900;
-      font-size: 36px;
-      line-height: 36px;
-      letter-spacing: 0.11em;
-    }
-    & > *:last-child {
-      font-size: 16px;
-      line-height: 16px;
-
-      padding-top: 4px;
-      opacity: 0.75;
-    }
   `,
 
   top: css`
