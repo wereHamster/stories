@@ -16,7 +16,7 @@ function Brandmark(props: Props, ref: React.ForwardedRef<React.ElementRef<typeof
     <Link href="/" passHref>
       <Root ref={ref} className={cx(classes.root, className)} {...rest}>
         <div>Stories</div>
-        <div>by Tomas Carnecky</div>
+        <div>by Tomáš Čarnecký</div>
       </Root>
     </Link>
   );
@@ -29,7 +29,7 @@ const classes = {
     display: block;
     text-decoration: none;
 
-    font-size: clamp(32px, 3vw, 60px);
+    font-size: clamp(32px, 3.5vw, 80px);
     line-height: 1;
 
     padding: 0.5em 0.7em;

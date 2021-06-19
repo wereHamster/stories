@@ -1,10 +1,10 @@
+import { Brandmark } from "@/components/Brandmark";
 import { css, cx } from "@linaria/core";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import * as Icons from "react-feather";
 import { importImage } from "../../../image.macro";
-import { Brandmark } from "../Brandmark";
 
 /**
  * The underlying DOM element which is rendered by this component.
