@@ -28,6 +28,7 @@ const classes = {
   root: css`
     display: block;
     text-decoration: none;
+    text-align: center;
 
     font-size: clamp(32px, 3.5vw, 80px);
     line-height: 1;

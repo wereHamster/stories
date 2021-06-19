@@ -1,9 +1,6 @@
 import { Brandmark } from "@/components/Brandmark";
 import { css, cx } from "@linaria/core";
-import Image from "next/image";
-import Link from "next/link";
 import * as React from "react";
-import * as Icons from "react-feather";
 import { importImage } from "../../../image.macro";
 
 /**
@@ -24,46 +21,12 @@ const image = importImage("https://storage.googleapis.com/stories.caurea.org/one
 function Hero(props: Props) {
   const { story, className, ...rest } = props;
 
-  const ref = React.useRef<null | HTMLDivElement>(null);
-
-  const [loaded, setLoaded] = React.useState(false);
-  React.useEffect(() => {
-    const img = ref.current?.querySelector('img[decoding="async"]');
-    if (img) {
-      {
-        img.addEventListener(
-          "load",
-          () => {
-            setLoaded(true);
-          },
-          { once: true }
-        );
-      }
-    }
-  }, []);
-
   return (
-    <Root ref={ref} className={cx(classes.root, className)} {...rest}>
-      <Brandmark className={classes.brandmark} />
-
-      <div className={classes.top}>
-        <div className={classes.image}>
-          <Image src={image.src} layout="fill" objectFit="cover" />
-          <div className="sqip" style={{ opacity: loaded ? 0 : 1, backgroundImage: `url(${image.sqip.src})` }} />
-        </div>
-
-        <h1 className={classes.title}>{story.title}</h1>
-      </div>
-
-      <div>
+    <Root className={cx(classes.root, className)} {...rest}>
+      <div className={classes.box}>
+        <Brandmark className={classes.brandmark} />
         <div className={classes.lead}>
-          {story.lead}
-
-          <Link href={`/${story.id}`}>
-            <a className={classes.read}>
-              <Icons.ArrowRight size={"1.1em"} /> read this story
-            </a>
-          </Link>
+          a world's traveler
         </div>
       </div>
     </Root>
@@ -74,102 +37,34 @@ export default Hero;
 
 const classes = {
   root: css`
-    overflow: hidden;
-    position: relative;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    justify-items: center;
+  `,
+
+  box: css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   `,
 
   brandmark: css`
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    z-index: 2;
-  `,
-
-  top: css`
-    height: 100vh;
-    position: relative;
-  `,
-
-  image: css`
-    position: relative;
-    height: 100%;
-
-    & > div:first-child {
-      margin: 56px 0 56px 88px !important;
-    }
-
-    .sqip {
-      position: absolute;
-      top: 56px;
-      right: 0;
-      bottom: 56px;
-      left: 88px;
-      pointer-events: none;
-      transition: opacity 0.8s ease-out 0.2s;
-      background-size: cover;
-      background-position: 50% 50%;
-
-      z-index: 1;
-    }
-  `,
-
-  title: css`
-    position: absolute;
-    bottom: 112px;
-    left: 116px;
-    z-index: 2;
-
-    margin: 0;
-    padding: 24px 24px 20px;
-
-    background: black;
-    color: white;
-
-    font-size: 56px;
-    line-height: 56px;
-    font-weight: inherit;
-
-    min-width: 530px;
+    font-size: 5vw;
   `,
 
   lead: css`
     background: black;
     color: white;
+    text-align: center;
 
-    padding: 24px 24px;
+    padding: 0.7em 1em;
 
-    font-size: 28px;
-    line-height: 38px;
+    font-size: 2vw;
+    line-height: 1.3;
 
-    width: 530px;
+    max-width: 700px;
 
-    margin-top: -88px;
-    margin-left: 116px;
-
-    z-index: 1;
-    position: relative;
-  `,
-
-  read: css`
-    display: block;
-    margin-top: 56px;
-    opacity: 0.6;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-right: 6px;
-
-    color: inherit;
-    text-decoration: none;
-
-    transition: opacity 0.2s;
-
-    &:hover {
-      opacity: 1;
-    }
-
-    & > svg {
-      margin: 0 8px 0 0;
-    }
+    margin-top: 50px;
   `,
 };

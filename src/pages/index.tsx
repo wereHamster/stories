@@ -16,7 +16,7 @@ export default function Page() {
 
       <div className={classes.stories}>
         {Object.keys(stories).map((storyId) => (
-          <div style={{ margin: "25vh 0" }}>{React.createElement(stories[storyId].Card)}</div>
+          <div style={{ margin: "30vh 0" }}>{React.createElement(stories[storyId].Card)}</div>
         ))}
       </div>
     </>
@@ -30,7 +30,7 @@ const classes = {
   `,
 
   stories: css`
-    margin-top: 40vh;
+    margin-top: 0vh;
 
     a {
       text-decoration: none;
