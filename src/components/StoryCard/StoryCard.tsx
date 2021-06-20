@@ -211,7 +211,8 @@ const classes = {
   title: css`
     font-size: clamp(32px, 3vw, 60px);
     line-height: 1.2;
-    font-weight: inherit;
+    font-weight: 900;
+    letter-spacing: 0.09em;
 
     margin: 0 0 var(--gap) 0;
     padding: 0.5em 0.7em 0.4em;
