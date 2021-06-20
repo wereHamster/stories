@@ -5,12 +5,22 @@ import { IntlProvider } from "react-intl";
 import "@timvir/core/styles.css";
 import "@timvir/blocks/styles.css";
 
+const baseUrl = process.env.NODE_ENV === "production" ? `https://stories.caurea.org` : "http://localhost:3000";
+
 function App({ Component, pageProps }) {
   return (
     <IntlProvider locale="en" defaultLocale="en">
       <Head>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.png" />
+
+        {/* Feed */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Stories by Tomáš Čarnecky"
+          href={`${baseUrl}/api/feed`}
+        />
       </Head>
 
       <Component {...pageProps} />
