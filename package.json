@@ -20,6 +20,7 @@
     "@timvir/core": "^0.1.13",
     "@timvir/macro": "^0.1.13",
     "@types/puppeteer": "^5.4.2",
+    "@types/react-dom": "^17.0.8",
     "@zeit/next-css": "^1.0.1",
     "@zhif/components": "0.0.3",
     "blurhash": "^1.1.3",

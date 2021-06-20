@@ -1,6 +1,8 @@
 import { Feed } from "feed";
 import { NextApiRequest, NextApiResponse } from "next";
 import { mediaType } from "@hapi/accept";
+import ReactDOMServer from "react-dom/server";
+import * as React from "react";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { host } = req.headers;
@@ -67,12 +69,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   stories.forEach((story) => {
     const url = `${baseUrl}/${story.id}`;
+    const Body = require(`../../../content/${story.id}/body.mdx`).default;
+
     feed.addItem({
       title: story.title,
       id: url,
       link: url,
       description: story.description,
-      // content: markdown.toHTML(post.content),
+      content: ReactDOMServer.renderToStaticMarkup(<Body />),
       author: [author],
       contributor: [author],
       date: story.publishedAt,
