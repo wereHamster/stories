@@ -45,11 +45,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     favicon: `${baseUrl}/favicon.png`,
     copyright: `All rights reserved ${date.getFullYear()}, Tomáš Čarnecký`,
     updated: date,
-    feedLinks: {
-      rss2: `${baseUrl}/feed`,
-      //   json: `${baseUrl}/rss/feed.json`,
-      //   atom: `${baseUrl}/rss/atom.xml`,
-    },
     author,
   });
 
@@ -58,11 +53,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: "one-more-rush",
       title: "One More Rush",
       publishedAt: new Date(Date.parse("2021-05-18")),
+      description:
+        "I’m fortunate enough that I can work from wherever there is good internet. That covers a lot of this earths surface – and airspace.",
     },
     {
       id: "where-i-was-meant-to-be",
       title: "Where I was meant to be",
       publishedAt: new Date(Date.parse("2021-01-22")),
+      description:
+        "I was going through a really fucking difficult time in my life and needed to get the fuck away from comfort.",
     },
   ];
 
@@ -72,7 +71,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       title: story.title,
       id: url,
       link: url,
-      // description: story.description,
+      description: story.description,
       // content: markdown.toHTML(post.content),
       author: [author],
       contributor: [author],
