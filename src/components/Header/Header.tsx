@@ -119,14 +119,15 @@ const classes = {
     left: 24px;
 
     margin: 0;
-    padding: 24px 24px 20px;
+    padding: 0.55em 0.7em 0.4em;
 
     background: black;
     color: white;
 
     font-size: clamp(32px, 3.5vw, 80px);
     line-height: 1.2;
-    font-weight: inherit;
+    font-weight: 900;
+    letter-spacing: 0.09em;
 
     @media (min-width: 720px) {
       bottom: 112px;
