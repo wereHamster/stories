@@ -25,6 +25,15 @@ module.exports = withCSS(withMDX({
     domains: ['storage.googleapis.com'],
   },
 
+  async rewrites() {
+    return [
+      {
+        source: '/feed',
+        destination: '/api/feed',
+      },
+    ]
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.(js|ts)x?$/,

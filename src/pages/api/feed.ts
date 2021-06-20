@@ -46,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     copyright: `All rights reserved ${date.getFullYear()}, Tomáš Čarnecký`,
     updated: date,
     feedLinks: {
-      rss2: `${baseUrl}/api/feed`,
+      rss2: `${baseUrl}/feed`,
       //   json: `${baseUrl}/rss/feed.json`,
       //   atom: `${baseUrl}/rss/atom.xml`,
     },

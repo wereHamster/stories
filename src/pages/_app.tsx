@@ -15,12 +15,7 @@ function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.png" />
 
         {/* Feed */}
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="Stories by Tomáš Čarnecky"
-          href={`${baseUrl}/api/feed`}
-        />
+        <link rel="alternate" type="application/rss+xml" title="Stories by Tomáš Čarnecky" href={`${baseUrl}/feed`} />
       </Head>
 
       <Component {...pageProps} />
