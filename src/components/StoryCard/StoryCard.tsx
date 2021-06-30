@@ -95,8 +95,8 @@ const tweaks = {
     @media (min-width: 720px) {
       grid-template-areas:
         ". . . title title title title title title"
-        "teaser teaser teaser image image image . . ."
-        "si si si image image image . . ." !important;
+        "teaser teaser teaser image image image image . ."
+        "si si si image image image image . ." !important;
     }
   `,
 };
