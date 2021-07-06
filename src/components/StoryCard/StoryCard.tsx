@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import * as Icons from "react-feather";
+import { FormattedDate, FormattedMessage } from "react-intl";
 
 /**
  * The underlying DOM element which is rendered by this component.
@@ -27,6 +28,8 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 
   blocks?: Array<Props["image"]>;
 
+  date?: Date | [Date, Date];
+
   caption: React.ReactNode;
 
   teaser?: React.ReactNode;
@@ -35,7 +38,7 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 function StoryCard(props: Props) {
-  const { story, blocks = [], image, caption, teaser, layout = "regular", ...rest } = props;
+  const { story, blocks = [], image, date, caption, teaser, layout = "regular", ...rest } = props;
 
   const ref = React.useRef<null | HTMLDivElement>(null);
 
@@ -66,6 +69,57 @@ function StoryCard(props: Props) {
 
       <div className={classes.teaser}>
         <div>
+          {date && (
+            <div className={classes.date}>
+              {(() => {
+                if (Array.isArray(date)) {
+                  const [from, to] = date;
+
+                  if (from.getUTCFullYear() === to.getUTCFullYear()) {
+                    if (from.getUTCMonth() === to.getUTCMonth()) {
+                      return (
+                        <FormattedMessage
+                          id="hQR6Zk3"
+                          defaultMessage="{month} {from} – {to}, {year}"
+                          values={{
+                            month: <FormattedDate value={from} month="long" />,
+                            from: <FormattedDate value={from} day="numeric" />,
+                            to: <FormattedDate value={to} day="numeric" />,
+                            year: <FormattedDate value={to} year="numeric" />,
+                          }}
+                        />
+                      );
+                    } else {
+                      return (
+                        <FormattedMessage
+                          id="xo4t6Jj"
+                          defaultMessage="{from} – {to}"
+                          values={{
+                            from: <FormattedDate value={from} month="long" day="numeric" />,
+                            to: <FormattedDate value={to} month="long" day="numeric" year="numeric" />,
+                          }}
+                        />
+                      );
+                    }
+                  } else {
+                    return (
+                      <FormattedMessage
+                        id="pakxPSK"
+                        defaultMessage="{from} – {to}"
+                        values={{
+                          from: <FormattedDate value={from} month="long" day="numeric" year="numeric" />,
+                          to: <FormattedDate value={to} month="long" day="numeric" year="numeric" />,
+                        }}
+                      />
+                    );
+                  }
+                } else {
+                  return <FormattedDate value={date} />;
+                }
+              })()}
+            </div>
+          )}
+
           {teaser}
 
           <Link href={`/${story.id}`}>
@@ -251,7 +305,14 @@ const classes = {
     }
   `,
 
+  date: css`
+    margin-bottom: 16px;
+    opacity: 0.6;
+    font-size: clamp(16px, 1.5vw, 20px);
+  `,
+
   read: css`
+    font-size: clamp(16px, 1.5vw, 20px);
     display: block;
     margin-top: 56px;
     opacity: 0.6;

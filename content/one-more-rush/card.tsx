@@ -14,6 +14,7 @@ export default function Component() {
       caption="One More Rush"
       teaser="I’m fortunate enough that I can work from wherever there is good internet. That
       covers a lot of this earths surface – and airspace."
+      date={[new Date(Date.parse("2021-03-28")), new Date(Date.parse("2021-05-07"))]}
     />
   );
 }
