@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { accept, ["user-agent"]: userAgent } = req.headers;
 
   const acceptedContentType = mediaType(accept, ["application/rss+xml"]);
-  console.log({ host, accept, userAgent, contentType: acceptedContentType });
+  // console.log({ host, accept, userAgent, contentType: acceptedContentType });
 
   if (!acceptedContentType) {
     res.statusCode = 404;
