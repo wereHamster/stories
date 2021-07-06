@@ -30,7 +30,7 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 
   date?: Date | [Date, Date];
 
-  caption: React.ReactNode;
+  title: string;
 
   teaser?: React.ReactNode;
 
@@ -38,7 +38,7 @@ interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
 }
 
 function StoryCard(props: Props) {
-  const { story, blocks = [], image, date, caption, teaser, layout = "regular", ...rest } = props;
+  const { story, blocks = [], image, date, title, teaser, layout = "regular", ...rest } = props;
 
   const ref = React.useRef<null | HTMLDivElement>(null);
 
@@ -60,7 +60,7 @@ function StoryCard(props: Props) {
 
   return (
     <div ref={ref as any} {...rest} className={cx(classes.root, tweaks[layout])}>
-      <h2 className={classes.title}>{caption}</h2>
+      <h2 className={classes.title}>{title}</h2>
 
       <div className={cx(classes.image)}>
         <Image src={image.src} layout="fill" objectFit="cover" />
